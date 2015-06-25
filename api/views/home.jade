@@ -2,32 +2,43 @@ extend layout
 
 block content
 
-	.row.login
-		.col-sm-6.col-md-4.col-md-offset-4
-			h1.text-center.login-title
-			.account-wall
-				img.profile-img(src='../../public/media/javelin.png', alt='')
-				//- For puser profile pictures
+	.container
+		.row.navbar
+			.navbar.navbar-default
+				.container-fluid
 
-				form.form-signin(action='login', method='POST')
-					input.form-control(type='text', placeholder='Email', required='', autofocus='')
-					input.form-control(type='password', placeholder='Password', required='')
-					button.btn.btn-lg.btn-primary.btn-block(type='submit', value='login')
-						| Sign in
+					.navbar-header
+						button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#target")
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+						a.navbar-brand(href="/") CaMunity
 
-				a.text-center.new-account(href='/signup') Create an account
-
-				p.text-center.third-party-login Or login using the options below
-				.text-center
-					span
-						.fa.fa-facebook
-					span
-						.fa.fa-google
-					span
-						.fa.fa-twitter
-					span
-						.fa.fa-linkedin
-					span
-						.fa.fa-github
-					span
-						.fa.fa-instagram
+					.collapse.navbar-collapse#target
+						ul.nav.navbar-nav
+							li
+								a
+						ul.nav.navbar-nav.navbar-right
+							li
+								a(href="signup") Sign Up
+							li
+								a(href="signin") Sign in
+							li
+								a(href="help") Help
+	.jumbotron
+		.container
+			h1 Section a
+			p Photo + Post a Job
+	.jumbotron
+		.container
+			h1 Section b
+			p How it works
+	.jumbotron
+		.container
+			h1 Section c
+			p Why use CaMunity
+	.jumbotron
+		.container
+			h1 Section d
+			p Our community
