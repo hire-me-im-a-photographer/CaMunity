@@ -4,6 +4,8 @@ module.exports = [
 	{path: '/public/{file*}',	method:'GET',		config:controller.serveFile},
 	{path: '/',					method:'GET',		config:controller.home},
 	{path: '/login', 			method:'POST', 		config:controller.login},
-	{path: '/signup', 			method:'GET', 		config:controller.signup}
+	{path: '/signup', 			method:'GET', 		config:controller.signup},
+	{path: '/signin', 			method:'GET', 		config:controller.signup},
+	{path: '/help', 			method:'GET', 		config:controller.signup}
 
 	];
