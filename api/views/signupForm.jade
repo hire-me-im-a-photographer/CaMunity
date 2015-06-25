@@ -1,0 +1,21 @@
+extend layout
+
+block content
+
+	.container
+		.row.login
+			.col-sm-6.col-md-4.col-md-offset-4
+				h1.text-center.login-title
+				.account-wall
+					form.form-signin(action='login', method='POST')
+						input.form-control(type='text', placeholder='Email', required='', autofocus='')
+						input.form-control(type='password', placeholder='Password', required='')
+						button.btn.btn-lg.btn-primary.btn-block(type='submit', value='login')
+							| Create Account
+
+					p.text-center.third-party-login You can also Login with Facebook or Google
+					.text-center
+						span
+							.fa.fa-facebook
+						span
+							.fa.fa-google
