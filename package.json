@@ -1,0 +1,26 @@
+{
+  "name": "CaMunity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hire-me-im-a-photographer/CaMunity.git"
+  },
+  "author": "Jason Luu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hire-me-im-a-photographer/CaMunity/issues"
+  },
+  "homepage": "https://github.com/hire-me-im-a-photographer/CaMunity",
+  "dependencies": {
+    "bell": "^4.0.0",
+    "gulp": "^3.9.0",
+    "hapi": "^8.6.1",
+    "hapi-auth-cookie": "^3.0.1",
+    "jade": "^1.11.0"
+  }
+}
