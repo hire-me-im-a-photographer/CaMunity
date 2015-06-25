@@ -37,7 +37,6 @@
     border: 0 none;
     font-weight: 700;
     letter-spacing: 1px;
-    text-transform: uppercase;
 }
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
@@ -47,6 +46,7 @@
     border: 1px solid black;
     background: #fff;
     color: black;
+    font-size: 18px;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background: black;
@@ -58,6 +58,7 @@
 
 .btn-primary.raised {
     box-shadow: 0 3px 0 0 #333;
+    width: 280px;
     margin-left: auto;
     margin-right: auto;
     display: block;

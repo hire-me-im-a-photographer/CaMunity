@@ -1,5 +1,5 @@
-var Bell = require('bell');
-var Config = require('../config');
+var Bell = require("bell");
+var Config = require("../config");
 
 module.exports = {
 
@@ -8,38 +8,58 @@ module.exports = {
 		auth: false,
 		handler: {
 			directory: {
-				path: '../public'
+				path: "../public"
 			}
 		}
 	},
 
 	home: {
 		handler: function(request, reply) {
-			reply.view('home');
+			reply.view("home");
 		}
 	},
 
 	login: {
 		handler: function(request, reply) {
-			reply('login');
+			reply("login");
+		}
+	},
+
+	signupIam: {
+		handler: function(request, reply) {
+			reply.view("signupIam");
+		}
+	},
+
+	signupPhotographer: {
+		handler: function(request, reply) {
+			console.log("I am a photographer");
+			reply.redirect("/signup");
+		}
+	},
+
+	signupClient: {
+		handler: function(request, reply) {
+			console.log("I am a client");
+			reply.redirect("/signup");
 		}
 	},
 
 	signup: {
 		handler: function(request, reply) {
-			reply.view('signup');
+			reply.view("signupForm");
 		}
 	},
 
 	signin: {
 		handler: function(request, reply) {
-			reply.view('Sign In');
+			reply.view("Sign In");
 		}
 	},
 
 	help: {
 		handler: function(request, reply) {
-			reply('Help');
+			reply("Help");
 		}
 	}
 
