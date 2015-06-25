@@ -27,7 +27,19 @@ module.exports = {
 
 	signup: {
 		handler: function(request, reply) {
-			reply('signup');
+			reply.view('signup');
+		}
+	},
+
+	signin: {
+		handler: function(request, reply) {
+			reply.view('Sign In');
+		}
+	},
+
+	help: {
+		handler: function(request, reply) {
+			reply('Help');
 		}
 	}
 
