@@ -1,9 +1,74 @@
-body { 
+/*body { 
   background: url(../media/background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}*/
+
+/*Generic*/
+
+.CaMunity {
+    margin: 40px;
+}
+
+.center {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Navbar*/
+.navbar-default {
+    background-color: #fff;
+    border-color: #fff;
+    font-size: 18px;
+}
+
+.navbar-default .navbar-brand {
+    color: black;
+    font-size: 36px;
+}
+
+/*buttons*/
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    border: 1px solid black;
+    background: #fff;
+    color: black;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: black;
+}
+.btn-primary:active, .btn-primary.active {
+    background: black;
+    box-shadow: none;
+}
+
+.btn-primary.raised {
+    box-shadow: 0 3px 0 0 #333;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.btn-primary.raised:active, .btn-primary.raised.active {
+    background: black;
+    box-shadow: none;
+    margin-bottom: -3px;
+    margin-top: 3px;
 }
 
 /*Login Form*/
