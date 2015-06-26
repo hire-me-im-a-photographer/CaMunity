@@ -72,6 +72,14 @@
     margin-top: 3px;
 }
 
+.btn-facebook {
+    background: #3b5998;
+}
+
+.btn-google {
+    background: #d62d20;
+}
+
 /*Login Form*/
 .form-signin {
     max-width: 330px;
