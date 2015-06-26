@@ -9,7 +9,25 @@ html
 		link(href='../../public/css/main.css', rel='stylesheet', type='text/css')
 
 	body
-		block content
+	#fb-root
 
+	script.
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : '1462283104071071',
+			xfbml      : true,
+			version    : 'v2.3'
+			});
+			};
+			(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+	block content
+	
 	script(src='../../public/lib/jquery-2.1.4.min.js')
 	script(src='../../public/lib/bootstrap.min.js')
