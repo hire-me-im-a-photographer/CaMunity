@@ -3,33 +3,25 @@ extend layout
 block content
 
 	.container-fluid   
-		.row
-			nav.navbar.navbar-default
+		.row.navbar
+			.navbar.navbar-default
 				.container-fluid
+
 					.navbar-header
 						button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#target')
-							span.sr-only Toggle navigation
-							|               
+							span.sr-only Toggle navigation    
 							span.icon-bar
-							|               
+							span.icon-bar   
 							span.icon-bar
-							|               
-							span.icon-bar
-							|           
-					#target.collapse.navbar-collapse
-						ul.nav.navbar-nav.nav-justified
+						a.navbar-brand(href="/dashboard") CaMunity
+
+					.collapse.navbar-collapse#target
+						ul.nav.navbar-nav
 							li
-								a(href='/') Home            
+								a
+						ul.nav.navbar-nav.navbar-right
 							li
-								a(href='/about') About Suicide
-							li
-								a.links(href='/vision') Our Vision
-							li
-								a.links(href='/safetyplan') Safety Plan
-							li
-								a.links(href='/resources') Resources            
-							li
-								a.links(href='/help') Local Help
+								a(href="/logout" onclick="FB.logout()") Log out
 		.row
 			.left-dashboard.col-md-2
 				a.btn.btn-primary(href="/newjob/step1") Post Job
