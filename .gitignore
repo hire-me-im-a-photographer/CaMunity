@@ -30,3 +30,5 @@ node_modules
 node_modules
 .DS_Store
 creds.json
+keys
+keys.pub
