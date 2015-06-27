@@ -8,8 +8,8 @@
 
 /*Generic*/
 
-.CaMunity {
-    margin: 40px;
+h1.CaMunity {
+    margin-bottom: 20px;
 }
 
 .center {
@@ -43,10 +43,10 @@
 }
 
 .btn-primary {
-    border: 1px solid black;
     background: #fff;
+    border: 1px solid black;
     color: black;
-    font-size: 18px;
+    font-size: 1.1em;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background: black;
@@ -56,16 +56,16 @@
     box-shadow: none;
 }
 
-.btn-primary.raised {
+.raised {
     box-shadow: 0 3px 0 0 #333;
-    width: 280px;
+    width: 240px;
     margin-left: auto;
     margin-right: auto;
     display: block;
     margin-bottom: 20px;
 }
 
-.btn-primary.raised:active, .btn-primary.raised.active {
+.raised:active, .btn-primary.raised.active {
     background: black;
     box-shadow: none;
     margin-bottom: -3px;
@@ -74,10 +74,20 @@
 
 .btn-facebook {
     background: #3b5998;
+    border: 1px solid black;
+    color: black;
+    font-size: 18px;
 }
 
 .btn-google {
     background: #d62d20;
+    border: 1px solid black;
+    color: black;
+    font-size: 16px;
+}
+
+.btn-google:hover, .btn-facebook:hover {
+    color: black;
 }
 
 /*Login Form*/
@@ -122,8 +132,8 @@
 }
 
 .account-wall {
-    margin-top: 10px;
-    padding: 20px 0px 20px 0px;
+    margin-top: 40px;
+    padding: 5px 0px 20px 0px;
     background-color: #f7f7f7;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
