@@ -7,8 +7,9 @@ block content
 			.account-wall
 				h1.text-center.CaMunity CaMunity
 
-				form(action="/facebook", method="GET")
-					input.btn.btn-facebook.btn-lg.raised(type="submit", value="Facebook")
+				//- form(action="/facebook", method="GET")
+				button.btn-facebook.btn-lg.raised(type="submit", value="Facebook", onclick="FB.login()" scope='public_profile,email', onlogin='checkLoginState();')
+					| Facebook
 				form(action="/google", method="GET")
 					input.btn.btn-google.btn-lg.raised(type="submit", value="Google")
 
