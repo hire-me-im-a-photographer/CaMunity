@@ -5,6 +5,10 @@ module.exports = [
 	{path: "/public/{file*}",	method:"GET",		config:controller.serveFile},
 	{path: "/",					method:"GET",		config:controller.home},
 
+	{path: "/facebook",			method:["GET", "POST"],		config:controller.facebook},
+	{path: "/google",			method:["GET", "POST"],		config:controller.google},
+
+
 	{path: "/signup/iam", 		method:"GET", 		config:controller.signupIam},
 	{path: "/client", 			method:"POST", 		config:controller.signupClient},
 	{path: "/photographer", 	method:"POST", 		config:controller.signupPhotographer},
@@ -15,6 +19,7 @@ module.exports = [
 	{path: "/createdaccount", 	method:"POST", 		config:controller.createdAccount},
 	{path: "/dashboard", 		method:"GET", 		config:controller.dashboard},
 
+	{path: "/logout", 			method:"GET", 		config:controller.logout},
 
 	{path: "/help", 			method:"GET", 		config:controller.help}
 
