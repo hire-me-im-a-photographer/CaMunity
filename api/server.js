@@ -31,8 +31,57 @@ server.views({
 
 server.register([Bell, Cookie], function(err) {
 
+	if (err){
+		throw err;
+	}
+
+	server.auth.strategy("facebook", "bell", {
+		provider: "facebook",
+		isSecure: false,
+		password: Config.facebook.password,
+		clientId: Config.facebook.clientId,
+		clientSecret: Config.facebook.clientSecret
+	});
+
+	server.auth.strategy("google", "bell", {
+		provider: "google",
+		// isSecure: false,
+		password: Config.google.password,
+		clientId: Config.google.clientId,
+		clientSecret: Config.google.clientSecret
+	});
+
+	server.auth.strategy("session", "cookie", {
+		password: Config.cookie.password,
+		cookie: "sid"
+	});
+
+	server.auth.default('session');
+
+	server.route(Routes);
 });
 
-server.route(Routes);
+//Hapi, show jade errors
+server.ext('onPreResponse', function (request, reply) {
+
+    var response = request.response;
+
+    if (response.variety === 'view') {
+        var source = response.source;
+
+        // Let's pre-render the template here and see if there's any errors
+
+        return server.render(source.template, source.context, function (err) {
+
+            if (err) {
+                return reply(err.message);    // transmit the compile error to browser
+            }
+
+            reply.continue();
+        });
+    }
+
+    reply.continue();
+});
 
 module.exports = server;
