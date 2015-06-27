@@ -6,6 +6,15 @@
   background-size: cover;
 }*/
 
+#hompageimg {
+    background: url(../media/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 0.5;
+}
+
 /*Generic*/
 
 h1.CaMunity {
@@ -19,25 +28,46 @@ h1.CaMunity {
 }
 
 /*Navbar*/
-.navbar-default {
-    background-color: #fff;
-    border-color: #fff;
-    font-size: 18px;
+.navbar {
+  margin-bottom: 10px;
+  min-height: 0px;
 }
 
-.navbar-default .navbar-brand {
-    color: black;
-    font-size: 36px;
+.navbar-collapse {
+  background-color: #01807E;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.navbar-nav.nav-justified > li {
+    float:none;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  background-color: #F05D22;
+  color: white;
+}
+
+.navbar-default {
+  border-style: none;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.navbar-toggle {
+  left: 50%;
+  margin-left: -22px;
+  float: none;
 }
 
 /*buttons*/
 
-.btn {
-    padding: 14px 24px;
-    border: 0 none;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 }
@@ -47,6 +77,9 @@ h1.CaMunity {
     border: 1px solid black;
     color: black;
     font-size: 1.1em;
+    padding: 14px 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background: black;
@@ -89,6 +122,11 @@ h1.CaMunity {
 .btn-google:hover, .btn-facebook:hover {
     color: black;
 }
+/*new job form*/
+.form-newjob {
+    width: 80%;
+    margin: 0 auto; 
+}
 
 /*Login Form*/
 .form-signin {
@@ -97,7 +135,7 @@ h1.CaMunity {
     margin: 0 auto;
 }
 
-.form-signin .form-signin-heading, .form-signin .checkbox {
+.form-signin .form-signin-heading, .form-signin .checkbox .form-newjob{
     margin-bottom: 10px;
 }
 
@@ -141,7 +179,7 @@ h1.CaMunity {
     opacity: 0.95;
 }
 
-.login-title {
+/*.login-title {
     color: #fff;
     font-size: 18px;
     font-weight: 400;
@@ -175,4 +213,11 @@ h1.CaMunity {
 .fa {
 	padding-left: 15px;
 	padding-right: 15px;
+}*/
+
+.left-dashboard {
+    border-right-style: solid;
+}
+.right-dashboard {
+    border-left-style: solid;
 }
