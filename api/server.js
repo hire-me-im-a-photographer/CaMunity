@@ -17,8 +17,7 @@ var server = new Hapi.Server({
 });
 
 server.connection({
-	host: "localhost",
-	port: process.env.PORT || 8080
+	port: Number(process.env.PORT) || 8080
 });
 
 server.views({
