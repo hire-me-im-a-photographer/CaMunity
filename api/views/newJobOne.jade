@@ -1,0 +1,36 @@
+extend layout
+
+block content
+	.container
+		h1.CaMunity CaMunity
+		h4 Post a job: Step 1
+		form.form-horizontal(role="form" action="/newjob/step1" method="POST")
+			.form-group
+				label.control-label.col-sm-2(for="postingAs") Posting as:
+				.col-sm-4
+					select.form-control(name='postingAs')
+						option(value='LSE Business Society') LSE Business Society
+						option(value='Personal') Personal
+						option(value='Company') Company
+						option(value='Business') Business
+			.form-group
+				label.control-label.col-sm-2(for="eventName") Name of Event:
+				.col-sm-10
+					input.form-control(type="text")
+			.form-group
+				label.control-label.col-sm-2(for="dateTime") Date and Time:
+				.col-sm-10
+					input.form-control(type="text")
+			.form-group
+				label.control-label.col-sm-2(for="jobDuration") Job Duration:
+				.col-sm-10
+					input.form-control(type="text")
+			.form-group
+				label.control-label.col-sm-2(for="location") Location:
+				.col-sm-10
+					input.form-control(type="text")
+			.form-group
+				label.control-label.col-sm-2(for="description") Description:
+				.col-sm-10
+					textarea.form-control(type="text")
+			button.btn.btn-primary(type="submit") Next

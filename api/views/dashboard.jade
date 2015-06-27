@@ -2,5 +2,38 @@ extend layout
 
 block content
 
-	.container
-		|Whats up boy
+	.container-fluid   
+		.row
+			nav.navbar.navbar-default
+				.container-fluid
+					.navbar-header
+						button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#target')
+							span.sr-only Toggle navigation
+							|               
+							span.icon-bar
+							|               
+							span.icon-bar
+							|               
+							span.icon-bar
+							|           
+					#target.collapse.navbar-collapse
+						ul.nav.navbar-nav.nav-justified
+							li
+								a(href='/') Home            
+							li
+								a(href='/about') About Suicide
+							li
+								a.links(href='/vision') Our Vision
+							li
+								a.links(href='/safetyplan') Safety Plan
+							li
+								a.links(href='/resources') Resources            
+							li
+								a.links(href='/help') Local Help
+		.row
+			.left-dashboard.col-md-2
+				a.btn.btn-primary(href="/newjob/step1") Post Job
+			.main-dashboard.col-md-7
+				h3 My Jobs
+			.right-dashboard.col-md-3
+				h3 Notifications

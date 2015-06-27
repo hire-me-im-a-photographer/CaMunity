@@ -129,10 +129,50 @@ module.exports = {
 	},
 
 	dashboard: {
+		auth: {
+			mode: "optional"
+		},
 		handler: function(request, reply) {
 			reply.view("dashboard");
 		}
 	},
+
+	newJobStepOne: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.view("newJobOne");
+		}
+	},
+
+	newJobStepOneP: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.redirect("/newjob/step2");
+		}
+	},
+
+	newJobStepTwo: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.view("newJobTwo");
+		}
+	},
+
+	newJobStepTwoP: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.redirect("/dashboard");
+		}
+	},
+
 
 	help: {
 		auth: {
