@@ -21,7 +21,21 @@ module.exports = {
 
 	login: {
 		handler: function(request, reply) {
-			reply("login");
+			reply.view("login");
+		}
+	},
+
+	loggedIn: {
+		handler: function(request, reply) {
+			console.log("logged in");
+			reply.redirect("dashboard");
+		}
+	},
+
+	createdAccount: {
+		handler: function(request, reply) {
+			console.log("account created");
+			reply.redirect("dashboard");
 		}
 	},
 
@@ -34,14 +48,20 @@ module.exports = {
 	signupPhotographer: {
 		handler: function(request, reply) {
 			console.log("I am a photographer");
-			reply.redirect("/signup");
+			reply.redirect("/signup/social");
 		}
 	},
 
 	signupClient: {
 		handler: function(request, reply) {
 			console.log("I am a client");
-			reply.redirect("/signup");
+			reply.redirect("/signup/social");
+		}
+	},
+
+	signupSocial: {
+		handler: function(request, reply) {
+			reply.view("signupSocial");
 		}
 	},
 
@@ -51,9 +71,9 @@ module.exports = {
 		}
 	},
 
-	signin: {
+	dashboard: {
 		handler: function(request, reply) {
-			reply.view("Sign In");
+			reply.view("dashboard");
 		}
 	},
 
