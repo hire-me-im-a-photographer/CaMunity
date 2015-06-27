@@ -16,6 +16,7 @@ var server = new Hapi.Server({
 	}
 });
 
+//Number for heroku
 server.connection({
 	port: Number(process.env.PORT) || 8080
 });
@@ -44,7 +45,7 @@ server.register([Bell, Cookie], function(err) {
 
 	server.auth.strategy("google", "bell", {
 		provider: "google",
-		// isSecure: false,
+		isSecure: false,
 		password: Config.google.password,
 		clientId: Config.google.clientId,
 		clientSecret: Config.google.clientSecret
