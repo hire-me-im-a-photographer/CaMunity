@@ -26,6 +26,11 @@ block content
 								a(href="login/email") Login
 							li
 								a(href="help") Help
+							li
+								a(href="/logout" onclick="FB.logout()") Log out
+									//- form(action="/logout" method="POST")
+									//- 	input(type="submit" value="Log out" onclick="FB.logout()")
+
 	.jumbotron
 		.container
 			h1 Section a
