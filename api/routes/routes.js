@@ -17,7 +17,13 @@ module.exports = [
 	{path: "/login/email", 		method:"GET", 		config:controller.login},
 	{path: "/loggedin", 		method:"POST", 		config:controller.loggedIn},
 	{path: "/createdaccount", 	method:"POST", 		config:controller.createdAccount},
+
 	{path: "/dashboard", 		method:"GET", 		config:controller.dashboard},
+	{path: "/newjob/step1", 	method:"GET", 		config:controller.newJobStepOne},
+	{path: "/newjob/step1", 	method:"POST", 		config:controller.newJobStepOneP},
+
+	{path: "/newjob/step2", 	method:"GET", 		config:controller.newJobStepTwo},
+	{path: "/newjob/step2", 	method:"POST", 		config:controller.newJobStepTwoP},
 
 	{path: "/logout", 			method:"GET", 		config:controller.logout},
 
