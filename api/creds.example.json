@@ -1,0 +1,13 @@
+{	
+	"google" : {
+		"password"		: "password",
+		"clientId"		: "googleapi",
+		"clientSecret"	: "googleapi"
+	},
+	"facebook" : {
+		"password"		: "password",
+		"clientId"		: "facebookapi",
+		"clientSecret"	: "facebookapi"
+	},
+	"cookiePassword"	: "cookie_password"
+}
