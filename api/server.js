@@ -31,10 +31,6 @@ server.views({
 
 server.register([Bell, Cookie], function(err) {
 
-	if (err){
-		throw err;
-	}
-
 	server.auth.strategy("facebook", "bell", {
 		provider: "facebook",
 		isSecure: false,
@@ -48,12 +44,16 @@ server.register([Bell, Cookie], function(err) {
 		isSecure: false,
 		password: Config.google.password,
 		clientId: Config.google.clientId,
-		clientSecret: Config.google.clientSecret
+		clientSecret: Config.google.clientSecret,
+		providerParams: {
+			redirectUri : 'http://localhost:8080/google'
+		}
 	});
 
 	server.auth.strategy("session", "cookie", {
 		password: Config.cookie.password,
-		cookie: "sid"
+		cookie: "sid",
+		isSecure: false
 	});
 
 	server.auth.default('session');

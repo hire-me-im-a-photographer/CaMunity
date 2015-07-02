@@ -30,13 +30,12 @@ module.exports = {
 	google: {
 		auth: {
 			strategy: "google",
+			mode: 'try',
 			},
 		handler: function(request, reply) {
-			// if (request.auth.isAuthenticated) {
-				console.log("google authenticated");
 				var gPlus = request.auth.credentials;
+				console.log("google authenticated", gPlus);
 				reply.redirect("/");
-			// }
 		}
 	},
 
