@@ -7,7 +7,7 @@
     "web": "node app",
     "start": "node app"
   },
-    "engines": {
+  "engines": {
     "node": "0.12.2"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "gulp": "^3.9.0",
     "hapi": "^8.6.1",
     "hapi-auth-cookie": "^3.0.1",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "mongoose": "^4.0.6"
   }
 }

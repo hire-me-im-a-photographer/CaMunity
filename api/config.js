@@ -1,4 +1,8 @@
 module.exports = {
+
+	database: {
+		dburl: process.env.DBURL || require('./creds.json').database.dburl
+	},
 	
 	google : {
 				password 		: process.env.GOOGLEPASSWORD			|| require('./creds.json').google.password,
