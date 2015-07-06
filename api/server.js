@@ -31,6 +31,11 @@ server.views({
 
 server.register([Bell, Cookie], function(err) {
 
+	if (err) {
+		console.error(err);
+		return process.exit(1);
+	}
+
 	server.auth.strategy("facebook", "bell", {
 		provider: "facebook",
 		isSecure: false,

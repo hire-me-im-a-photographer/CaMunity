@@ -1,11 +1,10 @@
 var mongoose = require("mongoose");
-var schema = require("./schema");
-var db = require("../database").connect;
+var Job = require("./schema").Job;
 
-function newjobOne(object, callback) {
-	console.log("hi");
-	var newone = new one(object);
-	schema.jobs.save(newone, function (err, data) {
+function newjobOne(data, callback) {
+	console.log("new job form part 1: ", data);
+	var newJob = new Job(data);
+	Job.create(newJob, function (err, data) {
 		if (err) {
 			return callback(err, null);
 		}

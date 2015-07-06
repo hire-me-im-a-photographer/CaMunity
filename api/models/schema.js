@@ -18,7 +18,10 @@ var jobsSchema = new mongoose.Schema({
 	description: String
 });
 
+var User = mongoose.model('user', userSchema, 'users');
+var Job = mongoose.model('job', jobsSchema, 'job');
+
 module.exports = {
-	user : userSchema,
-	jobs : jobsSchema
+	User : User,
+	Job : Job
 };

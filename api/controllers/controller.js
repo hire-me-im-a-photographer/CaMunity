@@ -15,28 +15,66 @@ module.exports = {
 	},
 
 	facebook: {
-		// auth: {
-		// 	strategy: "facebook",
-		// 	},
+		auth: {
+			strategy: "facebook",
+			mode: "try"
+			},
 		handler: function(request, reply) {
-			console.log("whats going on");
-			// if (request.auth.isAuthenticated) {
-			// 	console.log("facebook authenticated");
-			// 	var fb = request.auth.credentials;
-			// 	reply.redirect("dashboard");
-			// }
+			if (request.auth.isAuthenticated) {
+				console.log("facebook authenticated", request.auth.credentials);
+
+				var fb = request.auth.credentials.profile;
+
+				var profile = {
+					auth: "facebook",
+					id: fb.id,
+					username: fb.username,
+					displayName: fb.displayName,
+					firstName: fb.name.first,
+					lastName: fb.name.last,
+					email: fb.email,
+					link: fb.raw.link,
+					picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
+					gender: fb.raw.gender
+				};
+
+				reply.redirect("/dashboard");
+
+			} else {
+				reply.redirect("/");
+			}
 		}
 	},
 
 	google: {
 		auth: {
 			strategy: "google",
-			mode: 'try',
+			mode: "try"
 			},
 		handler: function(request, reply) {
-				var gPlus = request.auth.credentials;
-				console.log("google authenticated", gPlus);
+			if (request.auth.isAuthenticated) {
+				console.log("google authenticated", request.auth.credentials);
+
+				var g = request.auth.credentials.profile;
+
+				var profile = {
+					auth: "google",
+					id: g.id,
+					username: g.username,
+					displayName: g.displayName,
+					firstName: g.name.first,
+					lastName: g.name.last,
+					email: g.email,
+					link: g.raw.link,
+					picture: g.raw.picture,
+					gender: g.raw.gender
+				};
+
+				reply.redirect("/dashboard");
+
+			} else {
 				reply.redirect("/");
+			}
 		}
 	},
 
@@ -152,11 +190,9 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			console.log(request.payload);
+			var post = request.payload;
 
-			var object = request.payload;
-
-			jobs.newjobOne(object, function(err, data){
+			jobs.newjobOne(request.payload, function(err, data){
 				reply.redirect("/newjob/step2");
 			});
 
