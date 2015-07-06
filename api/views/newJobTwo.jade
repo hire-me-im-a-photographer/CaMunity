@@ -9,13 +9,13 @@ block content
 				label.control-label.col-sm-2(for="useOfPhotos") Use of Photos:
 				.col-sm-10
 					label.checkbox-inline
-						input(type="checkbox" value="facebook")
+						input(type="checkbox" value="facebook" name="useOfPhotos")
 						|Facebook
 					label.checkbox-inline
-						input(type="checkbox" value="Printing")
+						input(type="checkbox" value="Printing" name="useOfPhotos")
 						|Printing
 					label.checkbox-inline
-						input(type="checkbox" value="Website")
+						input(type="checkbox" value="Website" name="useOfPhotos")
 						|Website
 			.form-group
 				label.control-label.col-sm-2(for="watermarking") Watermarking (Optionial):
@@ -28,10 +28,10 @@ block content
 				label.control-label.col-sm-2(for="dateRequired") Date of photos required:
 				.col-sm-10
 					label.checkbox-inline
-						input(type="checkbox" value="Printing")
+						input(type="checkbox" value="Urgent" name="dateRequired")
 						|Urgent (1-2 Days - addtional fee)
 					label.checkbox-inline
-						input(type="checkbox" value="Website")
+						input(type="checkbox" value="Standard" name="dateRequired")
 						|Standard (1-2 Weeks)
 			.form-group
 				label.control-label.col-sm-2(for="noOfPhotographers") No. of Photographers needed:

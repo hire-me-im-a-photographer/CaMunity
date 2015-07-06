@@ -16,8 +16,7 @@ module.exports = {
 
 	facebook: {
 		auth: {
-			strategy: "facebook",
-			mode: "try"
+			strategy: "facebook"
 			},
 		handler: function(request, reply) {
 			if (request.auth.isAuthenticated) {
@@ -38,6 +37,9 @@ module.exports = {
 					gender: fb.raw.gender
 				};
 
+				request.auth.session.clear();
+				request.auth.session.set(profile);
+
 				reply.redirect("/dashboard");
 
 			} else {
@@ -48,8 +50,7 @@ module.exports = {
 
 	google: {
 		auth: {
-			strategy: "google",
-			mode: "try"
+			strategy: "google"
 			},
 		handler: function(request, reply) {
 			if (request.auth.isAuthenticated) {
@@ -69,6 +70,9 @@ module.exports = {
 					picture: g.raw.picture,
 					gender: g.raw.gender
 				};
+
+				request.auth.session.clear();
+				request.auth.session.set(profile);
 
 				reply.redirect("/dashboard");
 
@@ -168,10 +172,21 @@ module.exports = {
 
 	dashboard: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
+			console.log("profile ", request.auth.credentials.profile);
 			reply.view("dashboard");
+		}
+	},
+
+	profile: {
+		auth: {
+			strategy: "session"
+		},
+		handler: function(request, reply) {
+			console.log("profile ", request.auth.credentials.profile);
+			reply.view("profile");
 		}
 	},
 
@@ -192,7 +207,7 @@ module.exports = {
 
 			var post = request.payload;
 
-			jobs.newjobOne(request.payload, function(err, data){
+			jobs.newjob(request.payload, function (err, data) {
 				reply.redirect("/newjob/step2");
 			});
 
@@ -204,6 +219,7 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
+			console.log(request.payload);
 			reply.view("newJobTwo");
 		}
 	},
@@ -213,7 +229,12 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			reply.redirect("/dashboard");
+
+			var post = request.payload;
+
+			jobs.newjob(request.payload, function (err, data) {
+				reply.redirect("/dashboard");
+			});
 		}
 	},
 
@@ -231,10 +252,8 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		// auth: {
-		// 	strategy: "google" || "facebook",
-		// 	},
 		handler: function(request, reply) {
+			request.auth.session.clear();
 			reply.redirect("/");
 		}
 	}
