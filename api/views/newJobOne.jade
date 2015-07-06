@@ -16,21 +16,22 @@ block content
 			.form-group
 				label.control-label.col-sm-2(for="eventName") Name of Event:
 				.col-sm-10
-					input.form-control(type="text")
+					input.form-control(name='eventName' type="text")
 			.form-group
 				label.control-label.col-sm-2(for="dateTime") Date and Time:
 				.col-sm-10
-					input.form-control(type="text")
+					input.form-control(name="dateTime" type="text")
 			.form-group
 				label.control-label.col-sm-2(for="jobDuration") Job Duration:
 				.col-sm-10
-					input.form-control(type="text")
+					input.form-control(name="jobDuration" type="text")
 			.form-group
 				label.control-label.col-sm-2(for="location") Location:
 				.col-sm-10
-					input.form-control(type="text")
+					input.form-control(name="location" type="text")
 			.form-group
 				label.control-label.col-sm-2(for="description") Description:
 				.col-sm-10
-					textarea.form-control(type="text")
-			button.btn.btn-primary(type="submit") Next
+					textarea.form-control(name="description" type="text")
+			.form-group
+				input.btn.btn-primary(type="submit", value="Next")
