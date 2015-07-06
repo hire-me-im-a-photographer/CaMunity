@@ -1,5 +1,6 @@
 var Bell = require("bell");
 var Config = require("../config");
+var jobs = require("../models/jobs");
 
 module.exports = {
 
@@ -150,7 +151,15 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			reply.redirect("/newjob/step2");
+
+			console.log(request.payload);
+
+			var object = request.payload;
+
+			jobs.newjobOne(object, function(err, data){
+				reply.redirect("/newjob/step2");
+			});
+
 		}
 	},
 
