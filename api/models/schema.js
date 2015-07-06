@@ -15,7 +15,10 @@ var jobsSchema = new mongoose.Schema({
 	dateTime: Date,
 	jobDuration: String,
 	location: String,
-	description: String
+	description: String,
+	useOfPhotos: Array,
+	dateRequired: String,
+	noOfPhotographers: String
 });
 
 var User = mongoose.model('user', userSchema, 'users');
