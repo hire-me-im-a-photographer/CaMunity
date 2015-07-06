@@ -1,0 +1,13 @@
+extend layout
+
+block content
+
+	h1 Profile
+	.profilepicture 
+		img(src="#{picture}" height="250" width="250")
+	.details
+		p Displayname: #{dname}
+		p First Name: #{first}
+		p Last Name: #{last}
+		p Email: #{email}
+		p Gender: #{gender}
