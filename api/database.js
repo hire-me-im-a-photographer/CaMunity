@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };       
  
-mongoose.connect(Config.database.dburl, options);
+var connect = mongoose.connect(Config.database.dburl, options);
 
 var db = mongoose.connection;
 
