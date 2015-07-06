@@ -18,6 +18,7 @@ module.exports = [
 	{path: "/loggedin", 		method:"POST", 		config:controller.loggedIn},
 	{path: "/createdaccount", 	method:"POST", 		config:controller.createdAccount},
 
+	{path: "/profile", 			method:"GET", 		config:controller.profile},
 	{path: "/dashboard", 		method:"GET", 		config:controller.dashboard},
 	{path: "/newjob/step1", 	method:"GET", 		config:controller.newJobStepOne},
 	{path: "/newjob/step1", 	method:"POST", 		config:controller.newJobStepOneP},
