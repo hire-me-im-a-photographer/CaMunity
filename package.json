@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/hire-me-im-a-photographer/CaMunity",
   "dependencies": {
-    "bell": "^4.0.0",
+    "bell": "3.0.0",
     "gulp": "^3.9.0",
     "hapi": "^8.6.1",
     "hapi-auth-cookie": "^3.0.1",
