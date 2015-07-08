@@ -14,6 +14,7 @@ block content
 							span.icon-bar   
 							span.icon-bar
 						a.navbar-brand(href="/dashboard") CaMunity
+						a.navbar-brand(href="/profile") My Profile
 
 					.collapse.navbar-collapse#target
 						ul.nav.navbar-nav
@@ -21,11 +22,19 @@ block content
 								a
 						ul.nav.navbar-nav.navbar-right
 							li
-								a(href="/logout" onclick="FB.logout()") Log out
+								a(href="/logout") Log out
 		.row
 			.left-dashboard.col-md-2
 				a.btn.btn-primary(href="/newjob/step1") Post Job
+				.past
+					h4 Past Photographers
+				.myfriends
+					h4 Friends
+				.mygroups
+					h4 Groups
 			.main-dashboard.col-md-7
-				h3 My Jobs
+				.myjobs 
+					h2 My Jobs
 			.right-dashboard.col-md-3
-				h3 Notifications
+				.mynotif
+					h3 Notifications
