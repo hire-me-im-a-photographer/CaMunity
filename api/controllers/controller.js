@@ -238,7 +238,6 @@ module.exports = {
 		}
 	},
 
-
 	help: {
 		auth: {
 			mode: "optional"
