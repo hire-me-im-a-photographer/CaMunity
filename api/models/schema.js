@@ -10,6 +10,8 @@ var userSchema = new mongoose.Schema({
 });
 
 var jobsSchema = new mongoose.Schema({
+	user: String,
+	dateAdded: Date,
 	postingAs: String,
 	eventName: String,
 	dateTime: Date,
@@ -21,7 +23,7 @@ var jobsSchema = new mongoose.Schema({
 	noOfPhotographers: String
 });
 
-var User = mongoose.model('user', userSchema, 'users');
+var User = mongoose.model('user', userSchema, 'user');
 var Job = mongoose.model('job', jobsSchema, 'job');
 
 module.exports = {
