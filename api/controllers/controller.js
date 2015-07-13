@@ -205,10 +205,24 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			var post = request.payload;
+			var user_email = "jasoncluu@gmail.com";
 
-			jobs.newjob(request.payload, function (err, data) {
-				reply.redirect("/newjob/step2");
+			var new_job = {
+				user: user_email,
+				dateAdded: new Date(),
+				postingAs: request.payload.postingAs,
+				eventName: request.payload.eventName,
+				dateTime: request.payload.dateTime,
+				jobDuration: request.payload.jobDuration,
+				location: request.payload.location,
+				description: request.payload.description,
+				useOfPhotos: request.payload.useOfPhotos,
+				dateRequired: request.payload.dateRequired,
+				noOfPhotographers: request.payload.noOfPhotographers
+			};
+
+			jobs.newjob(new_job, function (err, data) {
+				reply.redirect("/dashboard");
 			});
 
 		}
