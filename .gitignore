@@ -27,7 +27,6 @@ build/Release
 node_modules
 
 # Extras
-node_modules
 .DS_Store
 creds.json
 keys
