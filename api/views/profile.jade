@@ -2,12 +2,16 @@ extend layout
 
 block content
 
-	h1 Profile
-	.profilepicture 
-		img(src="#{picture}" height="250" width="250")
-	.details
-		p Displayname: #{dname}
-		p First Name: #{first}
-		p Last Name: #{last}
-		p Email: #{email}
-		p Gender: #{gender}
+	.container-fluid   
+		include navbar
+		h1 Profile
+		.profilepicture 
+			img(src="#{data.picture}" height="250" width="250")
+		.details
+			p Displayname: #{data.displayName}
+			p First Name: #{data.firstName}
+			p Last Name: #{data.lastName}
+			p Email: #{data.email}
+			p Gender: #{data.gender}
+			p Social:
+				a(href="#{data.link}") #{facebook}#{google} 

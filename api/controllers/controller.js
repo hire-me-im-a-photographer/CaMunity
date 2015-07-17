@@ -1,6 +1,7 @@
 var Bell = require("bell");
 var Config = require("../config");
-var jobs = require("../models/jobs");
+var Jobs = require("../models/jobs");
+var Users = require("../models/users");
 
 module.exports = {
 
@@ -25,7 +26,7 @@ module.exports = {
 				var fb = request.auth.credentials.profile;
 
 				var profile = {
-					auth: "facebook",
+					auth: "Facebook",
 					id: fb.id,
 					username: fb.username,
 					displayName: fb.displayName,
@@ -37,10 +38,12 @@ module.exports = {
 					gender: fb.raw.gender
 				};
 
-				request.auth.session.clear();
 				request.auth.session.set(profile);
 
-				reply.redirect("/dashboard");
+				Users.addUser(profile, function(err, data){
+					console.log("User added to database");
+					reply.redirect("/dashboard");
+				});
 
 			} else {
 				reply.redirect("/");
@@ -59,7 +62,7 @@ module.exports = {
 				var g = request.auth.credentials.profile;
 
 				var profile = {
-					auth: "google",
+					auth: "Google",
 					id: g.id,
 					username: g.username,
 					displayName: g.displayName,
@@ -71,10 +74,12 @@ module.exports = {
 					gender: g.raw.gender
 				};
 
-				request.auth.session.clear();
 				request.auth.session.set(profile);
 
-				reply.redirect("/dashboard");
+				Users.addUser(profile, function(err, data){
+					console.log("User added to database");
+					reply.redirect("/dashboard");
+				});
 
 			} else {
 				reply.redirect("/");
@@ -176,7 +181,13 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 			console.log("profile ", request.auth.credentials.profile);
-			reply.view("dashboard");
+
+			var email = "jasoncluu@gmail.com";
+
+			Jobs.getAllJobs(email, function(err, data) {
+				console.log("all jobs: ", data);
+				reply.view("dashboard", {jobs: data});
+			});
 		}
 	},
 
@@ -186,7 +197,20 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 			console.log("profile ", request.auth.credentials.profile);
-			reply.view("profile");
+			var id = "10155651358425062";
+			Users.getUser(id, function(err, data) {
+				
+				var auth = data.auth;
+				var google;
+				var facebook;
+				if (auth == "google") {
+					google = auth;
+				} else {
+					facebook = auth;
+				}
+
+				reply.view("profile", {data: data, facebook: facebook, google: google});
+			});
 		}
 	},
 
@@ -221,7 +245,7 @@ module.exports = {
 				noOfPhotographers: request.payload.noOfPhotographers
 			};
 
-			jobs.newjob(new_job, function (err, data) {
+			jobs.newjob(new_job, function(err, data) {
 				reply.redirect("/dashboard");
 			});
 

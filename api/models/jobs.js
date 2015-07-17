@@ -2,15 +2,27 @@ var mongoose = require("mongoose");
 var Job = require("./schema").Job;
 var User = require("./schema").User;
 
-function newjob(data, callback) {
+function newjob (data, callback) {
 	console.log("new job form: ", data);
-	
 	var newJob = new Job(data);
+
 	Job.create(newJob, function (err, data) {
+
 		if (err) {
 			return callback(err, null);
 		}
 		else {
+			return callback(null, data);
+		}
+
+	});
+}
+
+function getAllJobs (email, callback) {
+	Job.find( {"user": email}, function (err, data) {
+		if (err) {
+			return callback(err, null);
+		} else {
 			return callback(null, data);
 		}
 	});
@@ -31,5 +43,6 @@ function newjob(data, callback) {
 // }
 
 module.exports = {
-	newjob : newjob
+	newjob : newjob,
+	getAllJobs : getAllJobs
 };
