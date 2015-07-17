@@ -1,12 +1,16 @@
 var mongoose = require("mongoose");
 
 var userSchema = new mongoose.Schema({
+	auth: String,
+	id: String,
+	username: String,
+	displayName: String,
 	firstName: String,
 	lastName: String,
 	email: String,
-	fb: Boolean,
-	google: Boolean,
-	
+	link: String,
+	picture: String,
+	gender: String
 });
 
 var jobsSchema = new mongoose.Schema({
