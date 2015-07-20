@@ -4,14 +4,17 @@ block content
 
 	.container-fluid   
 		include navbar
-		h1 Profile
-		.profilepicture 
-			img(src="#{data.picture}" height="250" width="250")
-		.details
-			p Displayname: #{data.displayName}
-			p First Name: #{data.firstName}
-			p Last Name: #{data.lastName}
-			p Email: #{data.email}
-			p Gender: #{data.gender}
-			p Social:
-				a(href="#{data.link}") #{facebook}#{google} 
+		.container
+			.col-md-12
+				h1 Profile
+				br
+			.col-md-6.details
+				p Displayname: #{data.displayName}
+				p First Name: #{data.firstName}
+				p Last Name: #{data.lastName}
+				p Email: #{data.email}
+				p Gender: #{data.gender}
+				p Social: 
+					a(href="#{data.link}" method="POST") #{data.auth}
+			.col-md-6.profilepicture 
+				img(src="#{data.picture}" height="400" width="400")
