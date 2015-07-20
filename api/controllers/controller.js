@@ -93,7 +93,7 @@ module.exports = {
 			Users.addUser(profile, function(err, data){
 				console.log("User added to database");
 			});
-			
+
 			reply.redirect("/dashboard");
 
 		}
@@ -132,16 +132,30 @@ module.exports = {
 
 	dashboard: {
 		auth: {
-			mode: "optional"
+			mode: "try"
 		},
 		handler: function(request, reply) {
 
-			var email = request.auth.credentials.email;
+			var email;
 
-			Jobs.getAllJobs(email, function(err, data) {
-				console.log(request.auth.session);
-				reply.view("dashboard", {jobs: data});
-			});
+			if(request.auth.isAuthenticated) {
+
+				email = request.auth.credentials.email;
+
+				Jobs.getAllJobs(email, function(err, data) {
+					console.log(request.auth.session);
+					reply.view("dashboard", {jobs: data});
+				});
+
+			} else {
+
+				email = "test@test.com";
+
+				Jobs.getAllJobs(email, function(err, data) {
+					console.log(request.auth.session);
+					reply.view("dashboard", {jobs: data});
+				});
+			}
 		}
 	},
 
@@ -150,8 +164,25 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			var data = request.auth.credentials;
-			reply.view("profile", {data: data});
+
+			if(request.auth.isAuthenticated) {
+				var data = request.auth.credentials;
+				reply.view("profile", {data: data});
+			} else {
+				testdata = {
+					auth: "test",
+					id: "123",
+					username: "test",
+					displayName: "test",
+					firstName: "test",
+					lastName: "test",
+					email: "test@test.com",
+					link: "test",
+					picture: "test",
+					gender: "test"
+				};
+				reply.view("profile", {data: testdata});
+			}
 		}
 	},
 
@@ -170,7 +201,16 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			var user_email = "jasoncluu@gmail.com";
+			var user_email;
+
+			if(request.auth.isAuthenticated) {
+
+				user_email = request.auth.credentials.email;
+
+			} else {
+
+				user_email = "test@test.com";
+			}
 
 			var new_job = {
 				user: user_email,
@@ -186,7 +226,7 @@ module.exports = {
 				noOfPhotographers: request.payload.noOfPhotographers
 			};
 
-			jobs.newjob(new_job, function(err, data) {
+			Jobs.newjob(new_job, function(err, data) {
 				reply.redirect("/dashboard");
 			});
 
@@ -228,7 +268,7 @@ module.exports = {
 
 	logout: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 			request.auth.session.clear();
