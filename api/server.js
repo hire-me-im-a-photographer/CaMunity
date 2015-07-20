@@ -57,7 +57,7 @@ server.register([Bell, Cookie], function(err) {
 		clientSecret: Config.google.clientSecret,
 		isSecure: false,
 		providerParams: {
-			redirectUri : 'http://localhost:8080/google'
+			redirectUri : 'http://localhost:8080/google' || "http://camunity.herokuapp.com/google"
 		}
 	});
 
