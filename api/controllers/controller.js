@@ -132,7 +132,7 @@ module.exports = {
 
 	dashboard: {
 		auth: {
-			mode: "try"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 
