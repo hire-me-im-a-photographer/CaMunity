@@ -36,29 +36,29 @@ server.register([Bell, Cookie], function(err) {
 		return process.exit(1);
 	}
 
+	server.auth.strategy("session", "cookie", {
+		password: "cookie-password",
+		cookie: "sid",
+		isSecure: false
+	});
+
 	server.auth.strategy("facebook", "bell", {
 		provider: "facebook",
-		isSecure: false,
 		password: Config.facebook.password,
 		clientId: Config.facebook.clientId,
-		clientSecret: Config.facebook.clientSecret
+		clientSecret: Config.facebook.clientSecret,
+		isSecure: false,
 	});
 
 	server.auth.strategy("google", "bell", {
 		provider: "google",
-		isSecure: false,
 		password: Config.google.password,
 		clientId: Config.google.clientId,
 		clientSecret: Config.google.clientSecret,
+		isSecure: false,
 		providerParams: {
 			redirectUri : 'http://localhost:8080/google'
 		}
-	});
-
-	server.auth.strategy("session", "cookie", {
-		password: Config.cookie.password,
-		cookie: "sid",
-		isSecure: false
 	});
 
 	server.auth.default('session');
