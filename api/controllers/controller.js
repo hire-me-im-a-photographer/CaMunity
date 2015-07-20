@@ -15,6 +15,58 @@ module.exports = {
 		}
 	},
 
+	home: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			
+			if(request.auth.isAuthenticated) {
+				reply.redirect("/dashboard");
+			} else {
+				reply.view("home");
+			}
+		}
+	},
+
+	signupIam: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.view("signupIam");
+		}
+	},
+
+	signupPhotographer: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			console.log("I am a photographer");
+			reply.redirect("/signup/social");
+		}
+	},
+
+	signupClient: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			console.log("I am a client");
+			reply.redirect("/signup/social");
+		}
+	},
+
+	signupSocial: {
+			auth: {
+				mode: "optional"
+			},
+		handler: function(request, reply) {
+			reply.view("signupSocial");
+		}
+	},
+	
 	facebook: {
 		auth: {
 			strategy: "facebook"
@@ -87,105 +139,16 @@ module.exports = {
 		}
 	},
 
-	home: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("home");
-		}
-	},
-
-	login: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("login");
-		}
-	},
-
-	loggedIn: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("logged in");
-			reply.redirect("dashboard");
-		}
-	},
-
-	createdAccount: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("account created");
-			reply.redirect("dashboard");
-		}
-	},
-
-	signupIam: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("signupIam");
-		}
-	},
-
-	signupPhotographer: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("I am a photographer");
-			reply.redirect("/signup/social");
-		}
-	},
-
-	signupClient: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("I am a client");
-			reply.redirect("/signup/social");
-		}
-	},
-
-	signupSocial: {
-			auth: {
-				mode: "optional"
-			},
-		handler: function(request, reply) {
-			reply.view("signupSocial");
-			if(request.auth.authenticated) {
-				reply.redirect("/");
-			}
-		}
-	},
-
-	signup: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("signupForm");
-		}
-	},
-
 	dashboard: {
 		auth: {
 			strategy: "session"
 		},
 		handler: function(request, reply) {
-			console.log("profile ", request.auth.credentials.profile);
 
-			var email = "jasoncluu@gmail.com";
+			var email = request.auth.credentials.email;
 
 			Jobs.getAllJobs(email, function(err, data) {
-				console.log("all jobs: ", data);
+				console.log(request.auth.session);
 				reply.view("dashboard", {jobs: data});
 			});
 		}
@@ -196,27 +159,14 @@ module.exports = {
 			strategy: "session"
 		},
 		handler: function(request, reply) {
-			console.log("profile ", request.auth.credentials.profile);
-			var id = "10155651358425062";
-			Users.getUser(id, function(err, data) {
-				
-				var auth = data.auth;
-				var google;
-				var facebook;
-				if (auth == "google") {
-					google = auth;
-				} else {
-					facebook = auth;
-				}
-
-				reply.view("profile", {data: data, facebook: facebook, google: google});
-			});
+			var data = request.auth.credentials;
+			reply.view("profile", {data: data});
 		}
 	},
 
 	newJobStepOne: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
 			reply.view("newJobOne");
@@ -225,7 +175,7 @@ module.exports = {
 
 	newJobStepOneP: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
 
@@ -254,7 +204,7 @@ module.exports = {
 
 	newJobStepTwo: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
 			console.log(request.payload);
@@ -264,7 +214,7 @@ module.exports = {
 
 	newJobStepTwoP: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
 
@@ -287,10 +237,11 @@ module.exports = {
 
 	logout: {
 		auth: {
-			mode: "optional"
+			strategy: "session"
 		},
 		handler: function(request, reply) {
 			request.auth.session.clear();
+			console.log(request.auth);
 			reply.redirect("/");
 		}
 	}
