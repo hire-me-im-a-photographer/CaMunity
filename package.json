@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/hire-me-im-a-photographer/CaMunity",
   "dependencies": {
+    "aws-sdk": "^2.1.39",
     "bell": "2.9.0",
     "gulp": "^3.9.0",
     "hapi": "^8.6.1",
