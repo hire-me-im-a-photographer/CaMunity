@@ -27,20 +27,6 @@ function getAllJobs (callback) {
 	});
 }
 
-// function newjob(data, callback) {
-// 	console.log("new job form: ", data);
-
-// 	var currentUser = "jasoncluu@gmail.com"; //Adding mock user because no session
-
-// 	var query = {email: currentUser};
-// 	var update = {$push: {"jobs": data}};
-// 	var options = {new: true};
-
-// 	User.findOneAndUpdate(query, update, options, function (err, user) {
-// 		console.log("Found and updated a user with a new job");
-// 	});
-// }
-
 module.exports = {
 	newjob : newjob,
 	getAllJobs : getAllJobs
