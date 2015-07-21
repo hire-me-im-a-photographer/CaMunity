@@ -25,7 +25,7 @@ block content
 		    document.getElementById("file_input").onchange = function(){
 		        var files = document.getElementById("file_input").files;
 		        var file = files[0];
-		        console.log(file);
+		        console.log(file.type);
 
 		        if(file == null){
 
@@ -34,7 +34,7 @@ block content
 		        else if(file.size > 3000000) {
 		        	alert("File size larger than 3mb, please upload a smaller file.");
 
-		        } else if(file.type !== "image/png" || "image/jpeg") {
+		        } else if(file.type !== "image/png" && file.type !== "image/jpeg") {
 		        	alert("Please upload either a jpeg or png file.");
 
 		        } else {
