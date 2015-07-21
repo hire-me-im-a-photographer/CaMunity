@@ -16,10 +16,8 @@ module.exports = [
 	{path: "/dashboard", 		method:"GET", 				config:controller.dashboard},
 	{path: "/profile", 			method:"GET", 				config:controller.profile},
 
-	{path: "/newjob/step1", 	method:"GET", 				config:controller.newJobStepOne},
-	{path: "/newjob/step1", 	method:"POST", 				config:controller.newJobStepOneP},
-	{path: "/newjob/step2", 	method:"GET",	 			config:controller.newJobStepTwo},
-	{path: "/newjob/step2", 	method:"POST", 				config:controller.newJobStepTwoP},
+	{path: "/newjob", 			method:"GET", 				config:controller.newJobForm},
+	{path: "/newjob", 			method:"POST", 				config:controller.newJobPost},
 
 	{path: "/logout", 			method:"GET", 				config:controller.logout},
 

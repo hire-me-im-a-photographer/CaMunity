@@ -34,7 +34,12 @@ module.exports = {
 				mode: "optional"
 			},
 		handler: function(request, reply) {
-			reply.view("signupSocial");
+
+			if(request.auth.isAuthenticated) {
+				reply.view("signupSocial");
+			} else {
+				reply.redirect("/");
+			}
 		}
 	},
 
@@ -139,8 +144,11 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			console.log(request.auth);
-			reply.view("signupIam");
+			if(request.auth.isAuthenticated) {
+				reply.view("signupIam");
+			} else {
+				reply.redirect("/");
+			}
 		}
 	},
 
@@ -182,15 +190,19 @@ module.exports = {
 
 	dashboard: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 
-			console.log("user info: ", request.auth.credentials);
+			if(request.auth.isAuthenticated) {
+				console.log("user info: ", request.auth.credentials);
 
-			Jobs.getAllJobs(function(err, data) {
-				reply.view("dashboard", {jobs: data});
-			});
+				Jobs.getAllJobs(function(err, data) {
+					reply.view("dashboard", {jobs: data});
+				});
+			} else {
+				reply.redirect("/");
+			}
 		}
 	},
 
@@ -204,48 +216,34 @@ module.exports = {
 				var data = request.auth.credentials;
 				reply.view("profile", {data: data});
 			} else {
-				testdata = {
-					auth: "test",
-					id: "123",
-					username: "test",
-					displayName: "test",
-					firstName: "test",
-					lastName: "test",
-					email: "test@test.com",
-					link: "test",
-					picture: "test",
-					gender: "test"
-				};
-				reply.view("profile", {data: testdata});
+				reply.redirect("/");
 			}
 		}
 	},
 
-	newJobStepOne: {
+	newJobForm: {
 		auth: {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			reply.view("newJobOne");
+
+			if(request.auth.isAuthenticated) {
+				reply.view("newJob");
+			} else {
+				reply.redirect("/");
+			}
 		}
 	},
 
-	newJobStepOneP: {
+	newJobPost: {
 		auth: {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-
-			var user_id;
 
 			if(request.auth.isAuthenticated) {
 
-				user_id = request.auth.credentials.id;
-
-			} else {
-
-				user_id = "test@test.com";
-			}
+			var user_id = request.auth.credentials.id;
 
 			var new_job = {
 				user: user_id,
@@ -265,30 +263,10 @@ module.exports = {
 				reply.redirect("/dashboard");
 			});
 
-		}
-	},
+			} else {
+				reply.redirect("/");
+			}
 
-	newJobStepTwo: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log(request.payload);
-			reply.view("newJobTwo");
-		}
-	},
-
-	newJobStepTwoP: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-
-			var post = request.payload;
-
-			jobs.newjob(request.payload, function (err, data) {
-				reply.redirect("/dashboard");
-			});
 		}
 	},
 
