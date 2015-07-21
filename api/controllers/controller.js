@@ -90,11 +90,23 @@ module.exports = {
 
 			request.auth.session.set(profile);
 
-			Users.addUser(profile, function(err, data){
-				console.log("User added to database");
-			});
+			Users.getUser(fb.id, function(err, data) {
 
-			reply.redirect("/dashboard");
+				console.log("Checking if user exists");
+				
+				if(data === null) {
+
+					Users.addUser(profile, function(err, data){
+						console.log("User added to database");
+						reply.redirect("/dashboard");
+					});
+					
+				} else {
+					console.log("Found user in database");
+					reply.redirect("/dashboard");
+
+				}
+			});
 
 		}
 	},
@@ -104,8 +116,8 @@ module.exports = {
 			strategy: "google"
 			},
 		handler: function(request, reply) {
-			var g = request.auth.credentials.profile;
 
+			var g = request.auth.credentials.profile;
 
 			var profile = {
 				auth: "Google",
@@ -122,11 +134,24 @@ module.exports = {
 
 			request.auth.session.set(profile);
 
-			Users.addUser(profile, function(err, data){
-				console.log("User added to database");
+			Users.getUser(g.id, function(err, data) {
+
+				console.log("Checking if user exists");
+
+				if(data === null) {
+
+					Users.addUser(profile, function(err, data){
+						console.log("User added to database");
+						reply.redirect("/dashboard");
+					});
+					
+				} else {
+					console.log("found user in database");
+					reply.redirect("/dashboard");
+
+				}
 			});
 			
-			reply.redirect("/dashboard");
 		}
 	},
 
@@ -143,7 +168,6 @@ module.exports = {
 				email = request.auth.credentials.email;
 
 				Jobs.getAllJobs(email, function(err, data) {
-					console.log(request.auth.session);
 					reply.view("dashboard", {jobs: data});
 				});
 
@@ -152,7 +176,6 @@ module.exports = {
 				email = "test@test.com";
 
 				Jobs.getAllJobs(email, function(err, data) {
-					console.log(request.auth.session);
 					reply.view("dashboard", {jobs: data});
 				});
 			}
