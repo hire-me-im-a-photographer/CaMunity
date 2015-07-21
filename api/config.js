@@ -1,33 +1,31 @@
-var creds = require("./creds.json");
-
 module.exports = {
 
 	database: {
-		dburl: process.env.DBURL 						|| creds.database.dburl
+		dburl: process.env.DBURL 						|| require("./creds.json").database.dburl
 	},
 
 	s3: {
-		key: process.env.S3KEY 							|| creds.s3.key,
-		secret: process.env.S3SECRET 					|| creds.s3.secret,
-		bucket: process.env.S3BUCKET 					|| creds.s3.bucket,
-		acl: process.env.S3ACL 							|| creds.s3.acl,
-		region: process.env.S3REGION 					|| creds.s3.region,
+		key: process.env.S3KEY 							|| require("./creds.json").s3.key,
+		secret: process.env.S3SECRET 					|| require("./creds.json").s3.secret,
+		bucket: process.env.S3BUCKET 					|| require("./creds.json").s3.bucket,
+		acl: process.env.S3ACL 							|| require("./creds.json").s3.acl,
+		region: process.env.S3REGION 					|| require("./creds.json").s3.region,
 	},
 	
 	google : {
-		password 		: process.env.GPASSWORD			|| creds.google.password,
-		clientId		: process.env.GCLIENTID 		|| creds.google.clientId,
-		clientSecret	: process.env.GSECRET			|| creds.google.clientSecret,
+		password 		: process.env.GPASSWORD			|| require("./creds.json").google.password,
+		clientId		: process.env.GCLIENTID 		|| require("./creds.json").google.clientId,
+		clientSecret	: process.env.GSECRET			|| require("./creds.json").google.clientSecret,
 	},
 
 	facebook : {
-		password 		: process.env.FBPASSWORD		|| creds.facebook.password,
-		clientId		: process.env.FBCLIENTID 		|| creds.facebook.clientId,
-		clientSecret	: process.env.FBSECRET 			|| creds.facebook.clientSecret,
+		password 		: process.env.FBPASSWORD		|| require("./creds.json").facebook.password,
+		clientId		: process.env.FBCLIENTID 		|| require("./creds.json").facebook.clientId,
+		clientSecret	: process.env.FBSECRET 			|| require("./creds.json").facebook.clientSecret,
 	},
 
 	cookie : {
-		password 		: process.env.COOKIEPASS		|| creds.cookie.password,
-		cookie 			: process.env.COOKIE 			|| creds.cookie.cookie
+		password 		: process.env.COOKIEPASS		|| require("./creds.json").cookie.password,
+		cookie 			: process.env.COOKIE 			|| profile.cookie.cookie
 	}
 };
