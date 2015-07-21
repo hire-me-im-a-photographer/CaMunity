@@ -17,8 +17,8 @@ function newjob (data, callback) {
 	});
 }
 
-function getAllJobs (email, callback) {
-	Job.find( {"user": email}, function (err, data) {
+function getAllJobs (callback) {
+	Job.find(function (err, data) {
 		if (err) {
 			return callback(err, null);
 		} else {
