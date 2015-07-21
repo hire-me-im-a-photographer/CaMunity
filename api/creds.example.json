@@ -1,13 +1,26 @@
-{	
+{
+	"database" : {
+	"dburl"        : "{mongolab url}"
+	},
+	"s3" : {
+		"key" 		: "{s3 key}",
+		"secret"	: "{s3 secret}",
+		"bucket"	: "{s3 bucket name}",
+		"acl"		: "{s3 acl}",
+		"region"	: "{s3 region}"
+	},
 	"google" : {
-		"password"		: "password",
-		"clientId"		: "googleapi",
-		"clientSecret"	: "googleapi"
+		"password"		: "{arbitary password}",
+		"clientId"		: "{google client id}",
+		"clientSecret"	: "{google client secret}"
 	},
 	"facebook" : {
-		"password"		: "password",
-		"clientId"		: "facebookapi",
-		"clientSecret"	: "facebookapi"
+		"password"		: "{arbitary password}",
+		"clientId"		: "{facebook client id}",
+		"clientSecret"	: "{facebook client secret}"
 	},
-	"cookiePassword"	: "cookie_password"
+	"cookie": {
+		"cookie": "{cookie name}",
+		"password": "{arbitary password}"
+	}
 }
