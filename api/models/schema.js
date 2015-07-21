@@ -11,7 +11,8 @@ var userSchema = new mongoose.Schema({
 	link: String,
 	picture: String,
 	gender: String,
-	usertype: String
+	usertype: String,
+	photos: Array
 });
 
 var jobsSchema = new mongoose.Schema({

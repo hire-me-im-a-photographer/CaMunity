@@ -180,55 +180,9 @@ h1.CaMunity {
     opacity: 0.95;
 }
 
-/*.login-title {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 400;
-    display: block;
-    text-transform: uppercase;
+/*Profile page*/
+
+.photo_img {
+    max-height: 400px;
+    max-width: 400px;
 }
-
-.profile-img {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 0%;
-}
-
-.need-help {
-    margin-top: 10px;
-}
-
-.new-account {
-    display: block;
-    margin-top: 5px;
-}
-
-.third-party-login{
-	margin-top: 30px;
-}
-
-.fa {
-	padding-left: 15px;
-	padding-right: 15px;
-}*/
-
-.left-dashboard {
-    border-right-style: solid;
-}
-.right-dashboard {
-    border-left-style: solid;
-}
-
-/*Job form*/
-
-.oneVanish{
-    display: none;
-}
-
-/*.two{
-    display: none;
-}*/
