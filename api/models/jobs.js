@@ -3,7 +3,6 @@ var Job = require("./schema").Job;
 var User = require("./schema").User;
 
 function newjob (data, callback) {
-	console.log("new job form: ", data);
 	var newJob = new Job(data);
 
 	Job.create(newJob, function (err, data) {
