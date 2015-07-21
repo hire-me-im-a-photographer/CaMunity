@@ -10,7 +10,8 @@ var userSchema = new mongoose.Schema({
 	email: String,
 	link: String,
 	picture: String,
-	gender: String
+	gender: String,
+	usertype: String
 });
 
 var jobsSchema = new mongoose.Schema({
