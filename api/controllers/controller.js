@@ -29,35 +29,6 @@ module.exports = {
 		}
 	},
 
-	signupIam: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("signupIam");
-		}
-	},
-
-	signupPhotographer: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("I am a photographer");
-			reply.redirect("/signup/social");
-		}
-	},
-
-	signupClient: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			console.log("I am a client");
-			reply.redirect("/signup/social");
-		}
-	},
-
 	signupSocial: {
 			auth: {
 				mode: "optional"
@@ -66,7 +37,7 @@ module.exports = {
 			reply.view("signupSocial");
 		}
 	},
-	
+
 	facebook: {
 		auth: {
 			strategy: "facebook"
@@ -75,6 +46,7 @@ module.exports = {
 
 			var fb = request.auth.credentials.profile;
 
+			//Setup session with no usertype default
 			var profile = {
 				auth: "Facebook",
 				id: fb.id,
@@ -85,11 +57,13 @@ module.exports = {
 				email: fb.email,
 				link: fb.raw.link,
 				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
-				gender: fb.raw.gender
+				gender: fb.raw.gender,
+				usertype: "nouser"
 			};
 
 			request.auth.session.set(profile);
 
+			//Find user if exist, add user if they are a new user
 			Users.getUser(fb.id, function(err, data) {
 
 				console.log("Checking if user exists");
@@ -98,11 +72,12 @@ module.exports = {
 
 					Users.addUser(profile, function(err, data){
 						console.log("User added to database");
-						reply.redirect("/dashboard");
+						reply.redirect("/signup/iam");
 					});
 					
 				} else {
 					console.log("Found user in database");
+					request.auth.session.set("usertype", data.usertype);
 					reply.redirect("/dashboard");
 
 				}
@@ -119,6 +94,7 @@ module.exports = {
 
 			var g = request.auth.credentials.profile;
 
+			//Setup session with no usertype default
 			var profile = {
 				auth: "Google",
 				id: g.id,
@@ -129,11 +105,13 @@ module.exports = {
 				email: g.email,
 				link: g.raw.link,
 				picture: g.raw.picture,
-				gender: g.raw.gender
+				gender: g.raw.gender,
+				usertype: "nouser"
 			};
 
 			request.auth.session.set(profile);
 
+			//Find user if exist, add user if they are a new user
 			Users.getUser(g.id, function(err, data) {
 
 				console.log("Checking if user exists");
@@ -142,11 +120,12 @@ module.exports = {
 
 					Users.addUser(profile, function(err, data){
 						console.log("User added to database");
-						reply.redirect("/dashboard");
+						reply.redirect("/signup/iam");
 					});
 					
 				} else {
 					console.log("found user in database");
+					request.auth.session.set("usertype", data.usertype);
 					reply.redirect("/dashboard");
 
 				}
@@ -155,30 +134,63 @@ module.exports = {
 		}
 	},
 
-	dashboard: {
+	signupIam: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			console.log(request.auth);
+			reply.view("signupIam");
+		}
+	},
+
+	signupPhotographer: {
 		auth: {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
 
-			var email;
+			//Set usertype session and update to database
+			request.auth.session.set("usertype", "photographer");
+			var id = request.auth.credentials.id;
+			var update = {"usertype": "photographer"};
 
-			if(request.auth.isAuthenticated) {
+			Users.updateUser(id, update, function(err, data){
+				console.log("is it updating");
+				reply.redirect("/dashboard");
+			});
+		}
+	},
 
-				email = request.auth.credentials.email;
+	signupClient: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
 
-				Jobs.getAllJobs(email, function(err, data) {
-					reply.view("dashboard", {jobs: data});
-				});
+			//Set usertype session and update to database
+			request.auth.session.set("usertype", "client");
+			var profile = request.auth.credentials;
+			var update = {"usertype": "client"};
 
-			} else {
+			Users.updateUser(profile.id, update, function(err, data){
+				console.log("is it updating");
+				reply.redirect("/dashboard");
+			});
+		}
+	},
 
-				email = "test@test.com";
+	dashboard: {
+		auth: {
+			strategy: "session"
+		},
+		handler: function(request, reply) {
 
-				Jobs.getAllJobs(email, function(err, data) {
-					reply.view("dashboard", {jobs: data});
-				});
-			}
+			console.log("user info: ", request.auth.credentials);
+
+			Jobs.getAllJobs(function(err, data) {
+				reply.view("dashboard", {jobs: data});
+			});
 		}
 	},
 
@@ -224,19 +236,19 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			var user_email;
+			var user_id;
 
 			if(request.auth.isAuthenticated) {
 
-				user_email = request.auth.credentials.email;
+				user_id = request.auth.credentials.id;
 
 			} else {
 
-				user_email = "test@test.com";
+				user_id = "test@test.com";
 			}
 
 			var new_job = {
-				user: user_email,
+				user: user_id,
 				dateAdded: new Date(),
 				postingAs: request.payload.postingAs,
 				eventName: request.payload.eventName,
