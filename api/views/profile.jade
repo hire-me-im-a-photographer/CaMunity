@@ -9,12 +9,21 @@ block content
 				h1 Profile
 				br
 			.col-md-6.details
-				p Displayname: #{data.displayName}
-				p First Name: #{data.firstName}
-				p Last Name: #{data.lastName}
-				p Email: #{data.email}
-				p Gender: #{data.gender}
+				p Displayname: #{profile.displayName}
+				p First Name: #{profile.firstName}
+				p Last Name: #{profile.lastName}
+				p Email: #{profile.email}
+				p Gender: #{profile.gender}
 				p Social: 
-					a(href="#{data.link}" method="POST") #{data.auth}
+					a(href="#{profile.link}" method="POST") #{profile.auth}
 			.col-md-6.profilepicture 
-				img(src="#{data.picture}" height="400" width="400")
+				img(src="#{profile.picture}" height="200" width="200")
+			.col-md-12
+				h3 Photo Gallery
+				br
+				if photos
+					each photo in photos
+						.photos.col-md-4
+							img(src="#{photo.url}" class="photo_img")
+							br
+							h5 #{photo.description}

@@ -2,6 +2,7 @@ var Bell = require("bell");
 var Config = require("../config");
 var Jobs = require("../models/jobs");
 var Users = require("../models/users");
+var aws = require('aws-sdk');
 
 module.exports = {
 
@@ -208,8 +209,15 @@ module.exports = {
 		handler: function(request, reply) {
 
 			if(request.auth.isAuthenticated) {
-				var data = request.auth.credentials;
-				reply.view("profile", {data: data});
+				var profile = request.auth.credentials;
+
+				Users.getUser(profile.id, function(err, data){
+
+					var photos = data.photos;
+					console.log(photos);	
+					reply.view("profile", {profile: profile, photos: photos});
+					
+				});
 			} else {
 				reply.redirect("/");
 			}
@@ -262,6 +270,70 @@ module.exports = {
 				reply.redirect("/");
 			}
 
+		}
+	},
+
+	upload: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.view("upload");
+		}
+	},
+
+	signS3: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			//S3 setup
+			aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
+			var s3 = new aws.S3();
+			var s3_params = {
+			    Bucket: Config.s3.bucket,
+			    Key: request.query.file_name,
+			    Expires: 60,
+			    ContentType: request.query.file_type,
+			    ACL: Config.s3.acl
+			};
+
+			s3.getSignedUrl('putObject', s3_params, function(err, data){
+			    if(err){
+			        console.log(err);
+			    }
+			    else{
+			        var return_data = {
+			            signed_request: data,
+			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.query.file_name
+			        };
+			        reply(JSON.stringify(return_data));
+			    }
+			});
+		}
+	},
+
+	submitForm: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			//Upload url + description to DB
+			var upload = { $push: {"photos": {
+				"url": request.payload.photo_url,
+				"description": request.payload.description
+			}}};
+
+			console.log("object ", upload);
+
+			var id = request.auth.credentials.id;
+
+			Users.updateUser(id, upload, function(err, data) {
+				console.log("updating user with photos");
+				reply.redirect("/profile");
+			});
 		}
 	},
 

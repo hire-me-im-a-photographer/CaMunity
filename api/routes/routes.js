@@ -21,6 +21,9 @@ module.exports = [
 
 	{path: "/logout", 			method:"GET", 				config:controller.logout},
 
-	{path: "/help", 			method:"GET", 				config:controller.help}
-	
+	{path: "/help", 			method:"GET", 				config:controller.help},
+	{path: "/upload", 			method: "GET", 				config:controller.upload},
+	{path: "/sign_s3", 			method: "GET", 				config:controller.signS3},
+	{path: "/submit_form", 		method: "POST", 			config:controller.submitForm}
+
 	];
