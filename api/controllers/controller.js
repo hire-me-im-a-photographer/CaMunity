@@ -29,11 +29,117 @@ module.exports = {
 		}
 	},
 
+	signupSocial: {
+			auth: {
+				mode: "optional"
+			},
+		handler: function(request, reply) {
+			reply.view("signupSocial");
+		}
+	},
+
+	facebook: {
+		auth: {
+			strategy: "facebook"
+			},
+		handler: function(request, reply) {
+
+			var fb = request.auth.credentials.profile;
+
+			//Setup session with no usertype default
+			var profile = {
+				auth: "Facebook",
+				id: fb.id,
+				username: fb.username,
+				displayName: fb.displayName,
+				firstName: fb.name.first,
+				lastName: fb.name.last,
+				email: fb.email,
+				link: fb.raw.link,
+				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
+				gender: fb.raw.gender,
+				usertype: "nouser"
+			};
+
+			request.auth.session.set(profile);
+
+			//Find user if exist, add user if they are a new user
+			Users.getUser(fb.id, function(err, data) {
+
+				console.log("Checking if user exists");
+				
+				if(data === null) {
+
+					Users.addUser(profile, function(err, data){
+						console.log("User added to database");
+						reply.redirect("/signup/iam");
+					});
+					
+				} else {
+					console.log("Found user in database");
+					request.auth.session.set("usertype", data.usertype);
+					reply.redirect("/dashboard");
+
+				}
+			});
+
+		}
+	},
+
+	google: {
+		auth: {
+			strategy: "google"
+			},
+		handler: function(request, reply) {
+
+			var g = request.auth.credentials.profile;
+
+			//Setup session with no usertype default
+			var profile = {
+				auth: "Google",
+				id: g.id,
+				username: g.username,
+				displayName: g.displayName,
+				firstName: g.name.first,
+				lastName: g.name.last,
+				email: g.email,
+				link: g.raw.link,
+				picture: g.raw.picture,
+				gender: g.raw.gender,
+				usertype: "nouser"
+			};
+
+			request.auth.session.set(profile);
+
+			//Find user if exist, add user if they are a new user
+			Users.getUser(g.id, function(err, data) {
+
+				console.log("Checking if user exists");
+
+				if(data === null) {
+
+					Users.addUser(profile, function(err, data){
+						console.log("User added to database");
+						reply.redirect("/signup/iam");
+					});
+					
+				} else {
+					console.log("found user in database");
+					request.auth.session.set("usertype", data.usertype);
+					reply.redirect("/dashboard");
+
+				}
+			});
+			
+		}
+	},
+
 	signupIam: {
 		auth: {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
+			console.log(request.auth);
 			reply.view("signupIam");
 		}
 	},
@@ -43,8 +149,16 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			console.log("I am a photographer");
-			reply.redirect("/signup/social");
+
+			//Set usertype session and update to database
+			request.auth.session.set("usertype", "photographer");
+			var id = request.auth.credentials.id;
+			var update = {"usertype": "photographer"};
+
+			Users.updateUser(id, update, function(err, data){
+				console.log("is it updating");
+				reply.redirect("/dashboard");
+			});
 		}
 	},
 
@@ -53,89 +167,16 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-			console.log("I am a client");
-			reply.redirect("/signup/social");
-		}
-	},
 
-	signupSocial: {
-			auth: {
-				mode: "optional"
-			},
-		handler: function(request, reply) {
-			reply.view("signupSocial");
-		}
-	},
-	
-	facebook: {
-		auth: {
-			strategy: "facebook"
-			},
-		handler: function(request, reply) {
-			if (request.auth.isAuthenticated) {
-				console.log("facebook authenticated", request.auth.credentials);
+			//Set usertype session and update to database
+			request.auth.session.set("usertype", "client");
+			var profile = request.auth.credentials;
+			var update = {"usertype": "client"};
 
-				var fb = request.auth.credentials.profile;
-
-				var profile = {
-					auth: "Facebook",
-					id: fb.id,
-					username: fb.username,
-					displayName: fb.displayName,
-					firstName: fb.name.first,
-					lastName: fb.name.last,
-					email: fb.email,
-					link: fb.raw.link,
-					picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
-					gender: fb.raw.gender
-				};
-
-				request.auth.session.set(profile);
-
-				Users.addUser(profile, function(err, data){
-					console.log("User added to database");
-					reply.redirect("/dashboard");
-				});
-
-			} else {
-				reply.redirect("/");
-			}
-		}
-	},
-
-	google: {
-		auth: {
-			strategy: "google"
-			},
-		handler: function(request, reply) {
-			if (request.auth.isAuthenticated) {
-				console.log("google authenticated", request.auth.credentials);
-
-				var g = request.auth.credentials.profile;
-
-				var profile = {
-					auth: "Google",
-					id: g.id,
-					username: g.username,
-					displayName: g.displayName,
-					firstName: g.name.first,
-					lastName: g.name.last,
-					email: g.email,
-					link: g.raw.link,
-					picture: g.raw.picture,
-					gender: g.raw.gender
-				};
-
-				request.auth.session.set(profile);
-
-				Users.addUser(profile, function(err, data){
-					console.log("User added to database");
-					reply.redirect("/dashboard");
-				});
-
-			} else {
-				reply.redirect("/");
-			}
+			Users.updateUser(profile.id, update, function(err, data){
+				console.log("is it updating");
+				reply.redirect("/dashboard");
+			});
 		}
 	},
 
@@ -145,10 +186,9 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			var email = request.auth.credentials.email;
+			console.log("user info: ", request.auth.credentials);
 
-			Jobs.getAllJobs(email, function(err, data) {
-				console.log(request.auth.session);
+			Jobs.getAllJobs(function(err, data) {
 				reply.view("dashboard", {jobs: data});
 			});
 		}
@@ -156,17 +196,34 @@ module.exports = {
 
 	profile: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
-			var data = request.auth.credentials;
-			reply.view("profile", {data: data});
+
+			if(request.auth.isAuthenticated) {
+				var data = request.auth.credentials;
+				reply.view("profile", {data: data});
+			} else {
+				testdata = {
+					auth: "test",
+					id: "123",
+					username: "test",
+					displayName: "test",
+					firstName: "test",
+					lastName: "test",
+					email: "test@test.com",
+					link: "test",
+					picture: "test",
+					gender: "test"
+				};
+				reply.view("profile", {data: testdata});
+			}
 		}
 	},
 
 	newJobStepOne: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 			reply.view("newJobOne");
@@ -175,14 +232,23 @@ module.exports = {
 
 	newJobStepOneP: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 
-			var user_email = "jasoncluu@gmail.com";
+			var user_id;
+
+			if(request.auth.isAuthenticated) {
+
+				user_id = request.auth.credentials.id;
+
+			} else {
+
+				user_id = "test@test.com";
+			}
 
 			var new_job = {
-				user: user_email,
+				user: user_id,
 				dateAdded: new Date(),
 				postingAs: request.payload.postingAs,
 				eventName: request.payload.eventName,
@@ -195,7 +261,7 @@ module.exports = {
 				noOfPhotographers: request.payload.noOfPhotographers
 			};
 
-			jobs.newjob(new_job, function(err, data) {
+			Jobs.newjob(new_job, function(err, data) {
 				reply.redirect("/dashboard");
 			});
 
@@ -204,7 +270,7 @@ module.exports = {
 
 	newJobStepTwo: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 			console.log(request.payload);
@@ -214,7 +280,7 @@ module.exports = {
 
 	newJobStepTwoP: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 
@@ -237,7 +303,7 @@ module.exports = {
 
 	logout: {
 		auth: {
-			strategy: "session"
+			mode: "optional"
 		},
 		handler: function(request, reply) {
 			request.auth.session.clear();
