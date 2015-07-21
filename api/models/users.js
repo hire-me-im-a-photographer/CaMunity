@@ -27,7 +27,22 @@ function getUser (data, callback) {
 	});
 }
 
+function updateUser (data, update, callback) {
+	
+	var query = {"id": data};
+
+	User.findOneAndUpdate( query, update, function(err, data){
+		if (err) {
+			return callback(err);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+}
+
 module.exports = {
 	addUser : addUser,
-	getUser : getUser
+	getUser : getUser,
+	updateUser : updateUser
 };
