@@ -34,12 +34,7 @@ module.exports = {
 				mode: "optional"
 			},
 		handler: function(request, reply) {
-
-			if(request.auth.isAuthenticated) {
 				reply.view("signupSocial");
-			} else {
-				reply.redirect("/");
-			}
 		}
 	},
 

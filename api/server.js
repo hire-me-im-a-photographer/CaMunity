@@ -37,8 +37,8 @@ server.register([Bell, Cookie], function(err) {
 	}
 
 	server.auth.strategy("session", "cookie", {
-		password: "cookie-password",
-		cookie: "sid",
+		password: Config.cookie.password,
+		cookie: Config.cookie.cookie,
 		isSecure: false
 	});
 
