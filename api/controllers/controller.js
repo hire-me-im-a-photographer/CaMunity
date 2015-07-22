@@ -1,8 +1,9 @@
-var Bell = require("bell");
-var Config = require("../config");
-var Jobs = require("../models/jobs");
-var Users = require("../models/users");
-var aws = require('aws-sdk');
+var Bell 	= require("bell");
+var Config 	= require("../config");
+var Jobs 	= require("../models/jobs");
+var Users 	= require("../models/users");
+var Chat  	= require("../models/chat");
+var aws 	= require('aws-sdk');
 
 module.exports = {
 
@@ -333,6 +334,77 @@ module.exports = {
 			Users.updateUser(id, upload, function(err, data) {
 				console.log("updating user with photos");
 				reply.redirect("/profile");
+			});
+		}
+	},
+
+	users: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			var myid = request.auth.credentials.id;
+
+			Users.getAllUsers(function(err, data) {
+				reply.view("users", {users: data, myid: myid});
+			});
+		}
+	},
+
+	chat: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			reply.view("chat");
+		}
+	},
+
+	chatWith: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			var chatWith = Object.keys(request.payload)[0];
+			var myid = request.auth.credentials.id;
+			var users = {"firstUser": myid, "secondUser": chatWith} || {"firstUser": chatWith, "secondUser": myid};
+
+			Chat.findChat(users, function(err, data) {
+				console.log("findchat", data);
+				
+				if(data === []) {
+
+					Chat.newChat(users, function(err, data) {
+						reply.redirect("/chat/" + chatWith);
+					});
+
+				} else {
+					reply.redirect("/chat/" + chatWith);
+				}
+				
+			});
+		}
+	},
+
+	chatSubmit: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			var upload = { $push: {"photos": {
+				"url": request.payload.photo_url,
+				"description": request.payload.description
+			}}};
+
+			console.log("object ", upload);
+
+			var id = request.auth.credentials.id;
+
+			Users.updateUser(id, chat, function(err, data) {
+				console.log("updating user with chat");
+				reply.redirect("/chat");
 			});
 		}
 	},
