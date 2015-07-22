@@ -417,14 +417,14 @@ module.exports = {
 
 						console.log(data[0].chat);
 						var sender = "sender";
-						reply.view("chat", {data: data[0].chat, sender: sender});
+						reply.view("chat", {data: data[0].chat, myid: myid});
 					});
 
 				} else {
 
 					console.log(data[0].chat);
 					var sender = "sender";
-					reply.view("chat", {data: data[0].chat, sender: sender});
+					reply.view("chat", {data: data[0].chat, myid: myid});
 				}
 			});
 		}
