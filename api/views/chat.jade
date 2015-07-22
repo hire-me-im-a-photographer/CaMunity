@@ -1,0 +1,29 @@
+extend layout
+
+block content
+
+	.container-fluid   
+		include navbar
+		.container
+			.col-md-12
+				h1 Chat
+			.col-md-12
+				.panel.panel-info
+					.panel-heading My name will go here
+						.panel-body My chat will go here
+			.row
+				.col-lg-6
+					.input-group-lg
+						form.form-horizontal(role="form" action="/chat" method="POST")
+							input.form-control(type="text" placeholder="Click here to type a chat message.")
+							span.input-group-btn
+	include scripts
+	script.
+
+		$("input").keypress(function(event) {
+		    if (event.which == 13) {
+		        event.preventDefault();
+		        console.log("hi");
+		        $("form").submit();
+		    }
+		});
