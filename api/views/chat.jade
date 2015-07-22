@@ -5,18 +5,22 @@ block content
 	.container-fluid   
 		include navbar
 		.container
-			.col-md-12
-				h1 Chat
-			.col-md-12
-				.panel.panel-info
-					.panel-heading My name will go here
-						.panel-body My chat will go here
 			.row
-				.col-lg-6
+				.col-md-12
+					h1 Chat
+				if data.length != 0
+					each chat in data
+						.col-md-12
+							.panel.panel-info
+								.panel-heading #{chat.name}
+									.panel-body #{chat.message}
+			.row
+				.col-md-12
 					.input-group-lg
-						form.form-horizontal(role="form" action="/chat" method="POST")
-							input.form-control(type="text" placeholder="Click here to type a chat message.")
-							span.input-group-btn
+						form.form-horizontal(role="form" action="/chat/{id*}" method="POST")
+							input.form-control(type="text" name="chat" placeholder="Click here to type a chat message.")
+
+	include scripts
 	script.
 
 		$("input").keypress(function(event) {
