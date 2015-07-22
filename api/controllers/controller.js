@@ -108,7 +108,8 @@ module.exports = {
 				link: g.raw.link,
 				picture: g.raw.picture,
 				gender: g.raw.gender,
-				usertype: "nouser"
+				usertype: "nouser",
+				talkingTo: "noone"
 			};
 
 			request.auth.session.set(profile);
@@ -161,7 +162,6 @@ module.exports = {
 			var update = {"usertype": "photographer"};
 
 			Users.updateUser(id, update, function(err, data){
-				console.log("is it updating");
 				reply.redirect("/dashboard");
 			});
 		}
@@ -179,7 +179,6 @@ module.exports = {
 			var update = {"usertype": "client"};
 
 			Users.updateUser(profile.id, update, function(err, data){
-				console.log("is it updating");
 				reply.redirect("/dashboard");
 			});
 		}
@@ -192,7 +191,6 @@ module.exports = {
 		handler: function(request, reply) {
 
 			if(request.auth.isAuthenticated) {
-				console.log("user info: ", request.auth.credentials);
 
 				Jobs.getAllJobs(function(err, data) {
 					reply.view("dashboard", {jobs: data});
@@ -215,7 +213,6 @@ module.exports = {
 				Users.getUser(profile.id, function(err, data){
 
 					var photos = data.photos;
-					console.log(photos);	
 					reply.view("profile", {profile: profile, photos: photos});
 					
 				});
@@ -327,12 +324,9 @@ module.exports = {
 				"description": request.payload.description
 			}}};
 
-			console.log("object ", upload);
-
 			var id = request.auth.credentials.id;
 
 			Users.updateUser(id, upload, function(err, data) {
-				console.log("updating user with photos");
 				reply.redirect("/profile");
 			});
 		}
@@ -352,37 +346,86 @@ module.exports = {
 		}
 	},
 
-	chat: {
-		auth: {
-			mode: "optional"
-		},
-		handler: function(request, reply) {
-			reply.view("chat");
-		}
-	},
-
 	chatWith: {
 		auth: {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
+
+			var profile = request.auth.credentials;
+			var myid = profile.id;
 			var chatWith = Object.keys(request.payload)[0];
-			var myid = request.auth.credentials.id;
-			var users = {"firstUser": myid, "secondUser": chatWith} || {"firstUser": chatWith, "secondUser": myid};
+			var users = {"firstUser": myid, "secondUser": chatWith};
 
+			profile.talkingTo = chatWith;
+			request.auth.session.set(profile);
+
+			//Crazy stuff
 			Chat.findChat(users, function(err, data) {
-				console.log("findchat", data);
-				
-				if(data === []) {
 
-					Chat.newChat(users, function(err, data) {
-						reply.redirect("/chat/" + chatWith);
+				if(data.length === 0) {
+
+					console.log("Users are in the wrong order");
+					var newusers = {"firstUser": chatWith, "secondUser": myid};
+
+					Chat.findChat(newusers, function(err, data) {
+
+						if(data.length === 0) {
+
+							console.log("New chat");
+
+							Chat.newChat(newusers, function(err, data) {
+								reply.redirect("/chat/" + chatWith);
+							});
+
+						} else {
+
+							console.log("Chat exist");
+							reply.redirect("/chat/" + chatWith);
+						}
 					});
 
 				} else {
+
+					console.log("Chat exist");
 					reply.redirect("/chat/" + chatWith);
 				}
-				
+
+			});
+		}
+	},
+
+	chat: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			var profile = request.auth.credentials;
+			var myid = profile.id;
+			var chatWith = profile.talkingTo;
+			var users = {"firstUser": myid, "secondUser": chatWith};
+
+			//Some crazy stuff
+			Chat.findChat(users, function(err, data) {
+
+				if(data.length === 0) {
+
+					console.log("Users are in the wrong order");
+					var newusers = {"firstUser": chatWith, "secondUser": myid};
+
+					Chat.findChat(newusers, function(err, data) {
+
+						console.log(data[0].chat);
+						var sender = "sender";
+						reply.view("chat", {data: data[0].chat, sender: sender});
+					});
+
+				} else {
+
+					console.log(data[0].chat);
+					var sender = "sender";
+					reply.view("chat", {data: data[0].chat, sender: sender});
+				}
 			});
 		}
 	},
@@ -393,18 +436,20 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			var upload = { $push: {"photos": {
-				"url": request.payload.photo_url,
-				"description": request.payload.description
+			var profile = request.auth.credentials;
+			var myid = profile.id;
+			var chatWith = profile.talkingTo;
+			var users = {"firstUser": myid, "secondUser": chatWith};
+
+			var chat = { $push: {"chat": {
+				"sender": myid,
+				"name": profile.firstName + " " + profile.lastName,
+				"message": request.payload.chat,	
+				"time": Date()
 			}}};
 
-			console.log("object ", upload);
-
-			var id = request.auth.credentials.id;
-
-			Users.updateUser(id, chat, function(err, data) {
-				console.log("updating user with chat");
-				reply.redirect("/chat");
+			Chat.addChat(users, chat, function(err, data) {
+				reply.redirect("/chat/"+ profile.talkingTo);
 			});
 		}
 	},
@@ -424,7 +469,6 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 			request.auth.session.clear();
-			console.log(request.auth);
 			reply.redirect("/");
 		}
 	}

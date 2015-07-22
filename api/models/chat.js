@@ -20,31 +20,38 @@ function newChat(users, callback) {
 function addChat(query, update, callback) {
 
 	Chat.findOneAndUpdate(query, update, function(err, data) {
+		
+		if(data === null) {
+			console.log("data was null");
+			var newQuery = {"firstUser": query.secondUser, "secondUser": query.firstUser};
 
-		if (err) {
-			return callback(err);
-		}
-		else {
+			Chat.findOneAndUpdate(newQuery, update, function(err, data) {
+				if (err) {
+					return callback(err, null);
+				}
+				else {
+					return callback(null, data);
+				}
+			});
+
+		}else {
 			return callback(null, data);
 		}
 	});
 
 }
 
-function findChat(users, callback) {
-
-	var query = users;
+function findChat(query, callback) {
 
 	Chat.find(query, function(err, data) {
-
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
 		}
 	});
-}
+}	
 
 module.exports = {
 	newChat: newChat,
