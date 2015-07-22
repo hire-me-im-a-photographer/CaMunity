@@ -1,0 +1,16 @@
+extend layout
+
+block content
+
+	.container-fluid   
+		include navbar
+		.container
+			h1 List of users
+			if users
+				each user in users
+					li #{user.firstName} #{user.lastName}
+					li #{user.usertype}
+					form(role="form" action="/chatwith/{user*}" method="POST")
+						if user.id !== myid
+							input.btn.btn-default(type="submit" name="#{user.id}" value="Chat with #{user.firstName}")
+						hr
