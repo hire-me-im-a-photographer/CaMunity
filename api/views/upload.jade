@@ -28,8 +28,8 @@ block content
 		        if(file == null){
 		            alert("No file selected.");
 		        }
-		        else if(file.size > 3000000) {
-		        	alert("File size larger than 3mb, please upload a smaller file.");
+		        else if(file.size > 10000000) {
+		        	alert("File size larger than 10mb, please upload a smaller file.");
 
 		        } else if(file.type !== "image/png" && file.type !== "image/jpeg") {
 		        	alert("Please upload either a jpeg or png file.");
