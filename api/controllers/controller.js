@@ -3,6 +3,7 @@ var Config 	= require("../config");
 var Jobs 	= require("../models/jobs");
 var Users 	= require("../models/users");
 var Chat  	= require("../models/chat");
+var Photos 	= require("../models/photos");
 var aws 	= require('aws-sdk');
 
 module.exports = {
@@ -210,13 +211,22 @@ module.exports = {
 			if(request.auth.isAuthenticated) {
 				var profile = request.auth.credentials;
 
-				Users.getUser(profile.id, function(err, data){
+				Photos.findGallery(profile.id, function(err, data){
 
-					var photos = data.photos;
-					reply.view("profile", {profile: profile, photos: photos});
+					if(data === null) {
+
+						reply.view("profile", {profile: profile});
+					} else {
+
+						var photos = data.photos;
+
+						reply.view("profile", {profile: profile, photos: photos});						
+					}
 					
 				});
+
 			} else {
+				
 				reply.redirect("/");
 			}
 		}
@@ -286,16 +296,18 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
+			var randomKey = Math.floor((Math.random() * 1000) + 1);
 			//S3 setup
 			aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
 			var s3 = new aws.S3();
 			var s3_params = {
 			    Bucket: Config.s3.bucket,
-			    Key: request.query.file_name,
+			    Key: request.auth.credentials.id + "/" + randomKey + "_" + request.query.file_name,
 			    Expires: 60,
 			    ContentType: request.query.file_type,
 			    ACL: Config.s3.acl
 			};
+			// request.query.file_type (type of file you want to upload)
 
 			s3.getSignedUrl('putObject', s3_params, function(err, data){
 			    if(err){
@@ -304,7 +316,7 @@ module.exports = {
 			    else{
 			        var return_data = {
 			            signed_request: data,
-			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.query.file_name
+			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.auth.credentials.id+'/'+ randomKey + "_" + request.query.file_name
 			        };
 			        reply(JSON.stringify(return_data));
 			    }
@@ -318,17 +330,29 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			//Upload url + description to DB
-			var upload = { $push: {"photos": {
-				"url": request.payload.photo_url,
-				"description": request.payload.description
-			}}};
+			console.log(request.payload);
 
 			var id = request.auth.credentials.id;
+			var update = { $push: {"photos": {
+				"title": request.payload.title,
+				"url": request.payload.photo_url,
+			}}};
 
-			Users.updateUser(id, upload, function(err, data) {
-				reply.redirect("/profile");
+			Photos.findGallery(id, function(err, data) {
+				if(data === null) {
+					var object = {"user": id};
+					Photos.newGallery(object, function(err, data) {
+						Photos.newPhoto(id, update, function(err, data) {
+							reply.redirect("/profile");
+						});
+					});
+				} else {
+					Photos.newPhoto(id, update, function(err, data) {
+						reply.redirect("/profile");
+					});
+				}
 			});
+
 		}
 	},
 
