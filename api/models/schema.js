@@ -36,12 +36,19 @@ var chatSchema = new mongoose.Schema({
 	chat: Array
 });
 
+var photoSchema = new mongoose.Schema({
+	user: String,
+	photos: Array
+});
+
 var User = mongoose.model('user', userSchema, 'user');
 var Job = mongoose.model('job', jobSchema, 'job');
 var Chat = mongoose.model('chat', chatSchema, 'chat');
+var Photo = mongoose.model('photo', photoSchema, 'photo');
 
 module.exports = {
 	User : User,
 	Job : Job,
-	Chat : Chat
+	Chat : Chat,
+	Photo : Photo
 };
