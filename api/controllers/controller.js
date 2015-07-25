@@ -454,43 +454,26 @@ module.exports = {
 			var profile = request.auth.credentials;
 			var myid = profile.id;
 			var chatWith = Object.keys(request.payload)[0];
-			var users = {"firstUser": myid, "secondUser": chatWith};
+			var users = {"users": [myid, chatWith]};
 
 			profile.talkingTo = chatWith;
 			request.auth.session.set(profile);
 
-			//Crazy stuff
-			Chat.findChat(users, function(err, data) {
-
+			Chat.findChat(myid, chatWith, function(err, data) {
 				if(data.length === 0) {
 
-					console.log("Users are in the wrong order");
-					var newusers = {"firstUser": chatWith, "secondUser": myid};
-
-					Chat.findChat(newusers, function(err, data) {
-
-						if(data.length === 0) {
-
-							console.log("New chat");
-
-							Chat.newChat(newusers, function(err, data) {
-								reply.redirect("/chat/" + chatWith);
-							});
-
-						} else {
-
-							console.log("Chat exist");
-							reply.redirect("/chat/" + chatWith);
-						}
+					console.log("New chat");
+					Chat.newChat(users, function(err, data){
+						reply.redirect("/chat/" + chatWith);
 					});
 
 				} else {
 
-					console.log("Chat exist");
+					console.log("Chat exists");
 					reply.redirect("/chat/" + chatWith);
 				}
-
 			});
+
 		}
 	},
 
@@ -502,30 +485,16 @@ module.exports = {
 			var profile = request.auth.credentials;
 			var myid = profile.id;
 			var chatWith = profile.talkingTo;
-			var users = {"firstUser": myid, "secondUser": chatWith};
 
-			//Some crazy stuff
-			Chat.findChat(users, function(err, data) {
+			Chat.findChat(myid, chatWith, function(err, data) {
+				console.log(data[0]);
 
-				if(data.length === 0) {
-
-					console.log("Users are in the wrong order");
-					var newusers = {"firstUser": chatWith, "secondUser": myid};
-
-					Chat.findChat(newusers, function(err, data) {
-
-						console.log(data[0].chat);
-						var sender = "sender";
-						reply.view("chat", {data: data[0].chat, myid: myid});
-					});
-
-				} else {
-
-					console.log(data[0].chat);
-					var sender = "sender";
-					reply.view("chat", {data: data[0].chat, myid: myid});
-				}
+				Users.getUser(chatWith, function(err, result){
+					console.log(result);
+					reply.view("chat", {data: data[0], profile: profile, talkingTo: result});
+				});
 			});
+
 		}
 	},
 
@@ -538,7 +507,6 @@ module.exports = {
 			var profile = request.auth.credentials;
 			var myid = profile.id;
 			var chatWith = profile.talkingTo;
-			var users = {"firstUser": myid, "secondUser": chatWith};
 
 			var chat = { $push: {"chat": {
 				"sender": myid,
@@ -547,7 +515,7 @@ module.exports = {
 				"time": Date()
 			}}};
 
-			Chat.addChat(users, chat, function(err, data) {
+			Chat.addChat(myid, chatWith, chat, function(err, data) {
 				reply.redirect("/chat/"+ profile.talkingTo);
 			});
 		}
