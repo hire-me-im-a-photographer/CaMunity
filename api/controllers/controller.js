@@ -61,6 +61,7 @@ module.exports = {
 				link: fb.raw.link,
 				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
 				gender: fb.raw.gender,
+				website: "",
 				usertype: "nouser"
 			};
 
@@ -113,8 +114,6 @@ module.exports = {
 				talkingTo: "noone"
 			};
 
-			request.auth.session.set(profile);
-
 			//Find user if exist, add user if they are a new user
 			Users.getUser(g.id, function(err, data) {
 
@@ -123,6 +122,8 @@ module.exports = {
 				if(data === null) {
 
 					Users.addUser(profile, function(err, data){
+
+						request.auth.session.set(profile);
 						console.log("User added to database");
 						reply.redirect("/signup/iam");
 					});
@@ -229,6 +230,38 @@ module.exports = {
 				
 				reply.redirect("/");
 			}
+		}
+	},
+
+	profileEdit: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+			var profile = request.auth.credentials;
+			reply.view("profileEdit", {profile: profile});
+		}
+	},
+
+	profileEditP: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			var profile = request.auth.credentials;
+			var update = request.payload;
+			console.log(update);
+
+			profile.firstName = update.firstName;
+			profile.lastName = update.lastName;
+			profile.website = update.website;
+
+			request.auth.session.set(profile);
+			Users.updateUser(profile.id, update, function(err, data) {
+				reply.redirect("/profile");
+			});
+
 		}
 	},
 

@@ -1,21 +1,20 @@
-extend layout
+extend layouts/default
 
 block content
 
 	.container-fluid   
-		include navbar
+		include includes/navbar
 		.container
 			.col-md-12
-				h1 Profile
+				h1.profile Profile
 				br
 			.col-md-6.details
-				p Displayname: #{profile.displayName}
 				p First Name: #{profile.firstName}
 				p Last Name: #{profile.lastName}
 				p Email: #{profile.email}
-				p Gender: #{profile.gender}
-				p Social: 
-					a(href="#{profile.link}" method="POST") #{profile.auth}
+				p Website: 
+					a(href="#{profile.website}") #{profile.website}
+				a(href="/profile/edit") Edit your profile
 			.col-md-6.profilepicture 
 				img(src="#{profile.picture}" height="200" width="200")
 			.col-md-12

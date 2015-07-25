@@ -1,9 +1,9 @@
-extend layout
+extend layouts/default
 
 block content
 
 	.container-fluid   
-		include navbar
+		include includes/navbar
 		.container
 			.row
 				.col-md-12
@@ -25,7 +25,7 @@ block content
 						form.form-horizontal(role="form" action="/chat/{id*}" method="POST")
 							input.form-control(type="text" name="chat" placeholder="Click here to type a chat message.")
 
-	include scripts
+	include includes/scripts
 	script.
 
 		$("input").keypress(function(event) {
