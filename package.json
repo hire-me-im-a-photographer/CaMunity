@@ -1,7 +1,7 @@
 {
   "name": "CaMunity",
   "version": "1.0.0",
-  "description": "Camunity",
+  "description": "Camunity - A platform for photographers and clients",
   "main": "app.js",
   "scripts": {
     "web": "node app",
