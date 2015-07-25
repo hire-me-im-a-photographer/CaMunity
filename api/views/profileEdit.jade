@@ -1,0 +1,25 @@
+extend layouts/default
+
+block content
+	.container-fluid
+		include includes/navbar
+		.container
+			.col-md-12
+				h1.profile Profile
+				br
+			.col-md-12
+				form.form-horizontal(role="form" action="/profile/edit" method="POST")
+					.form-group
+						label.control-label.col-sm-2(for="firstName") First Name:
+						.col-sm-4
+							input.form-control(name="firstName" type="text" value="#{profile.firstName}" required)
+					.form-group
+						label.control-label.col-sm-2(for="lastName") Last Name:
+						.col-sm-4
+							input.form-control(name="lastName" type="text" value="#{profile.lastName}" required)
+					.form-group
+						label.control-label.col-sm-2(for="website") Website:
+						.col-sm-4
+							input.form-control(name="website" type="text" value="#{profile.website}")
+					.form-group
+						input.btn.btn-primary(type="submit", value="Submit")
