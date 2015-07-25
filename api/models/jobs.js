@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 var Job = require("./schema").Job;
-var User = require("./schema").User;
 
 function newjob (data, callback) {
+
 	var newJob = new Job(data);
 
 	Job.create(newJob, function (err, data) {
@@ -18,6 +18,7 @@ function newjob (data, callback) {
 }
 
 function getAllJobs (callback) {
+	
 	Job.find(function (err, data) {
 		if (err) {
 			return callback(err, null);
