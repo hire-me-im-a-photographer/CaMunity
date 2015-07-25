@@ -34,6 +34,7 @@ var jobSchema = new mongoose.Schema({
 var chatSchema = new mongoose.Schema({
 	firstUser: String,
 	secondUser: String,
+	users: Array,
 	chat: Array
 });
 

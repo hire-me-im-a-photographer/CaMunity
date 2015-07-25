@@ -17,31 +17,24 @@ function newChat(users, callback) {
 	});
 }
 
-function addChat(query, update, callback) {
+function addChat(user, anotherUser, update, callback) {
+
+	var query = {"users": {$all: [user, anotherUser]}};
 
 	Chat.findOneAndUpdate(query, update, function(err, data) {
-		
-		if(data === null) {
-			console.log("data was null");
-			var newQuery = {"firstUser": query.secondUser, "secondUser": query.firstUser};
-
-			Chat.findOneAndUpdate(newQuery, update, function(err, data) {
-				if (err) {
-					return callback(err, null);
-				}
-				else {
-					return callback(null, data);
-				}
-			});
-
-		}else {
+		if (err) {
+			return callback(err, null);
+		}
+		else {
 			return callback(null, data);
 		}
 	});
 
 }
 
-function findChat(query, callback) {
+function findChat(user, anotherUser, callback) {
+
+	var query = {"users": {$all: [user, anotherUser]}};
 
 	Chat.find(query, function(err, data) {
 		if (err) {
