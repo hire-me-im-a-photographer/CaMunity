@@ -49,23 +49,7 @@ module.exports = {
 
 			var fb = request.auth.credentials.profile;
 
-			//Setup session with no usertype default
-			var profile = {
-				auth: "Facebook",
-				id: fb.id,
-				username: fb.username,
-				displayName: fb.displayName,
-				firstName: fb.name.first,
-				lastName: fb.name.last,
-				email: fb.email,
-				link: fb.raw.link,
-				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
-				gender: fb.raw.gender,
-				website: "",
-				usertype: "nouser"
-			};
-
-			request.auth.session.set(profile);
+			var profile;
 
 			//Find user if exist, add user if they are a new user
 			Users.getUser(fb.id, function(err, data) {
@@ -75,13 +59,49 @@ module.exports = {
 				if(data === null) {
 
 					Users.addUser(profile, function(err, data){
+
+						profile = {
+							auth: "Facebook",
+							id: fb.id,
+							username: fb.username,
+							displayName: fb.displayName,
+							firstName: fb.name.first,
+							lastName: fb.name.last,
+							email: fb.email,
+							link: fb.raw.link,
+							picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
+							gender: fb.raw.gender,
+							website: "",
+							usertype: "nouser",
+							talkingTo: "noone"
+						};
+
+						request.auth.session.set(profile);
 						console.log("User added to database");
 						reply.redirect("/signup/iam");
 					});
 					
 				} else {
+
 					console.log("Found user in database");
-					request.auth.session.set("usertype", data.usertype);
+
+					profile = {
+						auth: data.auth,
+						id: data.id,
+						username: data.userName,
+						displayName: data.displayName,
+						firstName: data.firstName,
+						lastName: data.lastName,
+						email: data.email,
+						link: data.link,
+						picture: data.picture,
+						gender: data.gender,
+						website: data.website,
+						usertype: data.usertype,
+						talkingTo: "noone"
+					};
+
+					request.auth.session.set(profile);
 					reply.redirect("/dashboard");
 
 				}
@@ -99,20 +119,7 @@ module.exports = {
 			var g = request.auth.credentials.profile;
 
 			//Setup session with no usertype default
-			var profile = {
-				auth: "Google",
-				id: g.id,
-				username: g.username,
-				displayName: g.displayName,
-				firstName: g.name.first,
-				lastName: g.name.last,
-				email: g.email,
-				link: g.raw.link,
-				picture: g.raw.picture,
-				gender: g.raw.gender,
-				usertype: "nouser",
-				talkingTo: "noone"
-			};
+			var profile;
 
 			//Find user if exist, add user if they are a new user
 			Users.getUser(g.id, function(err, data) {
@@ -123,14 +130,47 @@ module.exports = {
 
 					Users.addUser(profile, function(err, data){
 
+						profile = {
+							auth: "Google",
+							id: g.id,
+							username: g.username,
+							displayName: g.displayName,
+							firstName: g.name.first,
+							lastName: g.name.last,
+							email: g.email,
+							link: g.raw.link,
+							picture: g.raw.picture,
+							gender: g.raw.gender,
+							website: "",
+							usertype: "nouser",
+							talkingTo: "noone"
+						};
+
 						request.auth.session.set(profile);
 						console.log("User added to database");
 						reply.redirect("/signup/iam");
 					});
 					
 				} else {
+
+					profile = {
+						auth: data.auth,
+						id: data.id,
+						username: data.userName,
+						displayName: data.displayName,
+						firstName: data.firstName,
+						lastName: data.lastName,
+						email: data.email,
+						link: data.link,
+						picture: data.picture,
+						gender: data.gender,
+						website: data.website,
+						usertype: data.usertype,
+						talkingTo: "noone"
+					};
+
+					request.auth.session.set(profile);
 					console.log("found user in database");
-					request.auth.session.set("usertype", data.usertype);
 					reply.redirect("/dashboard");
 
 				}
@@ -191,6 +231,8 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
+
+			console.log(request.auth.credentials);
 
 			if(request.auth.isAuthenticated) {
 
