@@ -1,9 +1,8 @@
 var mongoose = require("mongoose");
-var Job = require("./schema").Job;
-var User = require("./schema").User;
 var Chat = require("./schema").Chat;
 
 function newChat(users, callback) {
+	
 	var chat = new Chat(users);
 
 	Chat.create(chat, function(err, data) {

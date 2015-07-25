@@ -4,7 +4,7 @@ var Jobs 	= require("../models/jobs");
 var Users 	= require("../models/users");
 var Chat  	= require("../models/chat");
 var Photos 	= require("../models/photos");
-var aws 	= require('aws-sdk');
+var Aws 	= require('aws-sdk');
 
 module.exports = {
 
@@ -373,8 +373,8 @@ module.exports = {
 
 			var randomKey = Math.floor((Math.random() * 1000) + 1);
 			//S3 setup
-			aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
-			var s3 = new aws.S3();
+			Aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
+			var s3 = new Aws.S3();
 			var s3_params = {
 			    Bucket: Config.s3.bucket,
 			    Key: request.auth.credentials.id + "/" + randomKey + "_" + request.query.file_name,

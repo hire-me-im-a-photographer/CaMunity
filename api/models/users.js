@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var User = require("./schema").User;
 
 function addUser(data, callback) {
+
 	var newUser = new User(data);
 
 	User.create(newUser, function(err, data) {
@@ -16,7 +17,10 @@ function addUser(data, callback) {
 }
 
 function getUser(data, callback) {
-	User.findOne( {id: data}, function(err, data) {
+
+	var query = {"id": data};
+
+	User.findOne(query, function(err, data) {
 
 		if (err) {
 			return callback(err);
@@ -43,6 +47,7 @@ function updateUser(data, update, callback){
 }
 
 function getAllUsers (callback) {
+	
 	User.find(function (err, data) {
 		
 		if (err) {
