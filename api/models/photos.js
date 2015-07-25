@@ -2,6 +2,7 @@ var pmongoose = require("mongoose");
 var Photo = require("./schema").Photo;
 
 function newGallery(data, callback) {
+
 	var newPhoto = new Photo(data);
 
 	Photo.create(newPhoto, function(err, data) {
@@ -17,7 +18,9 @@ function newGallery(data, callback) {
 
 function findGallery(data, callback) {
 
-	Photo.findOne( {"user": data}, function(err, data) {
+	var query = {"user": data};
+
+	Photo.findOne(query, function(err, data) {
 
 		if (err) {
 			return callback(err);
