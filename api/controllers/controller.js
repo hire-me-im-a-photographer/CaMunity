@@ -307,6 +307,20 @@ module.exports = {
 		}
 	},
 
+	photoDelete: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function(request, reply) {
+
+			var id = request.auth.credentials.id;
+
+			Photos.deleteURL(id, request.payload, function(err, data) {
+			});
+			reply.redirect("/profile");
+		}
+	},
+
 	newJobForm: {
 		auth: {
 			mode: "optional"

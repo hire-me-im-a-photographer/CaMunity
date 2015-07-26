@@ -17,6 +17,7 @@ module.exports = [
 	{path: "/profile", 			method: "GET", 				config:controller.profile},
 	{path: "/profile/edit", 	method: "GET", 				config:controller.profileEdit},	
 	{path: "/profile/edit", 	method: "POST", 			config:controller.profileEditP},	
+	{path: "/photo/delete", 	method: "POST", 			config:controller.photoDelete},	
 
 	{path: "/newjob", 			method: "GET", 				config:controller.newJobForm},
 	{path: "/newjob", 			method: "POST", 			config:controller.newJobPost},
