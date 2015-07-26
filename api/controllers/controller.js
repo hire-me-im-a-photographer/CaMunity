@@ -314,10 +314,27 @@ module.exports = {
 		handler: function(request, reply) {
 
 			var id = request.auth.credentials.id;
+			var url = Object.keys(request.payload)[0];
+			var file = url.split('/').slice(4)[0];
+
+			Aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
+			var s3 = new Aws.S3();
+			var params = {
+			  Bucket: Config.s3.bucket,
+			  Key: id + "/" + file,
+			};
+			s3.deleteObject(params, function(err, data) {
+
+			  	if (err) {
+			  		console.log("Error deleting from S3", err, err.stack);
+			  	} else{
+			  		console.log("Deleted from S3");
+			  	}
+			});
 
 			Photos.deleteURL(id, request.payload, function(err, data) {
+				reply.redirect("/profile");
 			});
-			reply.redirect("/profile");
 		}
 	},
 
