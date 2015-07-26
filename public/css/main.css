@@ -182,7 +182,27 @@ h1.CaMunity {
 
 /*Profile page*/
 
-.photo_img {
-    max-height: 400px;
-    max-width: 400px;
+.photos {
+  height: 330px;
+}
+
+.photos:hover .delete{
+  display: block;
+}
+
+img.photo_img {
+  max-height: 300px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.photo-title {
+  text-align: center;
+}
+
+.delete {
+  text-align: center;
+  display: none;
 }

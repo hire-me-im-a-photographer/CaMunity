@@ -6,6 +6,7 @@ function newGallery(data, callback) {
 	var newPhoto = new Photo(data);
 
 	Photo.create(newPhoto, function(err, data) {
+
 		if (err) {
 			return callback(err, null);
 		}
@@ -23,7 +24,7 @@ function findGallery(data, callback) {
 	Photo.findOne(query, function(err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
@@ -38,7 +39,7 @@ function newPhoto(id, update, callback) {
 	Photo.findOneAndUpdate(query, update, function(err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
@@ -47,8 +48,22 @@ function newPhoto(id, update, callback) {
 }
 
 
-function deleteURL() {
+function deleteURL(id, photo, callback) {
 
+	var url = Object.keys(photo)[0];
+	console.log(photo);
+	var query = {"user": id};
+	var remove = { $pull: {"photos": {"url": url}}};
+
+	Photo.findOneAndUpdate(query, remove, function(err, data) {
+		console.log(query, remove, data);
+		if (err) {
+			return callback(err, null);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
 }
 
 module.exports = {

@@ -24,7 +24,9 @@ block content
 					each photo in photos
 						.photos.col-md-4
 							img(src="#{photo.url}" class="photo_img")
+							h5.photo-title #{photo.title}
+							form.delete(action="/photo/delete" method="POST")
+								input.btn.btn-default(type="submit" name="#{photo.url}" value="delete")
 							br
-							h5 #{photo.title}
 				else
 					a(href="/upload") Upload your first photo
