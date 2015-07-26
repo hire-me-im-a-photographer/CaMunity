@@ -20,7 +20,7 @@ block content
 			.col-md-12
 				h3 Photo Gallery
 				br
-				if photos.length != 0
+				if photos
 					each photo in photos
 						.photos.col-md-4
 							img(src="#{photo.url}" class="photo_img")
