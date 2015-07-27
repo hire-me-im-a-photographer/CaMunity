@@ -26,7 +26,7 @@ block content
 							img(src="#{photo.url}" class="photo_img")
 							h5.photo-title #{photo.title}
 							form.delete(action="/photo/delete" method="POST")
-								input.btn.btn-default(type="submit" name="#{photo.url}" value="delete")
+								input.btn.btn-default(type="submit" name="#{photo.name} #{photo.ext}" value="delete")
 							br
 				else
 					a(href="/upload") Upload your first photo
