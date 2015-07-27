@@ -48,15 +48,13 @@ function newPhoto(id, update, callback) {
 }
 
 
-function deleteURL(id, photo, callback) {
+function deleteURL(id, url, callback) {
 
-	var url = Object.keys(photo)[0];
-	console.log(photo);
 	var query = {"user": id};
 	var remove = { $pull: {"photos": {"url": url}}};
 
 	Photo.findOneAndUpdate(query, remove, function(err, data) {
-		console.log(query, remove, data);
+
 		if (err) {
 			return callback(err, null);
 		}
