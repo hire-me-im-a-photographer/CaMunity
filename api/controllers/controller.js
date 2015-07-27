@@ -263,7 +263,7 @@ module.exports = {
 
 						var photos = data.photos;
 
-						reply.view("profile", {profile: profile, photos: photos});						
+						reply.view("profile", {profile: profile, photos: photos});					
 					}
 					
 				});
@@ -312,16 +312,20 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function(request, reply) {
-
 			var id = request.auth.credentials.id;
-			var url = Object.keys(request.payload)[0];
-			var file = url.split('/').slice(4)[0];
+
+			//Big mess to get url from input
+			var mess = Object.keys(request.payload)[0];
+			var filename = mess.split(" ")[0];
+			var ext = mess.split(" ")[1];
+			var path = id + "/" + filename + "." + ext;
+			var url = "https://camunity.s3.amazonaws.com/" + path;
 
 			Aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
 			var s3 = new Aws.S3();
 			var params = {
 			  Bucket: Config.s3.bucket,
-			  Key: id + "/" + file,
+			  Key: path,
 			};
 			s3.deleteObject(params, function(err, data) {
 
@@ -332,7 +336,7 @@ module.exports = {
 			  	}
 			});
 
-			Photos.deleteURL(id, request.payload, function(err, data) {
+			Photos.deleteURL(id, url, function(err, data) {
 				reply.redirect("/profile");
 			});
 		}
@@ -422,7 +426,7 @@ module.exports = {
 			    else{
 			        var return_data = {
 			            signed_request: data,
-			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.auth.credentials.id+'/'+ randomKey + "_" + request.query.file_name
+			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.auth.credentials.id+'/'+ randomKey + "_" + request.query.file_name,
 			        };
 			        reply(JSON.stringify(return_data));
 			    }
@@ -436,12 +440,18 @@ module.exports = {
 		},
 		handler: function(request, reply) {
 
-			console.log(request.payload);
-
 			var id = request.auth.credentials.id;
+			var url = request.payload.photo_url;
+
+			var file = url.split('/').slice(4)[0];
+			var name = file.split(".")[0];
+			var ext = file.split(".")[1];
+
 			var update = { $push: {"photos": {
 				"title": request.payload.title,
-				"url": request.payload.photo_url,
+				"name": name,
+				"ext": ext,
+				"url": url
 			}}};
 
 			Photos.findGallery(id, function(err, data) {
