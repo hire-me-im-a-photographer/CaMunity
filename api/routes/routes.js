@@ -1,36 +1,40 @@
-var controller = require("../controllers/controller.js");
+var Controller = require("../controllers/controller.js");
+var Login = require("../controllers/login");
+var Profile = require("../controllers/profile");
+var Chat = require("../controllers/chat");
+var Upload = require("../controllers/upload");
+var Job = require("../controllers/job");
 
 module.exports = [
 
-	{path: "/public/{file*}",	method: "GET",				config:controller.serveFile},
-	{path: "/",					method: "GET",				config:controller.home},
+	{ path: "/public/{file*}",	method: "GET",				config: Controller.serveFile },
+	{ path: "/",				method: "GET",				config: Controller.home },
+	{ path: "/dashboard", 		method: "GET", 				config: Controller.dashboard },
+	{ path: "/users", 			method: "GET", 				config: Controller.users },
+	{ path: "/help", 			method: "GET", 				config: Controller.help },
+	{ path: "/logout", 			method: "GET", 				config: Controller.logout },
 
-	{path: "/signup/iam", 		method: "GET", 				config:controller.signupIam},
-	{path: "/client", 			method: "POST", 			config:controller.signupClient},
-	{path: "/photographer", 	method: "POST", 			config:controller.signupPhotographer},
-	{path: "/signup/social", 	method: "GET", 				config:controller.signupSocial},
+	{ path: "/signup/social", 	method: "GET", 				config: Login.social },
+	{ path: "/facebook",		method: ["GET", "POST"],	config: Login.facebook },
+	{ path: "/google",			method: ["GET", "POST"],	config: Login.google },
+	{ path: "/signup/iam", 		method: "GET", 				config: Login.iam },
+	{ path: "/client", 			method: "POST", 			config: Login.client },
+	{ path: "/photographer", 	method: "POST", 			config: Login.photographer },
 
-	{path: "/facebook",			method: ["GET", "POST"],	config:controller.facebook},
-	{path: "/google",			method: ["GET", "POST"],	config:controller.google},
-	
-	{path: "/dashboard", 		method: "GET", 				config:controller.dashboard},
-	{path: "/profile", 			method: "GET", 				config:controller.profile},
-	{path: "/profile/edit", 	method: "GET", 				config:controller.profileEdit},	
-	{path: "/profile/edit", 	method: "POST", 			config:controller.profileEditP},	
-	{path: "/photo/delete", 	method: "POST", 			config:controller.photoDelete},	
+	{ path: "/profile", 		method: "GET", 				config: Profile.view },
+	{ path: "/profile/edit", 	method: "GET", 				config: Profile.edit },	
+	{ path: "/profile/edit", 	method: "POST", 			config: Profile.post },	
+	{ path: "/photo/delete", 	method: "POST", 			config: Profile.deletePhoto },	
 
-	{path: "/newjob", 			method: "GET", 				config:controller.newJobForm},
-	{path: "/newjob", 			method: "POST", 			config:controller.newJobPost},
+	{ path: "/upload", 			method: "GET", 				config: Upload.view },
+	{ path: "/sign_s3", 		method: "GET", 				config: Upload.signS3 },
+	{ path: "/submit_form", 	method: "POST", 			config: Upload.submit },
 
-	{path: "/logout", 			method: "GET", 				config:controller.logout},
+	{ path: "/chat2/{user*}", 	method: "POST", 			config: Chat.recipient },
+	{ path: "/chat/{id*}", 		method: "GET", 				config: Chat.view},
+	{ path: "/chat/{id*}", 		method: "POST", 			config: Chat.submit },
 
-	{path: "/help", 			method: "GET", 				config:controller.help},
-	{path: "/upload", 			method: "GET", 				config:controller.upload},
-	{path: "/sign_s3", 			method: "GET", 				config:controller.signS3},
-	{path: "/submit_form", 		method: "POST", 			config:controller.submitForm},
+	{ path: "/newjob", 			method: "GET", 				config: Job.view },
+	{ path: "/newjob", 			method: "POST", 			config: Job.post }
 
-	{path: "/users", 			method: "GET", 				config:controller.users},
-	{path: "/chatwith/{user*}", method: "POST", 			config:controller.chatWith},
-	{path: "/chat/{id*}", 		method: "GET", 				config:controller.chat},
-	{path: "/chat/{id*}", 		method: "POST", 			config:controller.chatSubmit},
-	];
+	] ;
