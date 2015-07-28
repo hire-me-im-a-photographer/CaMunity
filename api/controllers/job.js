@@ -1,4 +1,4 @@
-var Jobs 	= require("../models/jobs");
+var Jobs = require("../models/jobs");
 
 module.exports = {
 
@@ -29,18 +29,25 @@ module.exports = {
 
 			var d = new Date();
 
+			var p = request.payload;
+
 			var new_job = {
 				user: id,
 				dateAdded: d.toUTCString(),
-				postingAs: request.payload.postingAs,
-				eventName: request.payload.eventName,
-				dateTime: request.payload.dateTime,
-				jobDuration: request.payload.jobDuration,
-				location: request.payload.location,
-				description: request.payload.description,
-				useOfPhotos: request.payload.useOfPhotos,
-				dateRequired: request.payload.dateRequired,
-				noOfPhotographers: request.payload.noOfPhotographers
+				postingAs: p.postingAs,
+				eventName: p.eventName,
+				dateTime: p.dateTime,
+				jobDuration: p.jobDuration,
+				location: p.location,
+				description: p.description,
+				useOfPhotos: p.useOfPhotos,
+				watermark: {
+					"url": p.watermark[0],
+					"location": p.watermark[1]
+				},
+				dateRequired: p.dateRequired,
+				noOfPhotographers: p.noOfPhotographers
+
 			};
 
 			Jobs.newJob(new_job, function(err, data) {
