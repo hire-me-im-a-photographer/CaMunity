@@ -1,5 +1,5 @@
-var Jobs 	= require("../models/jobs");
-var Users 	= require("../models/users");
+var Users = require("../models/users");
+var Jobs = require("../models/jobs");
 
 module.exports = {
 
@@ -34,11 +34,11 @@ module.exports = {
 		},
 		handler: function (request, reply) {
 
-			console.log(request.auth.credentials);
+			var profile = request.auth.credentials;
 
 			if (request.auth.isAuthenticated) {
-				Jobs.getAllJobs(function(err, data) {
-					reply.view("dashboard", {jobs: data});
+				Jobs.getAllJobs(function (err, data) {
+					reply.view("dashboard", { jobs: data, profile: profile });
 				});
 			}
 			else {
@@ -53,10 +53,10 @@ module.exports = {
 		},
 		handler: function (request, reply) {
 
-			var myid = request.auth.credentials.id;
+			var id = request.auth.credentials.id;
 
 			Users.getAllUsers(function(err, data) {
-				reply.view("users", {users: data, myid: myid});
+				reply.view("users", { users: data, myid: id });
 			});
 		}
 	},
