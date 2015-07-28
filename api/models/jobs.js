@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-var Job = require("./schema").Job;
+var Job = require("./schema").job;
 
-function newjob (data, callback) {
+var newJob = function (data, callback) {
 
 	var newJob = new Job(data);
 
@@ -15,9 +14,9 @@ function newjob (data, callback) {
 		}
 
 	});
-}
+};
 
-function getAllJobs (callback) {
+var getAllJobs = function (callback) {
 	
 	Job.find(function (err, data) {
 		if (err) {
@@ -26,9 +25,9 @@ function getAllJobs (callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
 module.exports = {
-	newjob : newjob,
+	newJob : newJob,
 	getAllJobs : getAllJobs
 };

@@ -1,11 +1,10 @@
-var mongoose = require("mongoose");
-var User = require("./schema").User;
+var User = require("./schema").user;
 
-function addUser(data, callback) {
+var addUser = function (data, callback) {
 
 	var newUser = new User(data);
 
-	User.create(newUser, function(err, data) {
+	User.create(newUser, function (err, data) {
 
 		if (err) {
 			return callback(err, null);
@@ -14,13 +13,13 @@ function addUser(data, callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
-function getUser(data, callback) {
+var findUser = function (data, callback) {
 
-	var query = {"id": data};
+	var query = { "id": data };
 
-	User.findOne(query, function(err, data) {
+	User.findOne(query, function (err, data) {
 
 		if (err) {
 			return callback(err);
@@ -29,13 +28,13 @@ function getUser(data, callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
-function updateUser(data, update, callback){
+var updateUser = function (data, update, callback){
  	
-	var query = {"id": data};
+	var query = { "id": data };
 
-	User.findOneAndUpdate(query, update, function(err, data) {
+	User.findOneAndUpdate(query, update, function (err, data) {
 
 		if (err) {
 			return callback(err);
@@ -44,9 +43,9 @@ function updateUser(data, update, callback){
 			return callback(null, data);
 		}
 	});
-}
+};
 
-function getAllUsers (callback) {
+var getAllUsers = function (callback) {
 	
 	User.find(function (err, data) {
 		
@@ -56,11 +55,11 @@ function getAllUsers (callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
 module.exports = {
 	addUser: addUser,
-	getUser: getUser,
+	findUser: findUser,
 	updateUser: updateUser,
 	getAllUsers: getAllUsers
 };
