@@ -1,11 +1,10 @@
-var pmongoose = require("mongoose");
-var Photo = require("./schema").Photo;
+var Photo = require("./schema").photo;
 
-function newGallery(data, callback) {
+var newGallery = function (data, callback) {
 
 	var newPhoto = new Photo(data);
 
-	Photo.create(newPhoto, function(err, data) {
+	Photo.create(newPhoto, function (err, data) {
 
 		if (err) {
 			return callback(err, null);
@@ -15,13 +14,13 @@ function newGallery(data, callback) {
 		}
 
 	});
-}
+};
 
-function findGallery(data, callback) {
+var findGallery = function (data, callback) {
 
-	var query = {"user": data};
+	var query = { "user": data };
 
-	Photo.findOne(query, function(err, data) {
+	Photo.findOne(query, function (err, data) {
 
 		if (err) {
 			return callback(err, null);
@@ -30,13 +29,13 @@ function findGallery(data, callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
-function newPhoto(id, update, callback) {
+var newPhoto = function (id, update, callback) {
 
-	var query = {"user": id};
+	var query = { "user": id };
 
-	Photo.findOneAndUpdate(query, update, function(err, data) {
+	Photo.findOneAndUpdate(query, update, function (err, data) {
 
 		if (err) {
 			return callback(err, null);
@@ -45,15 +44,15 @@ function newPhoto(id, update, callback) {
 			return callback(null, data);
 		}
 	});	
-}
+};
 
 
-function deleteURL(id, url, callback) {
+var deletePhoto = function (id, url, callback) {
 
-	var query = {"user": id};
-	var remove = { $pull: {"photos": {"url": url}}};
+	var query = { "user": id };
+	var remove = { $pull: { "photos": { "url": url } } };
 
-	Photo.findOneAndUpdate(query, remove, function(err, data) {
+	Photo.findOneAndUpdate(query, remove, function (err, data) {
 
 		if (err) {
 			return callback(err, null);
@@ -62,11 +61,11 @@ function deleteURL(id, url, callback) {
 			return callback(null, data);
 		}
 	});
-}
+};
 
 module.exports = {
 	newGallery: newGallery,
 	findGallery: findGallery,
 	newPhoto: newPhoto,
-	deleteURL: deleteURL
+	deletePhoto: deletePhoto
 };

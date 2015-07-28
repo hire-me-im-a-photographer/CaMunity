@@ -4,7 +4,7 @@ var Jobs 	= require("../models/jobs");
 var Users 	= require("../models/users");
 var Chat  	= require("../models/chat");
 var Photos 	= require("../models/photos");
-var Aws 	= require('aws-sdk');
+var Aws 	= require("aws-sdk");
 
 module.exports = {
 
@@ -22,7 +22,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			
 			if(request.auth.isAuthenticated) {
 				reply.redirect("/dashboard");
@@ -36,7 +36,7 @@ module.exports = {
 			auth: {
 				mode: "optional"
 			},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 				reply.view("signupSocial");
 		}
 	},
@@ -45,9 +45,11 @@ module.exports = {
 		auth: {
 			strategy: "facebook"
 			},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var fb = request.auth.credentials.profile;
+
+			var d = new Date();
 
 			var profile = {
 				auth: "Facebook",
@@ -58,15 +60,16 @@ module.exports = {
 				lastName: fb.name.last,
 				email: fb.email,
 				link: fb.raw.link,
-				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
+				picture: ("https://graph.facebook.com/" + fb.id + "/picture?width=300&height=300"),
 				gender: fb.raw.gender,
+				dateJoined: d.toUTCString(),
 				website: "",
 				usertype: "nouser",
 				talkingTo: "noone"
 			};
 
 			//Find user if exist, add user if they are a new user
-			Users.getUser(fb.id, function(err, data) {
+			Users.findUser(fb.id, function(err, data) {
 
 				console.log("Checking if user exists");
 				
@@ -94,6 +97,7 @@ module.exports = {
 						link: data.link,
 						picture: data.picture,
 						gender: data.gender,
+						dateJoined: data.dateJoined,
 						website: data.website,
 						usertype: data.usertype,
 						talkingTo: "noone"
@@ -112,10 +116,11 @@ module.exports = {
 		auth: {
 			strategy: "google"
 			},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var g = request.auth.credentials.profile;
 
+			var d = new Date();
 			//Setup session with no usertype default
 			var profile = {
 				auth: "Google",
@@ -128,13 +133,16 @@ module.exports = {
 				link: g.raw.link,
 				picture: g.raw.picture,
 				gender: g.raw.gender,
+				dateJoined: d.toUTCString(),
 				website: "",
 				usertype: "nouser",
 				talkingTo: "noone"
 			};
 
+			console.log(d, d.toUTCString());
+
 			//Find user if exist, add user if they are a new user
-			Users.getUser(g.id, function(err, data) {
+			Users.findUser(g.id, function(err, data) {
 
 				console.log("Checking if user exists");
 
@@ -160,6 +168,7 @@ module.exports = {
 						link: data.link,
 						picture: data.picture,
 						gender: data.gender,
+						dateJoined: data.dateJoined,
 						website: data.website,
 						usertype: data.usertype,
 						talkingTo: "noone"
@@ -179,7 +188,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			if(request.auth.isAuthenticated) {
 				reply.view("signupIam");
 			} else {
@@ -192,7 +201,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			//Set usertype session and update to database
 			request.auth.session.set("usertype", "photographer");
@@ -209,7 +218,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			//Set usertype session and update to database
 			request.auth.session.set("usertype", "client");
@@ -226,7 +235,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			console.log(request.auth.credentials);
 
@@ -245,7 +254,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			if(request.auth.isAuthenticated) {
 				var profile = request.auth.credentials;
@@ -275,7 +284,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			var profile = request.auth.credentials;
 			reply.view("profileEdit", {profile: profile});
 		}
@@ -285,7 +294,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var profile = request.auth.credentials;
 			var update = request.payload;
@@ -307,7 +316,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			var id = request.auth.credentials.id;
 
 			//Big mess to get url from input
@@ -332,7 +341,7 @@ module.exports = {
 			  	}
 			});
 
-			Photos.deleteURL(id, url, function(err, data) {
+			Photos.deletePhoto(id, url, function(err, data) {
 				reply.redirect("/profile");
 			});
 		}
@@ -342,7 +351,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			if(request.auth.isAuthenticated) {
 				reply.view("newJob");
@@ -356,14 +365,14 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			if(request.auth.isAuthenticated) {
 
-			var user_id = request.auth.credentials.id;
+			var id = request.auth.credentials.id;
 
 			var new_job = {
-				user: user_id,
+				user: id,
 				dateAdded: new Date(),
 				postingAs: request.payload.postingAs,
 				eventName: request.payload.eventName,
@@ -391,7 +400,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			reply.view("upload");
 		}
 	},
@@ -400,29 +409,31 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
+			var id = request.auth.credentials.id;
 			var randomKey = Math.floor((Math.random() * 1000) + 1);
+
 			//S3 setup
 			Aws.config.update({accessKeyId: Config.s3.key, secretAccessKey: Config.s3.secret});
 			var s3 = new Aws.S3();
 			var s3_params = {
 			    Bucket: Config.s3.bucket,
-			    Key: request.auth.credentials.id + "/" + randomKey + "_" + request.query.file_name,
+			    Key: id + "/" + randomKey + "_" + request.query.file_name,
 			    Expires: 60,
 			    ContentType: request.query.file_type,
 			    ACL: Config.s3.acl
 			};
 			// request.query.file_type (type of file you want to upload)
 
-			s3.getSignedUrl('putObject', s3_params, function(err, data){
+			s3.getSignedUrl("putObject", s3_params, function(err, data){
 			    if(err){
 			        console.log(err);
 			    }
 			    else{
 			        var return_data = {
 			            signed_request: data,
-			            url: 'https://'+Config.s3.bucket+'.s3.amazonaws.com/'+request.auth.credentials.id+'/'+ randomKey + "_" + request.query.file_name,
+			            url: "https://" + Config.s3.bucket + ".s3.amazonaws.com/" + id + "/" + randomKey + "_" + request.query.file_name,
 			        };
 			        reply(JSON.stringify(return_data));
 			    }
@@ -434,12 +445,12 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var id = request.auth.credentials.id;
 			var url = request.payload.photo_url;
 
-			var file = url.split('/').slice(4)[0];
+			var file = url.split("/").slice(4)[0];
 			var name = file.split(".")[0];
 			var ext = file.split(".")[1];
 
@@ -472,7 +483,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var myid = request.auth.credentials.id;
 
@@ -486,7 +497,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var profile = request.auth.credentials;
 			var myid = profile.id;
@@ -518,7 +529,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			var profile = request.auth.credentials;
 			var myid = profile.id;
 			var chatWith = profile.talkingTo;
@@ -526,7 +537,7 @@ module.exports = {
 			Chat.findChat(myid, chatWith, function(err, data) {
 				console.log(data[0]);
 
-				Users.getUser(chatWith, function(err, result){
+				Users.findUser(chatWith, function(err, result){
 					console.log(result);
 					reply.view("chat", {data: data[0], profile: profile, talkingTo: result});
 				});
@@ -539,7 +550,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 
 			var profile = request.auth.credentials;
 			var myid = profile.id;
@@ -562,7 +573,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			reply("Help");
 		}
 	},
@@ -571,7 +582,7 @@ module.exports = {
 		auth: {
 			mode: "optional"
 		},
-		handler: function(request, reply) {
+		handler: function (request, reply) {
 			request.auth.session.clear();
 			reply.redirect("/");
 		}

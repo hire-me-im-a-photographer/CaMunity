@@ -2,7 +2,7 @@ var Hapi = require("hapi");
 var Bell = require("bell");
 var Cookie = require("hapi-auth-cookie");
 var Path = require("path");
-
+var Jade = require("jade");
 var Routes = require('./routes/routes');
 var Config = require('./config');
 
@@ -16,14 +16,13 @@ var server = new Hapi.Server({
 	}
 });
 
-//Number for heroku
 server.connection({
 	port: Number(process.env.PORT) || 8080
 });
 
 server.views({
 	engines: {
-		jade: require("jade")
+		jade: Jade
 	},
 	relativeTo: __dirname,
 	path: "./views"

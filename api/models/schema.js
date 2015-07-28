@@ -1,6 +1,7 @@
-var mongoose = require("mongoose");
+var Mongoose = require("mongoose");
+var Schema = Mongoose.Schema;
 
-var userSchema = new mongoose.Schema({
+var userSchema = new Schema({
 	auth: String,
 	id: String,
 	username: String,
@@ -11,13 +12,14 @@ var userSchema = new mongoose.Schema({
 	link: String,
 	picture: String,
 	gender: String,
+	dateJoined: String,
 	website: String,
 	usertype: String,
 	photos: Array,
 	workedWith: Array
 });
 
-var jobSchema = new mongoose.Schema({
+var jobSchema = new Schema({
 	user: String,
 	dateAdded: Date,
 	postingAs: String,
@@ -31,26 +33,27 @@ var jobSchema = new mongoose.Schema({
 	noOfPhotographers: String
 });
 
-var chatSchema = new mongoose.Schema({
+var chatSchema = new Schema({
 	firstUser: String,
 	secondUser: String,
 	users: Array,
 	chat: Array
 });
 
-var photoSchema = new mongoose.Schema({
+var photoSchema = new Schema({
 	user: String,
 	photos: Array
 });
 
-var User = mongoose.model('user', userSchema, 'user');
-var Job = mongoose.model('job', jobSchema, 'job');
-var Chat = mongoose.model('chat', chatSchema, 'chat');
-var Photo = mongoose.model('photo', photoSchema, 'photo');
+
+var user = Mongoose.model('user', userSchema, 'user');
+var job = Mongoose.model('job', jobSchema, 'job');
+var chat = Mongoose.model('chat', chatSchema, 'chat');
+var photo = Mongoose.model('photo', photoSchema, 'photo');
 
 module.exports = {
-	User : User,
-	Job : Job,
-	Chat : Chat,
-	Photo : Photo
+	user : user,
+	job : job,
+	chat : chat,
+	photo : photo
 };
