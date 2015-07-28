@@ -1,0 +1,27 @@
+extend layouts/default
+
+block content
+
+	.container-fluid   
+		include includes/navbar
+		.container
+			.col-md-12
+				h1.profile Profile
+				br
+			.col-md-6.details
+				p First Name: #{profile.firstName}
+				p Last Name: #{profile.lastName}
+				p Email: #{profile.email}
+				p Website: 
+					a(href="#{profile.website}") #{profile.website}
+			.col-md-6.profilepicture 
+				img(src="#{profile.picture}" height="200" width="200")
+			.col-md-12
+				h3 Photo Gallery
+				br
+				if photos
+					each photo in photos
+						.photos.col-md-4
+							img(src="#{photo.url}" class="photo_img")
+							h5.photo-title #{photo.title}
+							br

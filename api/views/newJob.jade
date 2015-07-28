@@ -45,13 +45,30 @@ block content
 					label.checkbox-inline
 						input(type="checkbox" value="Website" name="useOfPhotos")
 						|Website
+
 			.form-group.two
-				label.control-label.col-sm-2(for="watermarking") Watermarking (Optionial):
+				label.control-label.col-sm-2(for="watermark") Watermarking (Optional):
 				.col-sm-10
-					.watermark Upload a .PNG hi-res copy of your logo
-					button.btn.btn-primary(type="submit") Upload
-					.watermark Prefered watermark location
-					.box
+					.col-md-6
+						input(type="file" id="file_input")
+						p(id="status") Upload a .PNG hi-res copy of your logo
+						input(type="hidden" id="watermark" name="watermark")
+					.col-md-6
+						img(id="preview" src="")
+					.col-md-12
+					label.checkbox-inline
+						input(type="checkbox" value="top-left" name="watermark")
+						|top left
+					label.checkbox-inline
+						input(type="checkbox" value="top-right" name="watermark")
+						|top right
+					label.checkbox-inline
+						input(type="checkbox" value="bottom-left" name="watermark")
+						|bottom left
+					label.checkbox-inline
+						input(type="checkbox" value="bottom-right" name="watermark")
+						|bottom-right
+
 			.form-group.two
 				label.control-label.col-sm-2(for="dateRequired") Date of photos required:
 				.col-sm-10
@@ -71,3 +88,4 @@ block content
 						option(value='4+') 4 or more
 			.form-group.two
 				input.btn.btn-primary(type="submit", value="Submit")
+	include includes/watermark

@@ -1,7 +1,7 @@
 var Config = require("../config");
-var Aws = require("aws-sdk");
 var Photos = require("../models/photos");
-var Users= require("../models/users");
+var Users = require("../models/users");
+var Aws = require("aws-sdk");
 
 module.exports = {
 
@@ -27,10 +27,56 @@ module.exports = {
 						});					
 					}
 				});
+
 			}
 			else {
 				reply.redirect("/");
 			}
+		}
+	},
+
+	publicView: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+
+			var id = request.params.id;
+			var profile;
+
+			Users.findUser(id, function (err, data) {
+
+				if (data === null) {
+					reply.redirect("/");
+				}
+				else {
+					profile = data;
+
+					Photos.findGallery(profile.id, function(err, data){
+
+						if (data === null) {
+							reply.view("publicProfile", { profile: profile });
+						}
+						else {
+							var photos = data.photos;
+							reply.view("publicProfile", {
+								profile: profile, 
+								photos: photos
+							});					
+						}
+					});
+				}
+			});
+		}
+	},
+
+	publicPost: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			var viewing = Object.keys(request.payload)[0];
+			reply.redirect("/profile/" + viewing);
 		}
 	},
 

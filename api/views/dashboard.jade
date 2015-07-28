@@ -6,16 +6,17 @@ block content
 		include includes/navbar
 		.row
 			.left-dashboard.col-md-2
-				a.btn.btn-primary(href="/newjob") Post Job
-				.past
-					h4 Past Photographers
+				if profile.usertype == "client"
+					a.btn.btn-primary(href="/newjob") Post Job
+					.past
+						h4 Past Photographers
 				.myfriends
 					h4 Friends
 				.mygroups
 					h4 Groups
 			.main-dashboard.col-md-7
 				.myjobs 
-					h2 My Jobs
+					h2 Jobs available
 					if jobs
 						each job in jobs
 							li Date added: #{job.dateAdded}

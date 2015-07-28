@@ -10,7 +10,10 @@ block content
 				each user in users
 					li #{user.firstName} #{user.lastName}
 					li #{user.usertype}
-					form(role="form" action="/chat2/{user*}" method="POST")
+					form(role="form" action="/chat2/{id*}" method="POST")
 						if user.id !== myid
 							input.btn.btn-default(type="submit" name="#{user.id}" value="Chat with #{user.firstName}")
-						hr
+					form(role="form" action="/profile/{id*}" method="POST")
+						if user.id !== myid
+						input.btn.btn-default(type="submit" name="#{user.id}" value="See #{user.firstName}'s profile")
+					hr

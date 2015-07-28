@@ -1,8 +1,8 @@
 var Controller = require("../controllers/controller.js");
-var Login = require("../controllers/login");
 var Profile = require("../controllers/profile");
-var Chat = require("../controllers/chat");
 var Upload = require("../controllers/upload");
+var Login = require("../controllers/login");
+var Chat = require("../controllers/chat");
 var Job = require("../controllers/job");
 
 module.exports = [
@@ -22,15 +22,18 @@ module.exports = [
 	{ path: "/photographer", 	method: "POST", 			config: Login.photographer },
 
 	{ path: "/profile", 		method: "GET", 				config: Profile.view },
+	{ path: "/profile/{id*}", 	method: "GET", 				config: Profile.publicView },
+	{ path: "/profile/{id*}", 	method: "POST", 			config: Profile.publicPost },
 	{ path: "/profile/edit", 	method: "GET", 				config: Profile.edit },	
 	{ path: "/profile/edit", 	method: "POST", 			config: Profile.post },	
 	{ path: "/photo/delete", 	method: "POST", 			config: Profile.deletePhoto },	
 
 	{ path: "/upload", 			method: "GET", 				config: Upload.view },
 	{ path: "/sign_s3", 		method: "GET", 				config: Upload.signS3 },
+	{ path: "/watermark", 		method: "GET", 				config: Upload.watermark },
 	{ path: "/submit_form", 	method: "POST", 			config: Upload.submit },
 
-	{ path: "/chat2/{user*}", 	method: "POST", 			config: Chat.recipient },
+	{ path: "/chat2/{id*}", 	method: "POST", 			config: Chat.recipient },
 	{ path: "/chat/{id*}", 		method: "GET", 				config: Chat.view},
 	{ path: "/chat/{id*}", 		method: "POST", 			config: Chat.submit },
 
