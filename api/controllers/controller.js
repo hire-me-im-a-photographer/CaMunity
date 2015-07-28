@@ -49,7 +49,21 @@ module.exports = {
 
 			var fb = request.auth.credentials.profile;
 
-			var profile;
+			var profile = {
+				auth: "Facebook",
+				id: fb.id,
+				username: fb.username,
+				displayName: fb.displayName,
+				firstName: fb.name.first,
+				lastName: fb.name.last,
+				email: fb.email,
+				link: fb.raw.link,
+				picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
+				gender: fb.raw.gender,
+				website: "",
+				usertype: "nouser",
+				talkingTo: "noone"
+			};
 
 			//Find user if exist, add user if they are a new user
 			Users.getUser(fb.id, function(err, data) {
@@ -59,22 +73,6 @@ module.exports = {
 				if(data === null) {
 
 					Users.addUser(profile, function(err, data){
-
-						profile = {
-							auth: "Facebook",
-							id: fb.id,
-							username: fb.username,
-							displayName: fb.displayName,
-							firstName: fb.name.first,
-							lastName: fb.name.last,
-							email: fb.email,
-							link: fb.raw.link,
-							picture: ('https://graph.facebook.com/' + fb.id + '/picture?width=300&height=300'),
-							gender: fb.raw.gender,
-							website: "",
-							usertype: "nouser",
-							talkingTo: "noone"
-						};
 
 						request.auth.session.set(profile);
 						console.log("User added to database");
@@ -119,7 +117,21 @@ module.exports = {
 			var g = request.auth.credentials.profile;
 
 			//Setup session with no usertype default
-			var profile;
+			var profile = {
+				auth: "Google",
+				id: g.id,
+				username: g.username,
+				displayName: g.displayName,
+				firstName: g.name.first,
+				lastName: g.name.last,
+				email: g.email,
+				link: g.raw.link,
+				picture: g.raw.picture,
+				gender: g.raw.gender,
+				website: "",
+				usertype: "nouser",
+				talkingTo: "noone"
+			};
 
 			//Find user if exist, add user if they are a new user
 			Users.getUser(g.id, function(err, data) {
@@ -129,22 +141,6 @@ module.exports = {
 				if(data === null) {
 
 					Users.addUser(profile, function(err, data){
-
-						profile = {
-							auth: "Google",
-							id: g.id,
-							username: g.username,
-							displayName: g.displayName,
-							firstName: g.name.first,
-							lastName: g.name.last,
-							email: g.email,
-							link: g.raw.link,
-							picture: g.raw.picture,
-							gender: g.raw.gender,
-							website: "",
-							usertype: "nouser",
-							talkingTo: "noone"
-						};
 
 						request.auth.session.set(profile);
 						console.log("User added to database");
