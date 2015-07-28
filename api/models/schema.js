@@ -29,6 +29,7 @@ var jobSchema = new Schema({
 	location: String,
 	description: String,
 	useOfPhotos: Array,
+	watermark: Array,
 	dateRequired: String,
 	noOfPhotographers: String
 });
