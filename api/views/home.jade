@@ -2,11 +2,10 @@ extend layouts/default
 
 block content
 
-	.container
-		.row.navbar
-			.navbar.navbar-default
-				.container-fluid
-
+	.container-fluid
+		.row
+			.navbar.navbar-default.homepage
+				.container
 					.navbar-header
 						button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#target")
 							span.sr-only Toggle navigation
@@ -23,21 +22,19 @@ block content
 							li
 								a(href="signup/social") Sign Up
 							li
-								a(href="signup/social") Login
-							li
 								a(href="help") Help
 							li
-								a(href="/logout") Log out
+								a(href="signup/social") Login 
 
-	.jumbotron
+	.jumbotron.one
 		.container
 			h1 Section a
 			p Photo + Post a Job
-	.jumbotron
+	.jumbotron.two
 		.container
 			h1 Section b
 			p How it works
-	.jumbotron
+	.jumbotron.three
 		.container
 			h1 Section c
 			p Why use CaMunity
