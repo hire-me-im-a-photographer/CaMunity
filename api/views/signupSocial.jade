@@ -2,22 +2,15 @@ extend layouts/default
 
 block content
 
-	.container
-		.col-sm-6.col-md-4.col-md-offset-4
-			.account-wall
-				h1.text-center.CaMunity CaMunity
+	.homepage-img
+		.container-fluid
+			.col-sm-6.col-md-4.col-md-offset-4
+				.account-wall
+					h1.text-center.CaMunity CaMunity
 
-				p.text-center Sign in with Facebook or Google
+					p.text-center Sign in with Facebook or Google
 
-				form(action=("/facebook"), method="GET")
-					input.btn-facebook.btn-lg.raised(type="submit", value="Facebook")
-				form(action="/google", method="GET")
-					input.btn.btn-google.btn-lg.raised(type="submit", value="Google")
-
-				//- p.text-center or
-				//- p.text-center Login in or sign up with email
-
-				//- form(action="/login/email", method="GET")
-				//- 	input.btn.btn-primary.btn-lg.raised(type="submit", value="Log in")
-				//- form(action="/signup/password", method="GET")
-				//- 	input.btn.btn-primary.btn-lg.raised(type="submit", value="Sign up")
+					form(action=("/facebook"), method="GET")
+						input.btn-facebook.btn-lg.raised(type="submit", value="Facebook")
+					form(action="/google", method="GET")
+						input.btn.btn-google.btn-lg.raised(type="submit", value="Google")

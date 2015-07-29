@@ -16,7 +16,8 @@ var userSchema = new Schema({
 	website: String,
 	usertype: String,
 	photos: Array,
-	workedWith: Array
+	workedWith: Array,
+	jobOffers: Array
 });
 
 var jobSchema = new Schema({
@@ -31,7 +32,8 @@ var jobSchema = new Schema({
 	useOfPhotos: Array,
 	watermark: Array,
 	dateRequired: String,
-	noOfPhotographers: String
+	noOfPhotographers: String,
+	applications: Array,
 });
 
 var chatSchema = new Schema({

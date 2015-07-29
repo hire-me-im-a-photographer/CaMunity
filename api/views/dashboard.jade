@@ -2,34 +2,44 @@ extend layouts/default
 
 block content
 
-	.container-fluid   
+	.container-fluid
 		include includes/navbar
-		.row
-			.left-dashboard.col-md-2
-				if profile.usertype == "client"
-					a.btn.btn-primary(href="/newjob") Post Job
-					.past
-						h4 Past Photographers
-				.myfriends
-					h4 Friends
-				.mygroups
-					h4 Groups
-			.main-dashboard.col-md-7
-				.myjobs 
-					h2 Jobs available
-					if jobs
-						each job in jobs
-							li Date added: #{job.dateAdded}
-							li Posting as: #{job.postingAs}
-							li Event name: #{job.eventName}
-							li Date start: #{job.dateTime}							
-							li Job duration: #{job.jobDuration}
-							li Location: #{job.location}
-							li Job description: #{job.description}
-							li Use of photos: #{job.useOfPhotos[0]} #{job.useOfPhotos[1]} #{job.useOfPhotos[2]}
-							li Date required: #{job.dateRequired}
-							li Number of Photographers needed: #{job.noOfPhotographers}
-							hr
-			.right-dashboard.col-md-3
-				.mynotif
-					h3 Notifications
+		.container
+			.row
+				.left-dashboard.col-md-2
+					.myfriends
+						h3 Friends
+					.mygroups
+						h3 Groups
+					if profile.usertype == "client"
+						.past
+							h3 Past Photographers
+						a.btn.btn-primary(href="/newjob") Post Job
+				.main-dashboard.col-md-7
+					if profile.usertype == "photographer"
+					.myjobs
+						h3 Jobs available
+						if jobs
+							each job in jobs
+								.col-md-6
+									li Date added: #{job.dateAdded}
+									li Posting as: #{job.postingAs}
+									li Event name: #{job.eventName}
+									li Date start: #{job.dateTime}							
+									li Job duration: #{job.jobDuration}
+									li Location: #{job.location}
+									li Job description: #{job.description}
+									li Use of photos: #{job.useOfPhotos[0]} #{job.useOfPhotos[1]} #{job.useOfPhotos[2]}
+									li Date required: #{job.dateRequired}
+									li Number of Photographers needed: #{job.noOfPhotographers}
+								if status === "No"
+									.col-md-6
+										form(method="POST" action="/job/apply")
+											input(type="submit" name="#{job._id}" value="Apply")
+								else if status === "Yes"
+									.col-md-6
+										p You have applied for this job.
+										
+				.right-dashboard.col-md-3
+					.mynotif
+						h3 Notifications

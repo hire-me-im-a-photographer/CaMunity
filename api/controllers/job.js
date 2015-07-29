@@ -2,7 +2,7 @@ var Jobs = require("../models/jobs");
 
 module.exports = {
 
-	view: {
+	newForm: {
 		auth: {
 			mode: "optional"
 		},
@@ -59,6 +59,19 @@ module.exports = {
 				reply.redirect("/");
 			}
 
+		}
+	},
+	apply: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			var job = Object.keys(request.payload)[0];
+			var id = request.auth.credentials.id;
+
+			Jobs.applyJob(job, id, function (err, data) {
+				reply.redirect("/dashboard");
+			});
 		}
 	},
 };

@@ -16,6 +16,21 @@ var newJob = function (data, callback) {
 	});
 };
 
+var findJob = function (data, callback) {
+
+	var query = { "_id": data };
+
+	Job.findOne(query, function (err, data) {
+
+		if (err) {
+			return callback(err);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+};
+
 var getAllJobs = function (callback) {
 	
 	Job.find(function (err, data) {
@@ -27,7 +42,24 @@ var getAllJobs = function (callback) {
 	});
 };
 
+var applyJob = function (data, id, callback){
+
+	var query = {"_id": data};
+	var update = { $push: { "applications": id } };
+
+	Job.findOneAndUpdate(query, update, function (err, data) {
+		if (err) {
+			return callback(err);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+};
+
 module.exports = {
-	newJob : newJob,
-	getAllJobs : getAllJobs
+	newJob: newJob,
+	findJob: findJob,
+	getAllJobs: getAllJobs,
+	applyJob: applyJob
 };

@@ -6,79 +6,35 @@
   background-size: cover;
 }*/
 
-.homepage-img {
-  background: url(../media/background.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position:fixed;
-  top:0px;
-  bottom:0px;
-  left:0px;
-  right:0px;
+#hompage-img {
+    background: url(../media/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 0.5;
 }
 
 /*Generic*/
 
-body {
-  background-color: #f8f8f8;
-  height: 100%;
-}
-
 h1.CaMunity {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .center {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/*Homepage*/
-
-.navbar.navbar-default.homepage {
-  margin-bottom: 0px;
-}
-
-.navbar-default.homepage {
-  background-color: #f8f8f8;
-  border: none;
-}
-
-.jumbotron.one {
-  background-color: #f8f8f8;
-}
-
-.jumbotron.two {
-  background-color: white;
-}
-
-.jumbotron.three {
-  background-color: #f8f8f8;
-}
-
-.jumbotron.four {
-  background-color: #f8f8f8;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*Navbar*/
 
-.navbar {
-  border: none;
-}
-
 .navbar-default {
-  background-color: white;
-  border-bottom: 1px solid;
-  border-color: #cfd2d3;
 }
 
-@media (min-width: 768px) {
-  .navbar {
+@media (min-width: 768px)
+.navbar {
     border-radius: 0px;
-  }
 }
 
 /*.navbar {
