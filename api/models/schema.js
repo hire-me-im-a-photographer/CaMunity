@@ -16,12 +16,12 @@ var userSchema = new Schema({
 	website: String,
 	usertype: String,
 	photos: Array,
-	workedWith: Array,
-	jobOffers: Array
+	jobOffers: Array,
+	workedWith: Array
 });
 
 var jobSchema = new Schema({
-	user: String,
+	client: String,
 	dateAdded: Date,
 	postingAs: String,
 	eventName: String,
@@ -34,11 +34,11 @@ var jobSchema = new Schema({
 	dateRequired: String,
 	noOfPhotographers: String,
 	applications: Array,
+	photographers: Array,
+	status: String
 });
 
 var chatSchema = new Schema({
-	firstUser: String,
-	secondUser: String,
 	users: Array,
 	chat: Array
 });
