@@ -40,13 +40,12 @@ module.exports = {
 
 				if (profile.usertype === "client") {
 					Jobs.getMyJob(profile.id, function (err, data) {
-						console.log("client, ", data);
-						reply.view("dashboard", { jobs: data, profile: profile });
+						reply.view("c-dashboard", { jobs: data, profile: profile });
 					});
 				}
 				else {
 					Jobs.getAllJobs(function (err, data) {
-						reply.view("dashboard", { jobs: data, profile: profile });
+						reply.view("p-dashboard", { jobs: data, profile: profile });
 					});
 				}
 			}
