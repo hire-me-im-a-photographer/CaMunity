@@ -9,7 +9,7 @@ module.exports = {
 		handler: function (request, reply) {
 
 			var job = request.params.id;
-			var id = request.auth.credentials.id;
+			var profile = request.auth.credentials;
 
 			if (request.auth.isAuthenticated) {
 				Jobs.findJob(job, function (err, data) {
@@ -17,13 +17,14 @@ module.exports = {
 					var a = data.applications;
 					var status;
 					
-					if(a.indexOf(id) === -1) {
+					if(a.indexOf(profile.id) === -1) {
 						status = "no";
 					}
 					else {
 						status = "yes";
 					}
-					reply.view("eachJob", { job: data, status: status });
+					console.log(profile);
+					reply.view("eachJob", { job: data, status: status, profile: profile });
 				});
 			}
 			else {
