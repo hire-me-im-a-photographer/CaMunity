@@ -31,6 +31,21 @@ var findJob = function (data, callback) {
 	});
 };
 
+var getMyJob = function (data, callback) {
+
+	var query = { "user": data };
+
+	Job.find(query, function (err, data) {
+
+		if (err) {
+			return callback(err);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+};
+
 var getAllJobs = function (callback) {
 	
 	Job.find(function (err, data) {
@@ -60,6 +75,7 @@ var applyJob = function (data, id, callback){
 module.exports = {
 	newJob: newJob,
 	findJob: findJob,
+	getMyJob: getMyJob,
 	getAllJobs: getAllJobs,
 	applyJob: applyJob
 };
