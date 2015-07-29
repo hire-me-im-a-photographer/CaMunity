@@ -7,26 +7,47 @@ block content
 		.container
 			.row
 				.left-dashboard.col-md-2
+					.postjob
+						a.btn.btn-primary(href="/newjob") Post Job
 					.myfriends
 						h3 Friends
 					.mygroups
 						h3 Groups
-					if profile.usertype == "client"
-						.past
-							h3 Past Photographers
-						a.btn.btn-primary(href="/newjob") Post Job
+					.past
+						h3 Past Photographers
 						
-				.main-dashboard.col-md-7
+				.main-dashboard.col-md-8
 					.myjobs
-						h3 My jobs
-						if jobs
-							each job in jobs
-								.col-md-12
-									.panel.panel-warning
-										.panel-heading 
-											a.btn-btn-default(href="/job/" + job._id) Details
-										.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+						.col-md-12
+							h3.center Current jobs
+							if jobs
+								each job in jobs
+									if job.status === "current"
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/current/" + job._id) See the progress
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+						.col-md-12
+							hr
+							h3.center Jobs awaiting photographers
+							if jobs
+								each job in jobs
+									if job.status === "awaiting"
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/" + job._id) See the details
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+						.col-md-12
+							hr
+							h3.center Past jobs
+							if jobs
+								each job in jobs
+									if job.status === "completed"
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
 
-				.right-dashboard.col-md-3
+				.right-dashboard.col-md-2
 					.mynotif
 						h3 Notifications

@@ -6,6 +6,14 @@ block content
 		include includes/navbar
 		.container
 			.col-md-12
+				h1 Current job
+				.status
+					h3 Status
+					.progress
+						.progress-bar.progress-bar-striped.active(role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width:10%")
+							p Just started bro
+							
+			.col-md-12
 				h3 Job information
 				br
 				li Date added: #{job.dateAdded}
@@ -20,17 +28,13 @@ block content
 				li Number of Photographers needed: #{job.noOfPhotographers}
 				hr
 			.col-md-12
-				h3 Applicants
-				br
-				if job.applications
-					each p in applicants
-						.col-md-4
-							.picture
-								img(src="#{p.picture}" height="150" width="150")
-							.details
-								h5 #{p.firstName} #{p.lastName}
-							.accept
-								form(action="/job/accept" method="POST")
-									input.btn.btn-default(type="submit" name="#{p.id}" value="Accept application")
-							.profile
-								a(href="/profile/" + p.id) See profile
+				if p.usertype === "photographer"
+					h3 Photographer
+				else if p.usertype === "client"
+					h3 Client
+				.picture
+					img(src="#{p.picture}" height="150" width="150")
+				.details
+					h5 #{p.firstName} #{p.lastName}
+				.profile
+					a(href="/profile/" + p.id) See profile

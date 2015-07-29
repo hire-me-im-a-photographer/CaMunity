@@ -41,20 +41,27 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function (request, reply) {
-			var profile = request.auth.credentials;
-			var myid = profile.id;
-			var chatWith = request.params.id;
 
-			Chat.findChat(myid, chatWith, function (err, data) {
+			if (request.auth.isAuthenticated) {
 
-					Users.findUser(chatWith, function (err, result){
-						reply.view("chat", {
-							data: data[0],
-							profile: profile,
-							talkingTo: result
+				var profile = request.auth.credentials;
+				var myid = profile.id;
+				var chatWith = request.params.id;
+
+				Chat.findChat(myid, chatWith, function (err, data) {
+
+						Users.findUser(chatWith, function (err, result){
+							reply.view("chat", {
+								data: data[0],
+								profile: profile,
+								talkingTo: result
+							});
 						});
-					});
-			});
+				});
+			}
+			else {
+				reply.redirect("/");
+			}
 		}
 	},
 
