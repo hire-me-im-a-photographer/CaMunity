@@ -76,10 +76,29 @@ var applyJob = function (data, id, callback){
 	});
 };
 
+var startJob = function (data, id, callback){
+
+	var query = {"_id": data};
+	var update = {$push: {"photographers": id }};
+
+	Job.findOneAndUpdate(query, update, function (err, data) {
+		console.log(data);
+		console.log(update);
+		if (err) {
+			return callback(err);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+};
+
+
 module.exports = {
 	newJob: newJob,
 	findJob: findJob,
 	getMyJob: getMyJob,
 	getAllJobs: getAllJobs,
-	applyJob: applyJob
+	applyJob: applyJob,
+	startJob: startJob
 };
