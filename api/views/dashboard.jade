@@ -15,31 +15,30 @@ block content
 						.past
 							h3 Past Photographers
 						a.btn.btn-primary(href="/newjob") Post Job
+						
 				.main-dashboard.col-md-7
-					if profile.usertype == "photographer"
-					.myjobs
-						h3 Jobs available
-						if jobs
-							each job in jobs
-								.col-md-6
-									li Date added: #{job.dateAdded}
-									li Posting as: #{job.postingAs}
-									li Event name: #{job.eventName}
-									li Date start: #{job.dateTime}							
-									li Job duration: #{job.jobDuration}
-									li Location: #{job.location}
-									li Job description: #{job.description}
-									li Use of photos: #{job.useOfPhotos[0]} #{job.useOfPhotos[1]} #{job.useOfPhotos[2]}
-									li Date required: #{job.dateRequired}
-									li Number of Photographers needed: #{job.noOfPhotographers}
-								if status === "No"
-									.col-md-6
-										form(method="POST" action="/job/apply")
-											input(type="submit" name="#{job._id}" value="Apply")
-								else if status === "Yes"
-									.col-md-6
-										p You have applied for this job.
-										
+					if profile.usertype === "photographer"
+						.myjobs
+							h3 Jobs available
+							if jobs
+								each job in jobs
+									.col-md-12
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/" + job._id) Details
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+
+					else if profile.usertype === "client"
+						.myjobs
+							h3 My jobs
+							if jobs
+								each job in jobs
+									.col-md-12
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/" + job._id) Details
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+
 				.right-dashboard.col-md-3
 					.mynotif
 						h3 Notifications
