@@ -22,13 +22,29 @@ var findUser = function (data, callback) {
 	User.findOne(query, function (err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
 		}
 	});
 };
+
+var findApplicants = function (data, callback) {
+	
+	//Query an array, this took me forever to find...
+	User.find({"id": { $in: data}}, function (err, data) {
+
+		if (err) {
+			return callback(err, null);
+		}
+		else {
+			return callback(null, data);
+		}
+	});
+	
+};
+
 
 var updateUser = function (data, update, callback){
  	
@@ -37,7 +53,7 @@ var updateUser = function (data, update, callback){
 	User.findOneAndUpdate(query, update, function (err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
@@ -60,6 +76,7 @@ var getAllUsers = function (callback) {
 module.exports = {
 	addUser: addUser,
 	findUser: findUser,
+	findApplicants: findApplicants,
 	updateUser: updateUser,
 	getAllUsers: getAllUsers
 };
