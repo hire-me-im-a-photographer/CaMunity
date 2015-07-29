@@ -38,7 +38,30 @@ module.exports = {
 
 			if (request.auth.isAuthenticated) {
 				Jobs.getAllJobs(function (err, data) {
-					reply.view("dashboard", { jobs: data, profile: profile });
+
+					var status;
+					var applications = data[0].applications;
+					if (applications.length === 0) {
+						status = "No";
+					} else {
+						for (i=0; i<applications.length; ++i) {
+							if (applications[i] === profile.id) {
+								status = "Yes";
+							}
+							else if (applications.length === 0) {
+								status = "No";
+							}
+							else {
+								status = "No";
+							}
+						}
+					}
+					console.log(applications, status);
+					reply.view("dashboard", {
+						jobs: data,
+						profile: profile,
+						status: status
+					});
 				});
 			}
 			else {
