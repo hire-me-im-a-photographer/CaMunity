@@ -14,6 +14,9 @@ module.exports = {
 			var chatWith = Object.keys(request.payload)[0];
 			var users = { "users": [myid, chatWith] };
 
+			profile.talkingTo = chatWith;
+			request.auth.session.set(profile);
+
 			Chat.findChat(myid, chatWith, function (err, data) {
 
 				if (data.length === 0) {
@@ -44,10 +47,6 @@ module.exports = {
 
 			Chat.findChat(myid, chatWith, function (err, data) {
 
-				if (data.length === 0) {
-					reply.redirect("/");
-				}
-				else {
 					Users.findUser(chatWith, function (err, result){
 						reply.view("chat", {
 							data: data[0],
@@ -55,7 +54,6 @@ module.exports = {
 							talkingTo: result
 						});
 					});
-				}
 			});
 		}
 	},
@@ -79,7 +77,7 @@ module.exports = {
 			}}};
 
 			Chat.addChat(myid, chatWith, chat, function (err, data) {
-				reply.redirect("/chat/"+ profile.talkingTo);
+				reply.redirect("/chat/"+ chatWith);
 			});
 		}
 	}
