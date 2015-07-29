@@ -6,6 +6,8 @@ block content
 		include includes/navbar
 		.container
 			.col-md-12
+				h3 Job information
+				br
 				li Date added: #{job.dateAdded}
 				li Posting as: #{job.postingAs}
 				li Event name: #{job.eventName}
@@ -18,6 +20,8 @@ block content
 				li Number of Photographers needed: #{job.noOfPhotographers}
 				hr
 			.col-md-12
+				h3 Applicants
+				br
 				if job.applications
 					each p in applicants
 						.col-md-4

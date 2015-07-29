@@ -1,7 +1,7 @@
 extend layouts/default
 
 block content
-	
+
 	.container-fluid
 		include includes/navbar
 		.container
@@ -21,6 +21,6 @@ block content
 					.form-group
 						label.control-label.col-sm-2(for="website") Website:
 						.col-sm-4
-							input.form-control(name="website" type="text" value="#{profile.website}")
+							input.form-control(name="website" type="text" value="#{profile.website}" placeholder="Copy the full address from your address bar")
 					.form-group
 						input.btn.btn-primary(type="submit" value="Submit")

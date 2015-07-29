@@ -86,7 +86,7 @@ module.exports = {
 			var p = request.payload;
 
 			var new_job = {
-				user: id,
+				client: id,
 				dateAdded: d.toUTCString(),
 				postingAs: p.postingAs,
 				eventName: p.eventName,
@@ -103,8 +103,8 @@ module.exports = {
 				noOfPhotographers: p.noOfPhotographers
 
 			};
-
 			Jobs.newJob(new_job, function (err, data) {
+				console.log(new_job);
 				reply.redirect("/dashboard");
 			});
 

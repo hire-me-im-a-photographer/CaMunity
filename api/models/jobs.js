@@ -33,7 +33,8 @@ var findJob = function (data, callback) {
 
 var getMyJob = function (data, callback) {
 
-	var query = { "user": data };
+	var query = { "client": data };
+	console.log(data, query);
 
 	Job.find(query, function (err, data) {
 
