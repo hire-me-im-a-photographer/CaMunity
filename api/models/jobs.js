@@ -23,7 +23,7 @@ var findJob = function (data, callback) {
 	Job.findOne(query, function (err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
@@ -38,7 +38,7 @@ var getMyJob = function (data, callback) {
 	Job.find(query, function (err, data) {
 
 		if (err) {
-			return callback(err);
+			return callback(err, null);
 		}
 		else {
 			return callback(null, data);
@@ -49,9 +49,11 @@ var getMyJob = function (data, callback) {
 var getAllJobs = function (callback) {
 	
 	Job.find(function (err, data) {
+
 		if (err) {
 			return callback(err, null);
-		} else {
+		}
+		else {
 			return callback(null, data);
 		}
 	});
@@ -63,6 +65,7 @@ var applyJob = function (data, id, callback){
 	var update = { $push: { "applications": id } };
 
 	Job.findOneAndUpdate(query, update, function (err, data) {
+		
 		if (err) {
 			return callback(err);
 		}
