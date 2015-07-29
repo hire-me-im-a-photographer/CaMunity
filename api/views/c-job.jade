@@ -28,8 +28,9 @@ block content
 							.picture
 								img(src="#{p.picture}" height="150" width="150")
 							.details
-								p #{p.firstName} #{p.lastName}
+								h5 #{p.firstName} #{p.lastName}
 							.accept
-								a.btn.btn-default(href="#") Accept application
+								form(action="/job/accept" method="POST")
+									input.btn.btn-default(type="submit" name="#{p.id}" value="Accept application")
 							.profile
 								a(href="/profile/" + p.id) See profile

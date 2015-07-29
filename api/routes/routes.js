@@ -37,9 +37,11 @@ module.exports = [
 	{ path: "/chat/{id*}", 		method: "GET", 				config: Chat.view},
 	{ path: "/chat/{id*}", 		method: "POST", 			config: Chat.submit },
 
-	{ path: "/job/{id*}", 		method: "GET", 				config: Job.jobView },
+	{ path: "/job/{id*}", 		method: "GET", 				config: Job.viewJob },
 	{ path: "/newjob", 			method: "GET", 				config: Job.newForm },
 	{ path: "/newjob", 			method: "POST", 			config: Job.post },
-	{ path: "/job/apply", 		method: "POST", 			config: Job.apply },	
+	{ path: "/job/apply", 		method: "POST", 			config: Job.apply },
+	{ path: "/job/accept", 		method: "POST", 			config: Job.acceptJob },
+	{ path: "/job/current/{id*}", 	method: "GET", 			config: Job.currentJob },				
 
 	] ;

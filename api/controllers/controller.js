@@ -62,11 +62,16 @@ module.exports = {
 		},
 		handler: function (request, reply) {
 
-			var id = request.auth.credentials.id;
+			if (request.auth.isAuthenticated) {
+				var id = request.auth.credentials.id;
 
-			Users.getAllUsers(function(err, data) {
-				reply.view("users", { users: data, myid: id });
-			});
+				Users.getAllUsers(function(err, data) {
+					reply.view("users", { users: data, myid: id });
+				});
+			}
+			else {
+				reply.redirect("/");
+			}
 		}
 	},
 

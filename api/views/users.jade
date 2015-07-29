@@ -8,12 +8,14 @@ block content
 			h1 List of users
 			if users
 				each user in users
-					li #{user.firstName} #{user.lastName}
-					li #{user.usertype}
-					form(role="form" action="/chat2/{id*}" method="POST")
-						if user.id !== myid
-							input.btn.btn-default(type="submit" name="#{user.id}" value="Chat with #{user.firstName}")
-					form(role="form" action="/profile/{id*}" method="POST")
-						if user.id !== myid
-						input.btn.btn-default(type="submit" name="#{user.id}" value="See #{user.firstName}'s profile")
-					hr
+					.col-md-12
+						.col-md-6
+							h3 #{user.firstName} #{user.lastName}
+							h5 #{user.usertype}
+							hr
+						.col-md-6
+							if user.id !== myid
+								form(role="form" action="/chat2/{id*}" method="POST")
+									input.btn.btn-default(type="submit" name="#{user.id}" value="Chat with #{user.firstName}")
+								form(role="form" action="/profile/{id*}" method="POST")
+									input.btn.btn-default(type="submit" name="#{user.id}" value="See #{user.firstName}'s profile")

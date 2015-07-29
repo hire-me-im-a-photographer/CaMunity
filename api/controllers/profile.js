@@ -41,32 +41,38 @@ module.exports = {
 		},
 		handler: function (request, reply) {
 
-			var id = request.params.id;
-			var profile;
+			if (request.auth.isAuthenticated) {
 
-			Users.findUser(id, function (err, data) {
+				var id = request.params.id;
+				var profile;
 
-				if (data === null) {
-					reply.redirect("/");
-				}
-				else {
-					profile = data;
+				Users.findUser(id, function (err, data) {
 
-					Photos.findGallery(profile.id, function(err, data){
+					if (data === null) {
+						reply.redirect("/");
+					}
+					else {
+						profile = data;
 
-						if (data === null) {
-							reply.view("publicProfile", { profile: profile });
-						}
-						else {
-							var photos = data.photos;
-							reply.view("publicProfile", {
-								profile: profile, 
-								photos: photos
-							});					
-						}
-					});
-				}
-			});
+						Photos.findGallery(profile.id, function(err, data){
+
+							if (data === null) {
+								reply.view("publicProfile", { profile: profile });
+							}
+							else {
+								var photos = data.photos;
+								reply.view("publicProfile", {
+									profile: profile, 
+									photos: photos
+								});					
+							}
+						});
+					}
+				});
+			}
+			else {
+				reply.redirect("/");
+			}
 		}
 	},
 
@@ -85,8 +91,14 @@ module.exports = {
 			mode: "optional"
 		},
 		handler: function (request, reply) {
-			var profile = request.auth.credentials;
-			reply.view("profileEdit", {profile: profile});
+
+			if (request.auth.isAuthenticated) {
+				var profile = request.auth.credentials;
+				reply.view("profileEdit", {profile: profile});
+			}
+			else {
+				reply.redirect("/");
+			}
 		}
 	},
 

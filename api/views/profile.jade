@@ -14,7 +14,7 @@ block content
 				p Email: #{profile.email}
 				p Website: 
 					a(href="#{profile.website}") #{profile.website}
-				a(href="/profile/edit") Edit your profile
+				a.btn.btn-default(href="/profile/edit") Edit your profile
 			.col-md-6.profilepicture 
 				img(src="#{profile.picture}" height="200" width="200")
 			.col-md-12
@@ -26,7 +26,7 @@ block content
 							img(src="#{photo.url}" class="photo_img")
 							h5.photo-title #{photo.title}
 							form.delete(action="/photo/delete" method="POST")
-								input.btn.btn-default(type="submit" name="#{photo.name} #{photo.ext}" value="delete")
+								input.btn.btn-default(type="submit" name="#{photo.name} #{photo.ext}" value="Delete photo?")
 							br
 				else
 					a(href="/upload") Upload your first photo
