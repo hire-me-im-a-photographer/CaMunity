@@ -1,4 +1,5 @@
 var Jobs = require("../models/jobs");
+var Users = require("../models/users");
 
 module.exports = {
 
@@ -15,16 +16,38 @@ module.exports = {
 				Jobs.findJob(job, function (err, data) {
 
 					var a = data.applications;
-					var status;
-					
-					if(a.indexOf(profile.id) === -1) {
-						status = "no";
+
+					if (profile.usertype === "client") {
+
+						Users.findApplicants(a, function (err, result) {
+							console.log(result);
+							reply.view("c-job", {
+								job: data,
+								profile: profile,
+								applicants: result
+							});
+						});
+					}
+					else if (profile.usertype === "photographer") {
+
+						var status;
+						
+						if (a.indexOf(profile.id) === -1) {
+							status = "no";
+						}
+						else {
+							status = "yes";
+						}
+
+						reply.view("p-job", {
+							job: data,
+							status: status,
+							profile: profile
+						});
 					}
 					else {
-						status = "yes";
+						reply.redirect("/signupiam");
 					}
-					console.log(profile);
-					reply.view("eachJob", { job: data, status: status, profile: profile });
 				});
 			}
 			else {
@@ -81,7 +104,7 @@ module.exports = {
 
 			};
 
-			Jobs.newJob(new_job, function(err, data) {
+			Jobs.newJob(new_job, function (err, data) {
 				reply.redirect("/dashboard");
 			});
 
