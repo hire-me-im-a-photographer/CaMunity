@@ -2,6 +2,36 @@ var Jobs = require("../models/jobs");
 
 module.exports = {
 
+	jobView: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+
+			var job = request.params.id;
+			var id = request.auth.credentials.id;
+
+			if (request.auth.isAuthenticated) {
+				Jobs.findJob(job, function (err, data) {
+
+					var a = data.applications;
+					var status;
+					
+					if(a.indexOf(id) === -1) {
+						status = "no";
+					}
+					else {
+						status = "yes";
+					}
+					reply.view("eachJob", { job: data, status: status });
+				});
+			}
+			else {
+				reply.redirect("/");
+			}
+		}
+	},
+
 	newForm: {
 		auth: {
 			mode: "optional"
