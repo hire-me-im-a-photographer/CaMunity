@@ -3,7 +3,7 @@ var Users = require("../models/users");
 
 module.exports = {
 
-	jobView: {
+	viewJob: {
 		auth: {
 			mode: "optional"
 		},
@@ -20,7 +20,10 @@ module.exports = {
 					if (profile.usertype === "client") {
 
 						Users.findApplicants(a, function (err, result) {
-							console.log(result);
+
+							profile.jobid = request.params.id;
+							request.auth.session.set(profile);
+
 							reply.view("c-job", {
 								job: data,
 								profile: profile,
@@ -38,6 +41,9 @@ module.exports = {
 						else {
 							status = "yes";
 						}
+
+						profile.jobid = request.params.id;
+						request.auth.session.set(profile);
 
 						reply.view("p-job", {
 							job: data,
@@ -79,34 +85,35 @@ module.exports = {
 
 			if (request.auth.isAuthenticated) {
 
-			var id = request.auth.credentials.id;
+				var id = request.auth.credentials.id;
 
-			var d = new Date();
+				var d = new Date();
 
-			var p = request.payload;
+				var p = request.payload;
 
-			var new_job = {
-				client: id,
-				dateAdded: d.toUTCString(),
-				postingAs: p.postingAs,
-				eventName: p.eventName,
-				dateTime: p.dateTime,
-				jobDuration: p.jobDuration,
-				location: p.location,
-				description: p.description,
-				useOfPhotos: p.useOfPhotos,
-				watermark: {
-					"url": p.watermark[0],
-					"location": p.watermark[1]
-				},
-				dateRequired: p.dateRequired,
-				noOfPhotographers: p.noOfPhotographers
+				var new_job = {
+					client: id,
+					dateAdded: d.toUTCString(),
+					postingAs: p.postingAs,
+					eventName: p.eventName,
+					dateTime: p.dateTime,
+					jobDuration: p.jobDuration,
+					location: p.location,
+					description: p.description,
+					useOfPhotos: p.useOfPhotos,
+					watermark: {
+						"url": p.watermark[0],
+						"location": p.watermark[1]
+					},
+					dateRequired: p.dateRequired,
+					noOfPhotographers: p.noOfPhotographers,
+					status: "awaiting"
 
-			};
-			Jobs.newJob(new_job, function (err, data) {
-				console.log(new_job);
-				reply.redirect("/dashboard");
-			});
+				};
+				Jobs.newJob(new_job, function (err, data) {
+					console.log(new_job);
+					reply.redirect("/dashboard");
+				});
 
 			}
 			else {
@@ -128,4 +135,45 @@ module.exports = {
 			});
 		}
 	},
+	acceptJob: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			var id = Object.keys(request.payload)[0];
+			var profile = request.auth.credentials;
+			console.log(id);
+			Jobs.startJob(profile.jobid, id, function(err, data) {
+				reply.redirect("/job/current/" + profile.jobid);
+			});
+		}
+	},
+	currentJob: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			var job = request.params.id;
+			var profile = request.auth.credentials;
+
+			if (profile.usertype === "client") {
+
+				Jobs.findJob(job, function (err, data) {
+					var p = data.photographers[0];
+					Users.findUser(p, function (err, result) {
+						reply.view("currentJob", { job: data, p: result });
+					});
+				});
+			}
+			else if (profile.usertype === "photographer") {
+
+				Jobs.findJob(job, function (err, data) {
+					var p = data.client;
+					Users.findUser(p, function (err, result) {
+						reply.view("currentJob", { job: data, p: result });
+					});
+				});
+			}
+		}
+	}
 };
