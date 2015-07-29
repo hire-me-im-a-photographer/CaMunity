@@ -1,0 +1,32 @@
+extend layouts/default
+
+block content
+
+	.container-fluid
+		include includes/navbar
+		.container
+			.row
+				.left-dashboard.col-md-2
+					.myfriends
+						h3 Friends
+					.mygroups
+						h3 Groups
+					if profile.usertype == "client"
+						.past
+							h3 Past Photographers
+						a.btn.btn-primary(href="/newjob") Post Job
+						
+				.main-dashboard.col-md-7
+					.myjobs
+						h3 Jobs available
+						if jobs
+							each job in jobs
+								.col-md-12
+									.panel.panel-warning
+										.panel-heading 
+											a.btn-btn-default(href="/job/" + job._id) Details
+										.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+
+				.right-dashboard.col-md-3
+					.mynotif
+						h3 Notifications

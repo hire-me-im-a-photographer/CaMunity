@@ -1,0 +1,25 @@
+extend layouts/default
+
+block content
+
+	.container-fluid
+		include includes/navbar
+		.container
+			.col-md-6
+				li Date added: #{job.dateAdded}
+				li Posting as: #{job.postingAs}
+				li Event name: #{job.eventName}
+				li Date start: #{job.dateTime}							
+				li Job duration: #{job.jobDuration}
+				li Location: #{job.location}
+				li Job description: #{job.description}
+				li Use of photos: #{job.useOfPhotos[0]} #{job.useOfPhotos[1]} #{job.useOfPhotos[2]}
+				li Date required: #{job.dateRequired}
+				li Number of Photographers needed: #{job.noOfPhotographers}
+				hr
+			.col-md-6
+			if status === "no"
+				form(method="POST" action="/job/apply")
+					input(type="submit" name="#{job._id}" value="Apply")
+			else if status === "yes"
+				p You have applied for this job.

@@ -1,0 +1,31 @@
+extend layouts/default
+
+block content
+
+	.container-fluid
+		include includes/navbar
+		.container
+			.col-md-12
+				li Date added: #{job.dateAdded}
+				li Posting as: #{job.postingAs}
+				li Event name: #{job.eventName}
+				li Date start: #{job.dateTime}							
+				li Job duration: #{job.jobDuration}
+				li Location: #{job.location}
+				li Job description: #{job.description}
+				li Use of photos: #{job.useOfPhotos[0]} #{job.useOfPhotos[1]} #{job.useOfPhotos[2]}
+				li Date required: #{job.dateRequired}
+				li Number of Photographers needed: #{job.noOfPhotographers}
+				hr
+			.col-md-12
+				if job.applications
+					each p in applicants
+						.col-md-4
+							.picture
+								img(src="#{p.picture}" height="150" width="150")
+							.details
+								p #{p.firstName} #{p.lastName}
+							.accept
+								a.btn.btn-default(href="#") Accept application
+							.profile
+								a(href="/profile/" + p.id) See profile
