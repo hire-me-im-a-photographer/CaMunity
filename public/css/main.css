@@ -64,12 +64,40 @@ h1.CaMunity {
 }
 
 .navbar-default.homepage {
-  background-color: #f8f8f8;
+  background-color: transparent;
   border: none;
 }
 
+.navbar-default.homepage .navbar-brand {
+  color: white;
+  font-size: 24px;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: white;
+  font-weight: bold;
+}
+
+.jumbotron {
+  margin-bottom: 0px;
+  height: 400px;
+}
+
 .jumbotron.one {
-  background-color: #f8f8f8;
+  /*background-color: #f8f8f8;
+  position: absolute;
+  overflow: hidden;*/
+  background:url(../media/background-one.jpg) no-repeat center bottom fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height:100%;
+  padding-top: 10px;
+}
+
+.container-fluid.homepage {
+
 }
 
 .jumbotron.two {
@@ -84,13 +112,19 @@ h1.CaMunity {
   background-color: #f8f8f8;
 }
 
+#section-one {
+  margin-top: 120px;
+  text-align: center;
+  color: white;
+}
+
 /*Navbar*/
 
 .navbar {
   border: none;
 }
 
-.navbar-default {
+.navbar-default.site {
   background-color: white;
   border-bottom: 1px solid;
   border-color: #cfd2d3;
@@ -99,6 +133,12 @@ h1.CaMunity {
 @media (min-width: 768px) {
   .navbar {
     border-radius: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-one.image img {
+    display: none;
   }
 }
 
