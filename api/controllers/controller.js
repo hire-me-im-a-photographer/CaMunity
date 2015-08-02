@@ -38,16 +38,26 @@ module.exports = {
 
 			if (request.auth.isAuthenticated) {
 
+				var query;
+
 				if (profile.usertype === "client") {
-					Jobs.getMyJob(profile.id, function (err, data) {
+
+					query = { "client": profile.id };
+					Jobs.getMyJob(query, function (err, data) {
 						console.log(data);
 						reply.view("c-dashboard", { jobs: data, profile: profile });
 					});
 				}
-				else {
-					Jobs.getAllJobs(function (err, data) {
+				else if (profile.usertype === "photographer") {
+
+					query = { "photographer": profile.id };
+					Jobs.getMyJob(query, function (err, data) {
+						console.log(data);
 						reply.view("p-dashboard", { jobs: data, profile: profile });
 					});
+					// Jobs.getAllJobs(function (err, data) {
+					// 	reply.view("p-dashboard", { jobs: data, profile: profile });
+					// });
 				}
 			}
 			else {
