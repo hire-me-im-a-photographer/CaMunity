@@ -18,23 +18,42 @@ block content
 						
 				.main-dashboard.col-md-7
 					.myjobs
-						.col-md-12
-							h3 Current jobs
-							if jobs
-								each job in jobs
-									.col-md-12
-										.panel.panel-warning
-											.panel-heading 
-												a.btn-btn-default(href="/job/" + job._id) Details
-											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-						.col-md-12
-							hr
-							h3 Jobs I have applied for
-						.col-md-12
-							hr
-							h3 Past jobs
-							p (do I need this in dashboard?)
-							
+						.row.white.rounded
+							.col-md-12
+								h3 Current jobs
+								if jobs
+									each job in jobs
+										if job.status === "current"
+											.col-md-12
+												.panel.panel-warning
+													.panel-heading 
+														a.btn-btn-default(href="/job/" + job._id) Details
+													.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+						br
+						.row.white.rounded
+							.col-md-12
+								h3 Jobs I have applied for
+								if jobs
+									each job in jobs
+										if job.status === "awaiting"
+											.col-md-12
+												.panel.panel-warning
+													.panel-heading 
+														a.btn-btn-default(href="/job/" + job._id) Details
+													.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+						br
+						.row.white.rounded
+							.col-md-12
+								h3 Past jobs
+								p (do I need this in dashboard?)
+								if jobs
+									each job in jobs
+										if job.status === "completed"
+											.panel.panel-warning
+												.panel-heading 
+													a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
+												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+								
 				.right-dashboard.col-md-3
 					.mynotif
 						h3 Notifications
