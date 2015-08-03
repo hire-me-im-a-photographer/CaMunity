@@ -42,14 +42,18 @@ module.exports = {
 
 				if (profile.usertype === "client") {
 
-					Jobs.getMyJob(profile.id, function (err, data) {
+					query = {"client": profile.id};
+
+					Jobs.getMyJob(query, function (err, data) {
 						console.log(data);
 						reply.view("c-dashboard", { jobs: data, profile: profile });
 					});
 				}
 				else if (profile.usertype === "photographer") {
 
-					Jobs.getMyJob(profile.id, function (err, data) {
+					query = {"photographers": profile.id};
+
+					Jobs.getMyJob(query, function (err, data) {
 						console.log(data);
 						reply.view("p-dashboard", { jobs: data, profile: profile });
 					});

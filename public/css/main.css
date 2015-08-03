@@ -1,8 +1,7 @@
 /*Generic------------------------------------------------*/
 
 body {
-  background-color: #f8f8f8;
-  height: 100%;
+  background-color: #eee;
 }
 
 h1.CaMunity {
@@ -18,8 +17,26 @@ h1.CaMunity {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
+textarea {
+  resize: none;
+}
+
+.padding-50 {
+  padding-top: 50px;
+}
+
+.jumbotron p {
+  font-size: 18px;
+  color: #828a8b;
+}
+
 /*Colors--------------------------------------------------*/
 
+/*background*/
 .white {
   background-color: #fff;
 }
@@ -30,6 +47,11 @@ h1.CaMunity {
 
 .dark-grey {
   background-color: #b4b9b9;
+}
+
+/*font*/
+.light-blue {
+  color: #31708f;
 }
 
 /*Homepage------------------------------------------------*/
@@ -60,7 +82,6 @@ h2.homepage {
 
 .jumbotron {
   margin-bottom: 0px;
-  height: 400px;
 }
 
 .jumbotron.main {
@@ -162,13 +183,14 @@ h2.homepage {
   background: #3b5998;
   color: white;
   font-size: 18px;
-  opacity: 1;
+  width: 75%;
 }
 
 .btn-google {
   background: #d62d20;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
+  width: 75%;
 }
 
 .btn-google:hover, .btn-facebook:hover {
@@ -187,16 +209,10 @@ h2.homepage {
 /*Profile page------------------------------------------------*/
 
 .profilepicture {
-  margin-bottom: 20px;
-  padding-left: 20px;
-}
-
-.details {
-  min-height: 200px;
+  margin-bottom: 30px;
 }
 
 .photos {
-  height: 330px;
 }
 
 .photos:hover .delete{
