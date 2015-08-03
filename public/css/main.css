@@ -1,8 +1,7 @@
 /*Generic------------------------------------------------*/
 
 body {
-  background-color: #f8f8f8;
-  height: 100%;
+  background-color: #eee;
 }
 
 h1.CaMunity {
@@ -18,6 +17,10 @@ h1.CaMunity {
   text-align: center;
 }
 
+textarea {
+  resize: none;
+}
+
 /*Colors--------------------------------------------------*/
 
 .white {
@@ -30,6 +33,18 @@ h1.CaMunity {
 
 .dark-grey {
   background-color: #b4b9b9;
+}
+
+.rounded {
+  border-radius: 15px;
+}
+
+.rounded-top {
+  border-radius: 15px 15px 0px 0px;
+}
+
+.rounded-bottom {
+  border-radius: 0px 0px 15px 15px;
 }
 
 /*Homepage------------------------------------------------*/
@@ -187,7 +202,7 @@ h2.homepage {
 /*Profile page------------------------------------------------*/
 
 .profilepicture {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   padding-left: 20px;
 }
 

@@ -5,8 +5,8 @@ block content
 	.container-fluid   
 		include includes/navbar
 		.container
-			.row.white
-				.col-md-12.white.profile
+			.row.white.rounded
+				.col-md-12.rounded.profile
 					h1.profile Profile
 					br
 				.col-md-6.white.profilepicture
@@ -18,8 +18,9 @@ block content
 					p Website: 
 						a(href="#{profile.website}") #{profile.website}
 					a.btn.btn-default(href="/profile/edit") Edit your profile
-			.row.light-grey
-				.col-md-12
+			br
+			.row.white.rounded
+				.col-md-12.rounded
 					h3 Photo Gallery
 					br
 					if photos
