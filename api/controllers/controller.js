@@ -42,22 +42,17 @@ module.exports = {
 
 				if (profile.usertype === "client") {
 
-					query = { "client": profile.id };
-					Jobs.getMyJob(query, function (err, data) {
+					Jobs.getMyJob(profile.id, function (err, data) {
 						console.log(data);
 						reply.view("c-dashboard", { jobs: data, profile: profile });
 					});
 				}
 				else if (profile.usertype === "photographer") {
 
-					query = { "photographer": profile.id };
-					Jobs.getMyJob(query, function (err, data) {
+					Jobs.getMyJob(profile.id, function (err, data) {
 						console.log(data);
 						reply.view("p-dashboard", { jobs: data, profile: profile });
 					});
-					// Jobs.getAllJobs(function (err, data) {
-					// 	reply.view("p-dashboard", { jobs: data, profile: profile });
-					// });
 				}
 			}
 			else {
