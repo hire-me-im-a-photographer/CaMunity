@@ -2,43 +2,38 @@ extend layouts/default
 
 block content
 
-	.container-fluid
-		.row
-			.navbar.navbar-default.homepage
-				.container
-					.navbar-header
-						button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#target")
-							span.sr-only Toggle navigation
-							span.icon-bar
-							span.icon-bar
-							span.icon-bar
-						a.navbar-brand(href="/") CaMunity
+	.jumbotron.main
+		.container-fluid.homepage
+			.row
+				.navbar.navbar-default.homepage
+					.container
+						.navbar-header
+							button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#target")
+								span.sr-only Toggle navigation
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+							a.navbar-brand(href="/") CaMunity
 
-					.collapse.navbar-collapse#target
-						ul.nav.navbar-nav
-							li
-								a
-						ul.nav.navbar-nav.navbar-right
-							li
-								a(href="signup/social") Sign Up
-							li
-								a(href="help") Help
-							li
-								a(href="signup/social") Login 
-
-	.jumbotron.one
+						.collapse.navbar-collapse#target
+							ul.nav.navbar-nav
+								li
+									a
+							ul.nav.navbar-nav.navbar-right
+								li
+									a(href="signup/social") Sign Up
+								li
+									a(href="help") Help
+								li
+									a(href="signup/social") Login 
+		.container.center#section-one
+			h2.homepage.center.section-one 
+	.jumbotron.white
 		.container
-			h1 Section a
-			p Photo + Post a Job
-	.jumbotron.two
+			h2.homepage.center How CaMunity Works
+	.jumbotron.light-grey
 		.container
-			h1 Section b
-			p How it works
-	.jumbotron.three
+			h2.homepage.center Why Use CaMunity
+	.jumbotron.dark-grey
 		.container
-			h1 Section c
-			p Why use CaMunity
-	.jumbotron
-		.container
-			h1 Section d
-			p Our community
+			h2.homepage.center Our Community

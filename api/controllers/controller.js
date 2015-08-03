@@ -38,14 +38,19 @@ module.exports = {
 
 			if (request.auth.isAuthenticated) {
 
+				var query;
+
 				if (profile.usertype === "client") {
+
 					Jobs.getMyJob(profile.id, function (err, data) {
 						console.log(data);
 						reply.view("c-dashboard", { jobs: data, profile: profile });
 					});
 				}
-				else {
-					Jobs.getAllJobs(function (err, data) {
+				else if (profile.usertype === "photographer") {
+
+					Jobs.getMyJob(profile.id, function (err, data) {
+						console.log(data);
 						reply.view("p-dashboard", { jobs: data, profile: profile });
 					});
 				}

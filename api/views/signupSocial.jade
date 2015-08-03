@@ -2,15 +2,12 @@ extend layouts/default
 
 block content
 
-	.homepage-img
+	.signup-img
 		.container-fluid
 			.col-sm-6.col-md-4.col-md-offset-4
 				.account-wall
 					h1.text-center.CaMunity CaMunity
 
+					a.btn.btn-facebook.btn-lg.raised(href="/facebook") Facebook
+					a.btn.btn-google.btn-lg.raised(href="/google") Google
 					p.text-center Sign in with Facebook or Google
-
-					form(action=("/facebook"), method="GET")
-						input.btn-facebook.btn-lg.raised(type="submit", value="Facebook")
-					form(action="/google", method="GET")
-						input.btn.btn-google.btn-lg.raised(type="submit", value="Google")

@@ -1,25 +1,4 @@
-/*body { 
-  background: url(../media/background.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}*/
-
-.homepage-img {
-  background: url(../media/background.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position:fixed;
-  top:0px;
-  bottom:0px;
-  left:0px;
-  right:0px;
-}
-
-/*Generic*/
+/*Generic------------------------------------------------*/
 
 body {
   background-color: #f8f8f8;
@@ -27,7 +6,9 @@ body {
 }
 
 h1.CaMunity {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  font-family: 'Spinnaker',sans-serif;
 }
 
 .center {
@@ -37,27 +18,25 @@ h1.CaMunity {
   text-align: center;
 }
 
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+/*Colors--------------------------------------------------*/
+
+.white {
+  background-color: #fff;
 }
 
-/*Homepage*/
+.light-grey {
+  background-color: #eee;
+}
+
+.dark-grey {
+  background-color: #b4b9b9;
+}
+
+/*Homepage------------------------------------------------*/
+
+h2.homepage {
+  font-size: 2.5em;
+}
 
 .navbar.navbar-default.homepage {
   margin-bottom: 0px;
@@ -70,10 +49,11 @@ h1.CaMunity {
 
 .navbar-default.homepage .navbar-brand {
   color: white;
-  font-size: 24px;
+  font-size: 2.2em;
+  font-family: 'Spinnaker',sans-serif;
 }
 
-.navbar-default .navbar-nav>li>a {
+.navbar-default.homepage .navbar-nav>li>a {
   color: white;
   font-weight: bold;
 }
@@ -83,10 +63,7 @@ h1.CaMunity {
   height: 400px;
 }
 
-.jumbotron.one {
-  /*background-color: #f8f8f8;
-  position: absolute;
-  overflow: hidden;*/
+.jumbotron.main {
   background:url(../media/background-one.jpg) no-repeat center bottom fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -96,29 +73,12 @@ h1.CaMunity {
   padding-top: 10px;
 }
 
-.container-fluid.homepage {
-
-}
-
-.jumbotron.two {
-  background-color: white;
-}
-
-.jumbotron.three {
-  background-color: #f8f8f8;
-}
-
-.jumbotron.four {
-  background-color: #f8f8f8;
-}
-
 #section-one {
   margin-top: 120px;
-  text-align: center;
   color: white;
 }
 
-/*Navbar*/
+/*Navbar------------------------------------------------*/
 
 .navbar {
   border: none;
@@ -142,158 +102,98 @@ h1.CaMunity {
   }
 }
 
-/*.navbar {
-  margin-bottom: 10px;
-  min-height: 0px;
-}
-
-.navbar-collapse {
-  background-color: #01807E;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.navbar-nav.nav-justified > li {
-    float:none;
-}
-
-.navbar-default .navbar-nav>li>a {
-  color: #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-  background-color: #F05D22;
-  color: white;
-}
-
-.navbar-default {
-  border-style: none;
-  background-color: #fff;
-  margin-bottom: 10px;
-}
-
-.navbar-toggle {
-  left: 50%;
-  margin-left: -22px;
-  float: none;
-}*/
-
-/*buttons*/
+/*buttons------------------------------------------------*/
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: 0 none;
+  outline: 0 none;
 }
 
 .btn-primary {
-    background: #fff;
-    border: 1px solid black;
-    color: black;
-    font-size: 1.1em;
-    padding: 14px 24px;
-    font-weight: 700;
-    letter-spacing: 1px;
+  background: #fff;
+  border: 1px solid black;
+  color: black;
+  font-size: 1.1em;
+  padding: 14px 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: black;
+  background: black;
 }
+
 .btn-primary:active, .btn-primary.active {
-    background: black;
-    box-shadow: none;
+  background: black;
+  box-shadow: none;
 }
 
 .raised {
-    box-shadow: 0 3px 0 0 #333;
-    width: 240px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    margin-bottom: 20px;
+  /*box-shadow: 0 3px 0 0 #333;*/
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 20px;
 }
 
 .raised:active, .btn-primary.raised.active {
-    background: black;
-    box-shadow: none;
-    margin-bottom: -3px;
-    margin-top: 3px;
+  background: black;
+  box-shadow: none;
+  margin-bottom: -3px;
+  margin-top: 3px;
+}
+
+/*Sign up social------------------------------------------------*/
+
+.signup-img {
+  background: url(../media/background-one.jpg) no-repeat center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position:fixed;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
 }
 
 .btn-facebook {
-    background: #3b5998;
-    border: 1px solid black;
-    color: black;
-    font-size: 18px;
+  background: #3b5998;
+  color: white;
+  font-size: 18px;
+  opacity: 1;
 }
 
 .btn-google {
-    background: #d62d20;
-    border: 1px solid black;
-    color: black;
-    font-size: 16px;
+  background: #d62d20;
+  color: white;
+  font-size: 16px;
 }
 
 .btn-google:hover, .btn-facebook:hover {
-    color: black;
-}
-/*new job form*/
-.form-newjob {
-    width: 80%;
-    margin: 0 auto; 
-}
-
-/*Login Form*/
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
-
-.form-signin .form-signin-heading, .form-signin .checkbox .form-newjob{
-    margin-bottom: 10px;
-}
-
-.form-signin .checkbox {
-    font-weight: normal;
-}
-
-.form-signin .form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.form-signin .form-control:focus {
-    z-index: 2;
-}
-
-.form-signin input[type="text"] {
-    margin-bottom: -1px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  color: black;
 }
 
 .account-wall {
-    margin-top: 40px;
-    padding: 5px 0px 20px 0px;
-    background-color: #f7f7f7;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    opacity: 0.95;
+  margin-top: 25%;
+  padding: 5px 0px 20px 0px;
+  background-color: rgba(255,255,255,0.9);
+  -moz-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.3);
 }
 
-/*Profile page*/
+/*Profile page------------------------------------------------*/
+
+.profilepicture {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.details {
+  min-height: 200px;
+}
 
 .photos {
   height: 330px;
@@ -320,7 +220,7 @@ img.photo_img {
   display: none;
 }
 
-/*Dashboard*/
+/*Dashboard------------------------------------------------*/
 
 .left-dashboard.col-md-2 {
   margin-top: 20px;
