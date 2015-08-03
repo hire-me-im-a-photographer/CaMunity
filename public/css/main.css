@@ -17,12 +17,26 @@ h1.CaMunity {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 textarea {
   resize: none;
 }
 
+.padding-50 {
+  padding-top: 50px;
+}
+
+.jumbotron p {
+  font-size: 18px;
+  color: #828a8b;
+}
+
 /*Colors--------------------------------------------------*/
 
+/*background*/
 .white {
   background-color: #fff;
 }
@@ -35,16 +49,9 @@ textarea {
   background-color: #b4b9b9;
 }
 
-.rounded {
-  border-radius: 15px;
-}
-
-.rounded-top {
-  border-radius: 15px 15px 0px 0px;
-}
-
-.rounded-bottom {
-  border-radius: 0px 0px 15px 15px;
+/*font*/
+.light-blue {
+  color: #31708f;
 }
 
 /*Homepage------------------------------------------------*/
@@ -75,7 +82,6 @@ h2.homepage {
 
 .jumbotron {
   margin-bottom: 0px;
-  height: 400px;
 }
 
 .jumbotron.main {
@@ -177,13 +183,14 @@ h2.homepage {
   background: #3b5998;
   color: white;
   font-size: 18px;
-  opacity: 1;
+  width: 75%;
 }
 
 .btn-google {
   background: #d62d20;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
+  width: 75%;
 }
 
 .btn-google:hover, .btn-facebook:hover {
@@ -203,11 +210,9 @@ h2.homepage {
 
 .profilepicture {
   margin-bottom: 30px;
-  padding-left: 20px;
 }
 
 .photos {
-  height: 330px;
 }
 
 .photos:hover .delete{
