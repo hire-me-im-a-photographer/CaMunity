@@ -90,7 +90,7 @@ h2.homepage {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height:100%;
+  height: 400px;
   padding-top: 10px;
 }
 
