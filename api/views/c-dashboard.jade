@@ -9,27 +9,21 @@ block content
 				.left-dashboard.col-md-2
 					.postjob
 						a.btn.btn-primary(href="/newjob") Post Job
-					.myfriends
-						h3 Friends
-					.mygroups
-						h3 Groups
-					.past
-						h3 Past Photographers
 						
 				.main-dashboard.col-md-8
 					.myjobs
-						.row.white.rounded
+						.row.white
 							.col-md-12
 								h3.center Current jobs
 								if jobs
 									each job in jobs
 										if job.status === "current"
-											.panel.panel-warning
+											.panel.panel-info
 												.panel-heading 
 													a.btn-btn-default(href="/job/current/" + job._id) See the progress
 												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
 						br
-						.row.white.rounded
+						.row.white
 							.col-md-12
 								h3.center Jobs awaiting photographers
 								if jobs
@@ -40,7 +34,7 @@ block content
 													a.btn-btn-default(href="/job/" + job._id) See the details
 												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
 						br
-						.row.white.rounded
+						.row.white
 							.col-md-12
 								h3.center Past jobs
 								p (go to profile page?)
@@ -53,5 +47,3 @@ block content
 												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
 
 				.right-dashboard.col-md-2
-					.mynotif
-						h3 Notifications
