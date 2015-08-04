@@ -175,5 +175,16 @@ module.exports = {
 				});
 			}
 		}
+	},
+	allJobs: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			Jobs.getAllJobs(function (err, data) {
+				console.log(data);
+				reply.view("allJobs", {jobs: data});
+			});
+		}
 	}
 };
