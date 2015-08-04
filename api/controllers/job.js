@@ -1,5 +1,6 @@
 var Jobs = require("../models/jobs");
 var Users = require("../models/users");
+var Chat = require("../models/chat");
 
 module.exports = {
 
