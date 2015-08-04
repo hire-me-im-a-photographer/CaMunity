@@ -6,8 +6,11 @@ block content
 		include includes/navbar
 		.container
 			.row
-				.col-md-12
+				.col-md-6
 					h1 Chat
+				.col-md-6.right
+					h1 
+						a.btn.btn-default#bottom(href="#bottom") See latest
 				if data.chat.length != 0
 					each chat in data.chat
 						.col-md-12
@@ -20,10 +23,15 @@ block content
 									.panel-heading #{talkingTo.firstName} #{talkingTo.lastName} | #{chat.time}
 									.panel-body #{chat.message}	
 			.row
-				.col-md-12
+				.col-md-10
 					.input-group-lg
 						form.form-horizontal(role="form" action="/chat/{id*}" method="POST")
 							input.form-control(type="text" name="chat" placeholder="Click here to type a chat message.")
+				.col-md-2.right
+					a.btn.btn-default#bottom(href="#top") Back to top
+			br
 
 	include includes/scripts
 	include includes/enterKeypress
+	include includes/scrollBottom
+	include includes/scrollTop
