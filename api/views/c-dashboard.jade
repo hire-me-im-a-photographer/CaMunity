@@ -11,39 +11,38 @@ block content
 						a.btn.btn-primary(href="/newjob") Post Job
 						
 				.main-dashboard.col-md-8
-					.myjobs
-						.row.white
-							.col-md-12
-								h3.center Current jobs
-								if jobs
-									each job in jobs
-										if job.status === "current"
-											.panel.panel-info
-												.panel-heading 
-													a.btn-btn-default(href="/job/current/" + job._id) See the progress
-												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-						br
-						.row.white
-							.col-md-12
-								h3.center Jobs awaiting photographers
-								if jobs
-									each job in jobs
-										if job.status === "awaiting"
-											.panel.panel-warning
-												.panel-heading 
-													a.btn-btn-default(href="/job/" + job._id) See the details
-												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-						br
-						.row.white
-							.col-md-12
-								h3.center Past jobs
-								p (go to profile page?)
-								if jobs
-									each job in jobs
-										if job.status === "completed"
-											.panel.panel-warning
-												.panel-heading 
-													a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
-												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+					.row.white
+						.col-md-12
+							h3.center Current jobs
+							if jobs
+								each job in jobs
+									if job.status === "current"
+										.panel.panel-info
+											.panel-heading 
+												a.btn-btn-default(href="/job/current/" + job._id) See the progress
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+					br
+					.row.white
+						.col-md-12
+							h3.center Jobs awaiting photographers
+							if jobs
+								each job in jobs
+									if job.status === "awaiting"
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/" + job._id) See the details
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+					br
+					.row.white
+						.col-md-12
+							h3.center Past jobs
+							p (go to profile page?)
+							if jobs
+								each job in jobs
+									if job.status === "completed"
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
 
 				.right-dashboard.col-md-2

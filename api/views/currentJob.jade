@@ -32,9 +32,15 @@ block content
 					h3 Photographer
 				else if p.usertype === "client"
 					h3 Client
-				.picture
-					img(src="#{p.picture}" height="150" width="150")
-				.details
+				.col-md-6
+					.picture
+						img(src="#{p.picture}" height="150" width="150")
+				.col-md-6
+					.details
 					h5 #{p.firstName} #{p.lastName}
-				.profile
-					a(href="/profile/" + p.id) See profile
+					.profile
+						a.btn.btn-default(href="/profile/" + p.id) See profile
+					br
+					.chat
+						form(role="form" action="/chat2/{id*}" method="POST")
+							input.btn.btn-default(type="submit" name="#{p.id}" value="Chat with #{p.firstName}")

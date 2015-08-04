@@ -1,0 +1,18 @@
+extend layouts/default
+
+block content
+
+	.container-fluid
+		include includes/navbar
+		.container
+			.main-dashboard.col-md-8.col-md-offset-2
+				.row.white
+					.col-md-12
+						h3 Jobs Available
+					.col-md-12
+						if jobs
+							each job in jobs
+									.panel.panel-warning
+										.panel-heading 
+											a.btn-btn-default(href="/job/" + job._id) See the details
+										.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}

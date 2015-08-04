@@ -1,5 +1,6 @@
 var Jobs = require("../models/jobs");
 var Users = require("../models/users");
+var Chat = require("../models/chat");
 
 module.exports = {
 
@@ -174,6 +175,19 @@ module.exports = {
 					});
 				});
 			}
+		}
+	},
+	allJobs: {
+		auth: {
+			mode: "optional"
+		},
+		handler: function (request, reply) {
+			Jobs.getAllJobs(function (err, data) {
+
+				var profile = request.auth.credentials;
+
+				reply.view("allJobs", {jobs: data, profile: profile});
+			});
 		}
 	}
 };

@@ -52,10 +52,20 @@ module.exports = {
 				else if (profile.usertype === "photographer") {
 
 					query = {"photographers": profile.id};
+					// query for current jobs
 
 					Jobs.getMyJob(query, function (err, data) {
-						console.log(data);
-						reply.view("p-dashboard", { jobs: data, profile: profile });
+
+						var anotherQuery = {"applications": profile.id};
+						// query for awaiting jobs
+
+						Jobs.getMyJob(anotherQuery, function (err, result) {
+							reply.view("p-dashboard", {
+								jobs: data,
+								profile: profile,
+								awaiting: result 
+							});
+						});
 					});
 				}
 			}

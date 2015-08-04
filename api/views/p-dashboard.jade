@@ -6,50 +6,42 @@ block content
 		include includes/navbar
 		.container
 			.row
-				//- .left-dashboard.col-md-2
-						
 				.main-dashboard.col-md-8.col-md-offset-2
-					.myjobs
-						.row.white
-							.col-md-12
-								.col-md-12
-									h3 Current jobs
-								if jobs
-									each job in jobs
-										if job.status === "current"
-											.col-md-12
-												.panel.panel-warning
-													.panel-heading 
-														a.btn-btn-default(href="/job/current/" + job._id) See the progress
-													.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-						br
-						.row.white
-							.col-md-12
-								.col-md-6
-									h3 Jobs I have applied for
-								.col-md-6.right
-									h3
-										a.btn.btn-default(href="/find/jobs") Find new jobs
-								.col-md-12
-								if jobs
-									each job in jobs
-										if job.status === "awaiting"
-											.col-md-12
-												.panel.panel-warning
-													.panel-heading 
-														a.btn-btn-default(href="/job/" + job._id) Details
-													.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-						br
-						.row.white
-							.col-md-12
-								.col-md-12
-									h3 Past jobs
-								if jobs
-									each job in jobs
-										if job.status === "completed"
-											.panel.panel-warning
-												.panel-heading 
-													a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
-												.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
-								
-				//- .right-dashboard.col-md-2
+					.row.white
+						.col-md-12
+							h3 Current jobs
+						if jobs
+							each job in jobs
+								if job.status === "current"
+									.col-md-12
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/current/" + job._id) See the progress
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+					br
+					.row.white
+						.col-md-6
+							h3 Jobs I have applied for
+						.col-md-6.right
+							h3
+								a.btn.btn-default(href="/find/jobs") Find new jobs
+						.col-md-12
+						if awaiting
+							each job in awaiting
+								if job.status === "awaiting"
+									.col-md-12
+										.panel.panel-warning
+											.panel-heading 
+												a.btn-btn-default(href="/job/" + job._id) Details
+											.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
+					br
+					.row.white
+						.col-md-12
+							h3 Past jobs
+						if jobs
+							each job in jobs
+								if job.status === "completed"
+									.panel.panel-warning
+										.panel-heading 
+											a.btn-btn-default(href="/job/completed/" + job._id) Look into the past
+										.panel-body #{job.postingAs} | #{job.eventName} | #{job.location} | #{job.description}
