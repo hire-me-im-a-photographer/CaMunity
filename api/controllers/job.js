@@ -182,8 +182,10 @@ module.exports = {
 		},
 		handler: function (request, reply) {
 			Jobs.getAllJobs(function (err, data) {
-				console.log(data);
-				reply.view("allJobs", {jobs: data});
+
+				var profile = request.auth.credentials;
+
+				reply.view("allJobs", {jobs: data, profile: profile});
 			});
 		}
 	}
